@@ -1,16 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Redirect, Switch } from 'react-router-dom';
-import { Layout, Icon } from 'antd';
+import { Layout } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { ContainerQuery } from 'react-container-query';
 import classNames from 'classnames';
-import { enquireScreen, unenquireScreen } from 'enquire-js';
 import NotFound from 'Exception/404';
 import { getRoutes } from 'Utils';
 
 const { Content } = Layout;
 
-const getBreadcrumbNameMap = (routerData) => {
+const getBreadcrumbNameMap = routerData => {
   const result = {};
   const childResult = {};
   return Object.assign({}, routerData, result, childResult);
@@ -37,28 +36,7 @@ const query = {
   },
 };
 
-let isMobile;
-enquireScreen(b => {
-  isMobile = b;
-});
-
 class App extends React.Component {
-  state = {
-    isMobile,
-  };
-
-  componentDidMount() {
-    this.enquireHandler = enquireScreen(mobile => {
-      this.setState({
-        isMobile: mobile,
-      });
-    });
-  }
-
-  componentWillUnmount() {
-    unenquireScreen(this.enquireHandler);
-  }
-
   getPageTitle() {
     const { routerData, location } = this.props;
     const { pathname } = location;
@@ -91,7 +69,6 @@ class App extends React.Component {
 
   render() {
     const { match, location, routerData } = this.props;
-    const { collapsed, fetchingNotices } = this.state;
     const layout = (
       <Content style={{ margin: '24px 24px 0', height: '100%' }}>
         <Switch>
@@ -102,10 +79,8 @@ class App extends React.Component {
               render={props => (
                 <item.component
                   routerData={routerData}
-                  location={this.props.location}
-                  breadcrumbNameMap={getBreadcrumbNameMap(
-                    this.props.routerData
-                  )}
+                  location={location}
+                  breadcrumbNameMap={getBreadcrumbNameMap(this.props.routerData)}
                   {...props}
                 />
               )}

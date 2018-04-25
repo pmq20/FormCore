@@ -1,6 +1,5 @@
-import _ from 'lodash';
+import jQuery from 'jquery';
 import { message } from 'antd';
-import { getAccessToken } from './Utils';
 
 let loading = null;
 
@@ -15,7 +14,6 @@ class Api {
     const options = {
       method,
       url: window.ApiEndpoint + uri,
-      headers: { Authorization: getAccessToken() },
       success: (response, textStatus, jqXHR) => {
         success(response, jqXHR);
       },
@@ -70,13 +68,13 @@ class Api {
       options.dataType = 'json';
       options.contentType = 'application/json';
       if (options.method === 'GET') {
-        options.data = window.jQuery.param(data);
+        options.data = jQuery.param(data);
       } else {
         options.data = JSON.stringify(data);
       }
     }
     this.xhrObjectsCnt += 1;
-    return window.jQuery.ajax(options);
+    return jQuery.ajax(options);
   }
 
   get(uri, params, success, failure) {

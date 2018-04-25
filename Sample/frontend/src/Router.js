@@ -1,7 +1,6 @@
-import pathToRegexp from 'path-to-regexp';
 import Forms from './Forms';
 
-export const getRouterData = currentUser => {
+export const getRouterData = () => {
   const routerConfig = {
     '/': {
       name: 'Forms',
@@ -14,7 +13,6 @@ export const getRouterData = currentUser => {
   };
   const routerData = {};
   Object.keys(routerConfig).forEach(path => {
-    const pathRegexp = pathToRegexp(path);
     let router = routerConfig[path];
     router = {
       ...router,

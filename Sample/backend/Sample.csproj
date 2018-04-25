@@ -155,6 +155,7 @@
     <Compile Include="ContextFactory.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="Input\FForm.cs" />
     <Compile Include="Migrations\201804230218065_CreateInitial3Tables.cs" />
     <Compile Include="Migrations\201804230218065_CreateInitial3Tables.Designer.cs">
       <DependentUpon>201804230218065_CreateInitial3Tables.cs</DependentUpon>
@@ -179,9 +180,7 @@
   <ItemGroup>
     <Analyzer Include="..\..\packages\AWSSDK.S3.3.3.18.1\analyzers\dotnet\cs\AWSSDK.S3.CodeAnalysis.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Input\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\FormCore\FormCore.csproj">
       <Project>{5ef547e7-78fa-49b0-9dcb-3a7b462b34a2}</Project>
@@ -206,7 +205,7 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerPort>52055</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:81</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>

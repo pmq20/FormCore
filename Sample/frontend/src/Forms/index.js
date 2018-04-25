@@ -1,38 +1,22 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import { Menu, Icon, Row, Col } from 'antd';
+import { Menu, Row, Col } from 'antd';
 import PageHeaderLayout from 'Components/PageHeaderLayout';
 import FormsNew from './new';
 
-const SubMenu = Menu.SubMenu;
-const MenuItemGroup = Menu.ItemGroup;
-
-const parseIdTab = props => {
-  let id = null;
-  let patt = new RegExp('^/(.*)');
-  let match = props.location.pathname.match(patt);
-  if (match && match[1]) {
-    [, id] = match;
-  }
-  return { id };
-};
-
 export default class Forms extends React.Component {
-  state = {
-    id: 'new',
-  };
-
-  componentDidMount() {
-    const { id } = parseIdTab(this.props);
-    this.setState({ id });
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { id } = parseIdTab(nextProps);
-    this.setState({ id });
+  parseIdTab() {
+    let id = null;
+    const patt = new RegExp('^/(.*)');
+    const match = this.props.location.pathname.match(patt);
+    if (match && match[1]) {
+      [, id] = match;
+    }
+    return { id };
   }
 
   render() {
+    const { id } = this.parseIdTab();
     return (
       <PageHeaderLayout
         location={this.props.location}
@@ -42,14 +26,12 @@ export default class Forms extends React.Component {
           <Col xl={6} lg={24} md={24} sm={24} xs={24}>
             <Menu
               onClick={this.handleClick}
-              selectedKeys={[this.state.id]}
+              selectedKeys={[id]}
               mode="inline"
               style={{ marginBottom: 24 }}
             >
               <Menu.Item key="new">
-                <Link to="/new">
-                  New Form
-                </Link>
+                <Link to="/new">New Form</Link>
               </Menu.Item>
             </Menu>
           </Col>
@@ -58,22 +40,12 @@ export default class Forms extends React.Component {
               <Route
                 exact
                 path="/new"
-                render={props => (
-                  <FormsNew
-                    routes={this.props.routes}
-                    {...props}
-                  />
-                )}
+                render={props => <FormsNew routes={this.props.routes} {...props} />}
               />
               <Route
                 exact
                 path="/new"
-                render={props => (
-                  <FormsNew
-                    routes={this.props.routes}
-                    {...props}
-                  />
-                )}
+                render={props => <FormsNew routes={this.props.routes} {...props} />}
               />
               <Redirect to="/new" />
             </Switch>

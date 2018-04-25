@@ -5,16 +5,15 @@ namespace FormCoreSample {
   public class FormsController : ApiController {
     public Context DbContext { get; set; }
 
-    [HttpGet]
+    [HttpPost]
     [Route("forms")]
-    public OTotalCount<OForm> Index() {
-      return new OTotalCount<OForm>(
-        DbContext.FormCoreForms.Select(
-          x => new OForm {
-            Title = x.Title
-          }
-        )
-      );
+    public int Create([FromBody] FForm input) {
+      var form = new FormCore.Form {
+        Title = input.Title
+      };
+      DbContext.FormCoreForms.Add(form);
+      DbContext.SaveChanges();
+      return form.ID;
     }
   }
 }

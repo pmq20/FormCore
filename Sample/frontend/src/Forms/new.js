@@ -1,39 +1,34 @@
-import React, { PureComponent } from 'react';
-import {
-  Form,
-  Input,
-  DatePicker,
-  Select,
-  Button,
-  Card,
-  InputNumber,
-  Radio,
-  Icon,
-  Tooltip,
-} from 'antd';
-import styles from './new.less';
+import React from 'react';
+import { Form, Input, Button, Card, message } from 'antd';
+import Api from 'Api';
 
 const FormItem = Form.Item;
-const { Option } = Select;
-const { RangePicker } = DatePicker;
-const { TextArea } = Input;
 
 @Form.create()
-export default class FormsNew extends PureComponent {
+export default class FormsNew extends React.Component {
+  state = {};
+
+  componentWillUnmount() {
+    this.api.cancel();
+  }
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.props.dispatch({
-          type: 'form/submitRegularForm',
-          payload: values,
+        this.api.submitPost(this, '/forms', values, data => {
+          message.success(`The form has been successfully created!`);
+          window.AppInstance.redirectTo(`/forms/${data}`);
         });
       }
     });
   };
+
+  api = new Api();
+
   render() {
     const { submitting } = this.props;
-    const { getFieldDecorator, getFieldValue } = this.props.form;
+    const { getFieldDecorator } = this.props.form;
 
     const formItemLayout = {
       labelCol: {
@@ -55,10 +50,7 @@ export default class FormsNew extends PureComponent {
     };
 
     return (
-      <Card
-        title="New Form"
-        style={{ marginBottom: 24 }}
-      >
+      <Card title="New Form" style={{ marginBottom: 24 }}>
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
           <FormItem {...formItemLayout} label="Form Title">
             {getFieldDecorator('title', {
