@@ -4,6 +4,9 @@ import { Menu, Row, Col } from 'antd';
 import PageHeaderLayout from 'Components/PageHeaderLayout';
 import FormsNew from './new';
 
+const { SubMenu } = Menu;
+const MenuItemGroup = Menu.ItemGroup;
+
 export default class Forms extends React.Component {
   parseIdTab() {
     let id = null;
@@ -16,6 +19,7 @@ export default class Forms extends React.Component {
   }
 
   render() {
+    const { forms } = this.props;
     const { id } = this.parseIdTab();
     return (
       <PageHeaderLayout
@@ -33,6 +37,20 @@ export default class Forms extends React.Component {
               <Menu.Item key="new">
                 <Link to="/new">New Form</Link>
               </Menu.Item>
+              {!forms
+                ? null
+                : forms.map(x => (
+                    <SubMenu key={`forms_${x.ID}`} title={x.Title}>
+                      <MenuItemGroup key="g1" title="Item 1">
+                        <Menu.Item key="1">Option 1</Menu.Item>
+                        <Menu.Item key="2">Option 2</Menu.Item>
+                      </MenuItemGroup>
+                      <MenuItemGroup key="g2" title="Item 2">
+                        <Menu.Item key="3">Option 3</Menu.Item>
+                        <Menu.Item key="4">Option 4</Menu.Item>
+                      </MenuItemGroup>
+                    </SubMenu>
+                  ))}
             </Menu>
           </Col>
           <Col xl={18} lg={24} md={24} sm={24} xs={24}>

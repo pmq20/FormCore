@@ -68,7 +68,7 @@ class App extends React.Component {
   }
 
   render() {
-    const { match, location, routerData } = this.props;
+    const { match, location, routerData, forms } = this.props;
     const layout = (
       <Content style={{ margin: '24px 24px 0', height: '100%' }}>
         <Switch>
@@ -81,6 +81,7 @@ class App extends React.Component {
                   routerData={routerData}
                   location={location}
                   breadcrumbNameMap={getBreadcrumbNameMap(this.props.routerData)}
+                  forms={forms}
                   {...props}
                 />
               )}

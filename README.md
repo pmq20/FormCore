@@ -1,6 +1,6 @@
 # Form Core C\#
 
-C# + React implementation of https://github.com/rails-engine/form_core -- a Rails engine providing ability to generate dynamic form.
+The C# + React implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.
 
 ## Usage
 

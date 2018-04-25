@@ -18,6 +18,7 @@ export default class FormsNew extends React.Component {
       if (!err) {
         this.api.submitPost(this, '/forms', values, data => {
           message.success(`The form has been successfully created!`);
+          window.AppInstance.reloadForms();
           window.AppInstance.redirectTo(`/forms/${data}`);
         });
       }
@@ -53,7 +54,7 @@ export default class FormsNew extends React.Component {
       <Card title="New Form" style={{ marginBottom: 24 }}>
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
           <FormItem {...formItemLayout} label="Form Title">
-            {getFieldDecorator('title', {
+            {getFieldDecorator('Title', {
               rules: [
                 {
                   required: true,
