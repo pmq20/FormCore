@@ -42,26 +42,15 @@ export default class Forms extends React.Component {
           <Col xl={6} lg={24} md={24} sm={24} xs={24}>
             <Menu
               onClick={this.handleClick}
-              defaultOpenKeys={['configuration', 'execution']}
               selectedKeys={[this.state.id]}
               mode="inline"
               style={{ marginBottom: 24 }}
             >
-              <SubMenu
-                key="configuration"
-                title={
-                  <span>
-                    <Icon type="check-square" />
-                    <span>Form Configuration</span>
-                  </span>
-                }
-              >
-                <Menu.Item key="new">
-                  <Link to="/new">
-                    New Form
-                  </Link>
-                </Menu.Item>
-              </SubMenu>
+              <Menu.Item key="new">
+                <Link to="/new">
+                  New Form
+                </Link>
+              </Menu.Item>
             </Menu>
           </Col>
           <Col xl={18} lg={24} md={24} sm={24} xs={24}>
