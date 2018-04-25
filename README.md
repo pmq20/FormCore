@@ -2,13 +2,25 @@
 
 C# + React implementation of https://github.com/rails-engine/form_core -- a Rails engine providing ability to generate dynamic form.
 
-## Getting Started
+## Usage
+
+    Install-Package FormCore
+
+## Running the Sample code
+
+First `cd` into `Sample`.
 
 ### Create a DB in MSSQL
 
 Name the DB as `form_core_csharp`. Note that the default connection string is
 
     server=(local);Trusted_Connection=true;Integrated Security=SSPI;Connection Timeout=120;database=form_core_csharp
+
+You could add the following section to `<configuration />` of `Web.config` if you wanted to change the DB connection string.
+
+    <appSettings>
+      <add key="ConnectionString" value="server=(local);Trusted_Connection=true;Integrated Security=SSPI;Connection Timeout=120;database=form_core_csharp" />
+    </appSettings>
 
 ### Migrate DB
 
