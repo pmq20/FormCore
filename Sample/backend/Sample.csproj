@@ -152,8 +152,14 @@
     <Compile Include="App_Start\AutofacConfig.cs" />
     <Compile Include="App_Start\GlobalExceptionHandler.cs" />
     <Compile Include="Context.cs" />
+    <Compile Include="ContextFactory.cs" />
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="Migrations\201804230218065_CreateInitial3Tables.cs" />
+    <Compile Include="Migrations\201804230218065_CreateInitial3Tables.Designer.cs">
+      <DependentUpon>201804230218065_CreateInitial3Tables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Output\OFailure.cs" />
     <Compile Include="Output\OForm.cs" />
     <Compile Include="Output\OTotalCount.cs" />
@@ -181,6 +187,11 @@
       <Project>{5ef547e7-78fa-49b0-9dcb-3a7b462b34a2}</Project>
       <Name>FormCore</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201804230218065_CreateInitial3Tables.resx">
+      <DependentUpon>201804230218065_CreateInitial3Tables.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
