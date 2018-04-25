@@ -1,0 +1,12 @@
+{
+  // This file is required for VSCode to understand webpack aliases
+  "compilerOptions": {
+    // This must be specified if "paths" is set
+    "baseUrl": "./src",
+    // Relative to "baseUrl"
+    "paths": {
+      "*": ["*"]
+    },
+    "experimentalDecorators": true
+  }
+}
