@@ -8,10 +8,7 @@ fs.readdirSync(path.resolve(__dirname, 'src/')).forEach(file => {
 
 export default {
   entry: 'src/Home/index.js',
-  extraBabelPlugins: [
-    'transform-decorators-legacy',
-    ['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }],
-  ],
+  extraBabelPlugins: [['import', { libraryName: 'antd', libraryDirectory: 'es', style: true }]],
   alias: alias,
   ignoreMomentLocale: true,
   theme: './src/Home/theme.js',
