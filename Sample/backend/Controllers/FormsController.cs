@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using FormCore;
 
 namespace FormCoreSample {
   public class FormsController : ApiController {
@@ -8,8 +9,8 @@ namespace FormCoreSample {
 
     [HttpPost]
     [Route("forms")]
-    public int Create([FromBody] FormCore.Form input) {
-      var form = new FormCore.Form {
+    public int Create([FromBody] Form input) {
+      var form = new Form {
         Title = input.Title
       };
       DbContext.FormCoreForms.Add(form);
@@ -19,7 +20,7 @@ namespace FormCoreSample {
 
     [HttpGet]
     [Route("forms")]
-    public List<FormCore.Form> Index() {
+    public List<Form> Index() {
       return DbContext.FormCoreForms.ToList();
     }
   }

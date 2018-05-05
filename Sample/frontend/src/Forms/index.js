@@ -40,14 +40,22 @@ export default class Forms extends React.Component {
               {!forms
                 ? null
                 : forms.map(x => (
-                    <SubMenu key={`forms_${x.ID}`} title={x.Title}>
-                      <MenuItemGroup key="g1" title="Item 1">
-                        <Menu.Item key="1">Option 1</Menu.Item>
-                        <Menu.Item key="2">Option 2</Menu.Item>
+                    <SubMenu key={`forms_${x.ID}`} title={`Form: ${x.Title}`}>
+                      <MenuItemGroup key={`forms_${x.ID}_definition`} title="Definition">
+                        <Menu.Item key={`forms_${x.ID}_sections`}>
+                          <Link to={`/${x.ID}/sections`}>Sections</Link>
+                        </Menu.Item>
+                        <Menu.Item key={`forms_${x.ID}_fields`}>
+                          <Link to={`/${x.ID}/fields`}>Fields</Link>
+                        </Menu.Item>
                       </MenuItemGroup>
-                      <MenuItemGroup key="g2" title="Item 2">
-                        <Menu.Item key="3">Option 3</Menu.Item>
-                        <Menu.Item key="4">Option 4</Menu.Item>
+                      <MenuItemGroup key={`forms_${x.ID}_data`} title="Data">
+                        <Menu.Item key={`forms_${x.ID}_data_new`}>
+                          <Link to={`/${x.ID}/data/new`}>New Data</Link>
+                        </Menu.Item>
+                        <Menu.Item key={`forms_${x.ID}_data`}>
+                          <Link to={`/${x.ID}/data`}>All Data</Link>
+                        </Menu.Item>
                       </MenuItemGroup>
                     </SubMenu>
                   ))}
