@@ -34,8 +34,8 @@ You could add the following section to `<configuration />` of `Web.config` if yo
 
 ### Migrate DB
 
-    cd backend\bin
-    ..\packages\EntityFramework.6.2.0\tools\migrate.exe form_core_csharp.dll /startUpDirectory=. /verbose
+    cd Sample\backend\bin
+    ..\..\..\packages\EntityFramework.6.2.0\tools\migrate.exe FormCoreSample.dll /startUpDirectory=. /verbose
 
 ### Start the back-end app via port 81
 
