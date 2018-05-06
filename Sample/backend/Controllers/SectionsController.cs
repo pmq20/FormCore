@@ -17,6 +17,7 @@ namespace FormCoreSample
       return form.Sections.OrderBy(x => x.Position).Select(x => new OSection() {
         ID = x.ID,
         Title = x.Title,
+        Position = x.Position,
       });
     }
 

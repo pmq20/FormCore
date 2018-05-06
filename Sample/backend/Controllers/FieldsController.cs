@@ -18,6 +18,7 @@ namespace FormCoreSample
         SectiionTitle = x.Section.Title,
         Name = x.Name,
         ID = x.ID,
+        Position = x.Position,
       });
     }
 
