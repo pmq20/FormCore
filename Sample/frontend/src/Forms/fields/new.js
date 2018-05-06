@@ -1,21 +1,39 @@
 import React from 'react';
-import { Form, Input, Button, Card, InputNumber, message } from 'antd';
+import { Form, Input, Button, Card, InputNumber, Select, message } from 'antd';
 import Api from 'Api';
 
 const FormItem = Form.Item;
+const { Option } = Select;
 
 @Form.create()
 export default class FormsFieldsNew extends React.Component {
-  state = {};
+  state = {
+    loading: true,
+    sections: [],
+  };
 
   componentDidMount() {
+    this.loadSections(this.props);
     this.props.form.setFieldsValue({
       Position: 0,
     });
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      this.loadSections(nextProps);
+    }
+  }
+
   componentWillUnmount() {
     this.api.cancel();
+  }
+
+  loadSections(props) {
+    this.setState({ loading: true });
+    this.api.get(`/${props.match.params.id}/sections`, {}, data => {
+      this.setState({ loading: false, sections: data });
+    });
   }
 
   handleSubmit = e => {
@@ -36,6 +54,7 @@ export default class FormsFieldsNew extends React.Component {
   render() {
     const { submitting } = this.props;
     const { getFieldDecorator } = this.props.form;
+    const { loading, sections } = this.state;
 
     const formItemLayout = {
       labelCol: {
@@ -57,9 +76,27 @@ export default class FormsFieldsNew extends React.Component {
     };
 
     return (
-      <Card title="New Field" style={{ marginBottom: 24 }}>
+      <Card title="New Field" style={{ marginBottom: 24 }} loading={loading}>
         <Form onSubmit={this.handleSubmit} hideRequiredMark style={{ marginTop: 8 }}>
-          <FormItem {...formItemLayout} label="Field Name">
+          <FormItem {...formItemLayout} label="Section">
+            {getFieldDecorator('SectionID', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please select a section for this field',
+                },
+              ],
+            })(
+              <Select>
+                {sections.map(x => (
+                  <Option key={x.ID} value={x.ID}>
+                    {x.Title}
+                  </Option>
+                ))}
+              </Select>
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Name">
             {getFieldDecorator('Name', {
               rules: [
                 {
@@ -68,6 +105,25 @@ export default class FormsFieldsNew extends React.Component {
                 },
               ],
             })(<Input placeholder="Enter name of the field" />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Type">
+            {getFieldDecorator('Type', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please select the type of the field',
+                },
+              ],
+            })(
+              <Select>
+                <Option key="1" value="1">
+                  Input
+                </Option>
+                <Option key="2" value="2">
+                  Text Area
+                </Option>
+              </Select>
+            )}
           </FormItem>
           <FormItem {...formItemLayout} label="Position">
             {getFieldDecorator('Position', {

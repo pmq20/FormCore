@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Card, Divider, Icon, Button } from 'antd';
+import { Table, Card, Divider, Button } from 'antd';
 import Api from 'Api';
 
 export default class FormsFieldsAll extends React.Component {
@@ -14,7 +14,9 @@ export default class FormsFieldsAll extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.load(nextProps);
+    if (nextProps.match.params.id !== this.props.match.params.id) {
+      this.load(nextProps);
+    }
   }
 
   componentWillUnmount() {
@@ -33,20 +35,37 @@ export default class FormsFieldsAll extends React.Component {
   render() {
     const columns = [
       {
-        title: 'Title',
-        dataIndex: 'Title',
-        key: 'Title',
+        title: 'Section',
+        dataIndex: 'SectionID',
+        key: 'SectionID',
+        render: (text, record) => (
+          <Link to={`/${this.props.match.params.id}/Sections/${record.SectionID}`}>
+            {record.SectionTitle}
+          </Link>
+        ),
+      },
+      {
+        title: 'Name',
+        dataIndex: 'Name',
+        key: 'Name',
         render: (text, record) => (
           <Link to={`/${this.props.match.params.id}/Fields/${record.ID}`}>{text}</Link>
         ),
       },
       {
-        title: 'Section',
-        dataIndex: 'SectionID',
-        key: 'SectionID',
-        render: (text, record) => (
-          <Link to={`/${this.props.match.params.id}/Sections/${record.SectionID}`}>{text}</Link>
-        ),
+        title: 'Type',
+        dataIndex: 'Type',
+        key: 'Type',
+        render: (text, record) => {
+          switch (record.Type) {
+            case 1:
+              return 'Input';
+            case 2:
+              return 'Text Area';
+            default:
+              return '?';
+          }
+        },
       },
       {
         title: 'Position',
@@ -56,15 +75,11 @@ export default class FormsFieldsAll extends React.Component {
       {
         title: 'Action',
         key: 'action',
-        render: (text, record) => (
+        render: () => (
           <span>
-            <a href="#">Action 一 {record.name}</a>
+            <a href="#">Edit</a>
             <Divider type="vertical" />
             <a href="#">Delete</a>
-            <Divider type="vertical" />
-            <a href="#" className="ant-dropdown-link">
-              More actions <Icon type="down" />
-            </a>
           </span>
         ),
       },
@@ -82,7 +97,7 @@ export default class FormsFieldsAll extends React.Component {
         }
         loading={this.state.loading}
       >
-        <Table columns={columns} dataSource={this.state.data} />
+        <Table rowKey="ID" columns={columns} dataSource={this.state.data} />
       </Card>
     );
   }

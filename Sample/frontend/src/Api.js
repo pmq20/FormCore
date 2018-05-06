@@ -64,7 +64,7 @@ class Api {
         }
       },
     };
-    if (data != null) {
+    if (data !== null) {
       options.dataType = 'json';
       options.contentType = 'application/json';
       if (options.method === 'GET') {
