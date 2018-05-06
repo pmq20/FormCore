@@ -8,7 +8,7 @@ namespace FormCoreSample {
     public Context DbContext { get; set; }
 
     [HttpPost]
-    [Route("forms")]
+    [Route("~/")]
     public int Create([FromBody] Form input) {
       var form = new Form {
         Title = input.Title
@@ -19,7 +19,7 @@ namespace FormCoreSample {
     }
 
     [HttpGet]
-    [Route("forms")]
+    [Route("~/")]
     public List<Form> Index() {
       return DbContext.FormCoreForms.ToList();
     }

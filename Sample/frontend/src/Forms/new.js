@@ -16,7 +16,7 @@ export default class FormsNew extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.api.submitPost(this, '/forms', values, data => {
+        this.api.submitPost(this, '/', values, data => {
           message.success(`The form has been successfully created!`);
           window.AppInstance.reloadForms();
           window.AppInstance.redirectTo(`/forms/${data}`);

@@ -47,7 +47,7 @@ class App extends React.Component {
   }
 
   reloadForms() {
-    this.api.get('/forms', data => {
+    this.api.get('/', data => {
       this.setState({ forms: data });
     });
   }

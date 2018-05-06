@@ -153,7 +153,9 @@
     <Compile Include="App_Start\GlobalExceptionHandler.cs" />
     <Compile Include="Context.cs" />
     <Compile Include="ContextFactory.cs" />
+    <Compile Include="Controllers\FieldsController.cs" />
     <Compile Include="Controllers\FormsController.cs" />
+    <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Error.cs" />
     <Compile Include="Migrations\201804230218065_CreateInitial3Tables.cs" />
     <Compile Include="Migrations\201804230218065_CreateInitial3Tables.Designer.cs">

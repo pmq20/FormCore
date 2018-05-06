@@ -6,7 +6,7 @@ import FormsNew from './new';
 import FormsSectionsAll from './sections/all';
 import FormsFieldsAll from './fields/all';
 import FormsDataAll from './data/all';
-import FormsDataNew from './data/new';
+import FormsDataEntry from './data/entry';
 
 const { SubMenu } = Menu;
 const MenuItemGroup = Menu.ItemGroup;
@@ -45,8 +45,8 @@ export default class Forms extends React.Component {
                         </Menu.Item>
                       </MenuItemGroup>
                       <MenuItemGroup key={`forms_${x.ID}_data`} title="Data">
-                        <Menu.Item key={`forms_${x.ID}_data_new`}>
-                          <Link to={`/${x.ID}/data/new`}>New Data</Link>
+                        <Menu.Item key={`forms_${x.ID}_data_entry`}>
+                          <Link to={`/${x.ID}/data/entry`}>Data Entry</Link>
                         </Menu.Item>
                         <Menu.Item key={`forms_${x.ID}_data_all`}>
                           <Link to={`/${x.ID}/data/all`}>All Data</Link>
@@ -75,8 +75,8 @@ export default class Forms extends React.Component {
               />
               <Route
                 exact
-                path="/:id/data/new"
-                render={props => <FormsDataNew routes={this.props.routes} {...props} />}
+                path="/:id/data/entry"
+                render={props => <FormsDataEntry routes={this.props.routes} {...props} />}
               />
               <Route
                 exact
