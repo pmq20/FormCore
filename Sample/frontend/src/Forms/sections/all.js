@@ -4,10 +4,28 @@ import { Table, Card, Divider, Icon, Button } from 'antd';
 import Api from 'Api';
 
 export default class FormsSectionsAll extends React.Component {
-  state = {};
+  state = {
+    loading: true,
+    data: [],
+  };
+
+  componentDidMount() {
+    this.load(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.load(nextProps);
+  }
 
   componentWillUnmount() {
     this.api.cancel();
+  }
+
+  load(props) {
+    this.setState({ loading: true });
+    this.api.get(`/${props.match.params.id}/sections`, {}, data => {
+      this.setState({ loading: false, data: data });
+    });
   }
 
   api = new Api();
@@ -44,35 +62,15 @@ export default class FormsSectionsAll extends React.Component {
       },
     ];
 
-    const data = [
-      {
-        key: '1',
-        name: 'John Brown',
-        age: 32,
-        address: 'New York No. 1 Lake Park',
-      },
-      {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        address: 'London No. 1 Lake Park',
-      },
-      {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        address: 'Sidney No. 1 Lake Park',
-      },
-    ];
-
     return (
       <Card
-        class="minqi-pan-card-button-fix"
+        className="minqi-pan-card-button-fix"
         title="Sections"
         style={{ marginBottom: 24 }}
         extra={<Button icon="plus">New Section</Button>}
+        loading={this.state.loading}
       >
-        <Table columns={columns} dataSource={data} />
+        <Table columns={columns} dataSource={this.state.data} />
       </Card>
     );
   }
