@@ -8,6 +8,12 @@ const FormItem = Form.Item;
 export default class FormsSectionsNew extends React.Component {
   state = {};
 
+  componentDidMount() {
+    this.props.form.setFieldsValue({
+      Position: 0,
+    });
+  }
+
   componentWillUnmount() {
     this.api.cancel();
   }
@@ -16,10 +22,10 @@ export default class FormsSectionsNew extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        this.api.submitPost(this, '/', values, data => {
-          message.success(`The form has been successfully created!`);
+        this.api.submitPost(this, `/${this.props.match.params.id}/sections`, values, data => {
+          message.success(`The section has been successfully created!`);
           window.AppInstance.reloadForms();
-          window.AppInstance.redirectTo(`/forms/${data}`);
+          window.AppInstance.redirectTo(`/${this.props.match.params.id}/sections/${data}`);
         });
       }
     });
