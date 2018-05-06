@@ -37,12 +37,20 @@ You could add the following section to `<configuration />` of `Web.config` if yo
     cd Sample\backend\bin
     ..\..\..\packages\EntityFramework.6.2.0\tools\migrate.exe FormCoreSample.dll /startUpDirectory=. /verbose
 
+### Set local host record for api.server
+
+Open `/etc/hosts` or `C:\Windows\System32\drivers\etc\hosts`, add an appropriate record for `api.server`. E.g.
+
+```
+192.168.2.3 api.server
+```
+
+The IP address of this local host record is the machine that will be serving API via running the back-end app.
+
 ### Start the back-end app via port 81
 
 Load the solution file `form_core_csharp.sln` in VS. Change the Debug settings and start debugging.
-Make sure that http://localhost:81/ is reachable by the front end app.
-
-Note that http://localhost:81/ itself should return HTTP Error 403.14 - Forbidden.
+Make sure that http://api.server:81/ is reachable by the front end app.
 
 ### Restore YARN packages
 
