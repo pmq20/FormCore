@@ -24,7 +24,7 @@ export default class FormsFieldsAll extends React.Component {
   load(props) {
     this.setState({ loading: true });
     this.api.get(`/${props.match.params.id}/fields`, {}, data => {
-      this.setState({ loading: false, data: data });
+      this.setState({ loading: false, data });
     });
   }
 
@@ -75,7 +75,11 @@ export default class FormsFieldsAll extends React.Component {
         className="minqi-pan-card-button-fix"
         title="Fields"
         style={{ marginBottom: 24 }}
-        extra={<Button icon="plus">New Field</Button>}
+        extra={
+          <Link to={`/${this.props.match.params.id}/fields/new`}>
+            <Button icon="plus">New Field</Button>
+          </Link>
+        }
         loading={this.state.loading}
       >
         <Table columns={columns} dataSource={this.state.data} />

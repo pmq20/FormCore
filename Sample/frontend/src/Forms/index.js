@@ -3,7 +3,9 @@ import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import { Menu, Row, Col } from 'antd';
 import PageHeaderLayout from 'Components/PageHeaderLayout';
 import FormsNew from './new';
+import FormsSectionsNew from './sections/new';
 import FormsSectionsAll from './sections/all';
+import FormsFieldsNew from './fields/new';
 import FormsFieldsAll from './fields/all';
 import FormsDataAll from './data/all';
 import FormsDataEntry from './data/entry';
@@ -65,8 +67,18 @@ export default class Forms extends React.Component {
               />
               <Route
                 exact
+                path="/:id/sections/new"
+                render={props => <FormsSectionsNew routes={this.props.routes} {...props} />}
+              />
+              <Route
+                exact
                 path="/:id/sections"
                 render={props => <FormsSectionsAll routes={this.props.routes} {...props} />}
+              />
+              <Route
+                exact
+                path="/:id/fields/new"
+                render={props => <FormsFieldsNew routes={this.props.routes} {...props} />}
               />
               <Route
                 exact

@@ -24,7 +24,7 @@ export default class FormsSectionsAll extends React.Component {
   load(props) {
     this.setState({ loading: true });
     this.api.get(`/${props.match.params.id}/sections`, {}, data => {
-      this.setState({ loading: false, data: data });
+      this.setState({ loading: false, data });
     });
   }
 
@@ -67,7 +67,11 @@ export default class FormsSectionsAll extends React.Component {
         className="minqi-pan-card-button-fix"
         title="Sections"
         style={{ marginBottom: 24 }}
-        extra={<Button icon="plus">New Section</Button>}
+        extra={
+          <Link to={`/${this.props.match.params.id}/sections/new`}>
+            <Button icon="plus">New Section</Button>
+          </Link>
+        }
         loading={this.state.loading}
       >
         <Table columns={columns} dataSource={this.state.data} />
