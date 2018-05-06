@@ -1,6 +1,6 @@
 # Form Core C\#
 
-The C# + React implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.
+The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.
 
 ## Usage
 
@@ -62,3 +62,9 @@ Open your browser and navigate to http://localhost:8881
 ## License
 
 MIT
+
+## See Also
+
+- [form_core](https://github.com/rails-engine/form_core): a Rails engine providing abilities to generate dynamic forms.
+- [React](https://github.com/facebook/react/): A declarative, efficient, and flexible JavaScript library for building user interfaces.
+- [Ant Design](https://github.com/ant-design/ant-design/): A UI Design Language.
