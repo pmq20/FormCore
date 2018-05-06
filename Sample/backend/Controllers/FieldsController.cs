@@ -11,14 +11,19 @@ namespace FormCoreSample
 
     [HttpGet]
     [Route("{formId:int}/fields")]
-    public List<Field> Index(int formId) {
+    public IEnumerable<OField> Index(int formId) {
       var form = DbContext.FormCoreForms.Find(formId);
-      return form.Fields.OrderBy(x => new { x.SectionID, x.Position }).ToList();
+      return form.Fields.OrderBy(x => new { x.SectionID, x.Position }).Select(x => new OField() {
+        SectionID = x.SectionID,
+        SectiionTitle = x.Section.Title,
+        Name = x.Name,
+        ID = x.ID,
+      });
     }
 
     [HttpPost]
     [Route("{formId:int}/fields")]
-    public int Create(int formId, [FromBody] Field input)
+    public int Create(int formId, [FromBody] FField input)
     {
       var form = DbContext.FormCoreForms.Find(formId);
       var field = new Field
