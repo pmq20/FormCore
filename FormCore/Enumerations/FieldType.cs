@@ -4,6 +4,7 @@
   {
     Unknown = 0,
 
-    Input
+    Input,
+    TextArea
   }
 }

@@ -13,12 +13,13 @@ namespace FormCoreSample
     [Route("{formId:int}/fields")]
     public IEnumerable<OField> Index(int formId) {
       var form = DbContext.FormCoreForms.Find(formId);
-      return form.Fields.OrderBy(x => new { x.SectionID, x.Position }).Select(x => new OField() {
+      return form.Fields.OrderBy(x => x.SectionID).ThenBy(x => x.Position).Select(x => new OField() {
         SectionID = x.SectionID,
-        SectiionTitle = x.Section.Title,
+        SectionTitle = x.Section.Title,
         Name = x.Name,
         ID = x.ID,
         Position = x.Position,
+        Type = x.Type,
       });
     }
 
