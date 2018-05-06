@@ -157,11 +157,17 @@
     <Compile Include="Controllers\FormsController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Error.cs" />
+    <Compile Include="Input\FField.cs" />
+    <Compile Include="Input\FForm.cs" />
+    <Compile Include="Input\FSection.cs" />
     <Compile Include="Migrations\201804230218065_CreateInitial3Tables.cs" />
     <Compile Include="Migrations\201804230218065_CreateInitial3Tables.Designer.cs">
       <DependentUpon>201804230218065_CreateInitial3Tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Output\OField.cs" />
+    <Compile Include="Output\OForm.cs" />
+    <Compile Include="Output\OSection.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Global.asax.cs">

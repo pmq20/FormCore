@@ -11,15 +11,18 @@ namespace FormCoreSample
 
     [HttpGet]
     [Route("{formId:int}/sections")]
-    public List<Section> Index(int formId)
+    public IEnumerable<OSection> Index(int formId)
     {
       var form = DbContext.FormCoreForms.Find(formId);
-      return form.Sections.OrderBy(x => x.Position).ToList();
+      return form.Sections.OrderBy(x => x.Position).Select(x => new OSection() {
+        ID = x.ID,
+        Title = x.Title,
+      });
     }
 
     [HttpPost]
     [Route("{formId:int}/sections")]
-    public int Create(int formId, [FromBody] Section input)
+    public int Create(int formId, [FromBody] FSection input)
     {
       var form = DbContext.FormCoreForms.Find(formId);
       var section = new Section {

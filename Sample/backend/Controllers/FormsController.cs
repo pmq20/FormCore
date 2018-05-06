@@ -9,7 +9,7 @@ namespace FormCoreSample {
 
     [HttpPost]
     [Route("~/")]
-    public int Create([FromBody] Form input) {
+    public int Create([FromBody] FForm input) {
       var form = new Form {
         Title = input.Title
       };
@@ -20,8 +20,11 @@ namespace FormCoreSample {
 
     [HttpGet]
     [Route("~/")]
-    public List<Form> Index() {
-      return DbContext.FormCoreForms.ToList();
+    public IEnumerable<OForm> Index() {
+      return DbContext.FormCoreForms.Select(x => new OForm() {
+        ID = x.ID,
+        Title = x.Title,
+      });
     }
   }
 }
