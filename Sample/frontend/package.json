@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "precommit": "yarn run lint-staged",
+    "precommit": "cp ./src/antd-formcore/* ../../antd-formcore && yarn run lint-staged",
     "start": "cross-env ESLINT=none PORT=8881 roadhog dev",
     "start:no-proxy": "cross-env NO_PROXY=true ESLINT=none PORT=8881 roadhog dev",
     "build": "cross-env ESLINT=none roadhog build",
@@ -81,7 +81,8 @@
   "lint-staged": {
     "**/*.{js,jsx,less}": [
       "prettier --write ./src/**/*",
-      "git add ./Sample/frontend/src"
+      "git add ./Sample/frontend/src",
+      "git add ./antd-formcore"
     ],
     "**/*.{js,jsx}": "lint-staged:js",
     "**/*.less": "stylelint --syntax less"

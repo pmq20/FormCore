@@ -2,11 +2,13 @@
 
 The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.
 
-## Front-end Usage
+## Usage
+
+### Front-end
 
     npm install --save antd-formcore
 
-## Back-end Usage
+### Back-end
 
     PM> Install-Package FormCore
 

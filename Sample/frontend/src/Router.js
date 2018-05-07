@@ -36,7 +36,7 @@ export const getRouterData = () => {
       component: Forms,
     },
     '/:id/data/entry': {
-      name: 'New',
+      name: 'Data Entry',
       component: Forms,
     },
     '/:id/data/all': {
