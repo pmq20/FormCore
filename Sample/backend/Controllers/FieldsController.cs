@@ -20,6 +20,12 @@ namespace FormCoreSample
         ID = x.ID,
         Position = x.Position,
         Type = x.Type,
+        Label = x.Label,
+        Help = x.Help,
+        Required = x.Required,
+        RequiredMessage = x.RequiredMessage,
+        PlaceHolder = x.PlaceHolder,
+        Rows = x.Rows,
       });
     }
 
@@ -35,8 +41,12 @@ namespace FormCoreSample
         Name = input.Name,
         Type = input.Type,
         Label = input.Label,
-        Hint = input.Hint,
+        Help = input.Help,
         Position = input.Position,
+        Required = input.Required,
+        RequiredMessage = input.RequiredMessage,
+        PlaceHolder = input.PlaceHolder,
+        Rows = input.Rows,
       };
       DbContext.FormCoreFields.Add(field);
       DbContext.SaveChanges();

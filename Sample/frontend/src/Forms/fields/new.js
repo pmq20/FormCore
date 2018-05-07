@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Card, InputNumber, Select, message } from 'antd';
+import { Form, Input, Button, Card, InputNumber, Select, Checkbox, message } from 'antd';
 import Api from 'Api';
 
 const FormItem = Form.Item;
@@ -106,6 +106,16 @@ export default class FormsFieldsNew extends React.Component {
               ],
             })(<Input placeholder="Enter name of the field" />)}
           </FormItem>
+          <FormItem {...formItemLayout} label="Label">
+            {getFieldDecorator('Label', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please enter label of the field',
+                },
+              ],
+            })(<Input placeholder="Enter label of the field" />)}
+          </FormItem>
           <FormItem {...formItemLayout} label="Type">
             {getFieldDecorator('Type', {
               rules: [
@@ -134,6 +144,38 @@ export default class FormsFieldsNew extends React.Component {
                 },
               ],
             })(<InputNumber min={0} max={999} style={{ width: '100%' }} />)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Required">
+            {getFieldDecorator('Required', {
+              rules: [
+                {
+                  required: true,
+                  message: 'Please indicate whether the field is required or not',
+                },
+              ],
+            })(<Checkbox>This field is required</Checkbox>)}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Required-Unmet Error Message">
+            {getFieldDecorator('RequiredMessage')(
+              <Input placeholder="Optionally give a error message displayed when the field is blank" />
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Help Message">
+            {getFieldDecorator('Help')(
+              <Input placeholder="Optionally give a help message displayed next to the field" />
+            )}
+          </FormItem>
+          <FormItem {...formItemLayout} label="Placeholder">
+            {getFieldDecorator('Placeholder')(
+              <Input placeholder="Optionally give a placeholder displayed in the input box when blank" />
+            )}
+          </FormItem>
+          <FormItem
+            {...formItemLayout}
+            label="Rows"
+            help="(Applicable only to TextArea) specify the number of rows to size the text area"
+          >
+            {getFieldDecorator('Rows')(<InputNumber min={0} max={999} style={{ width: '100%' }} />)}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
             <Button type="primary" htmlType="submit" loading={submitting}>

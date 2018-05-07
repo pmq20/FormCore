@@ -17,7 +17,7 @@ export default class AntdFormCore extends React.Component {
             switch (y.Type) {
               case 1:
                 return (
-                  <Form.Item label={y.Label}>
+                  <Form.Item label={y.Label} help={y.Help}>
                     {getFieldDecorator(y.Name, {
                       rules: [{ required: y.Required, message: y.RequiredMessage }],
                     })(<Input placeholder={y.PlaceHolder} />)}
@@ -25,7 +25,7 @@ export default class AntdFormCore extends React.Component {
                 );
               case 2:
                 return (
-                  <Form.Item label={y.Label}>
+                  <Form.Item label={y.Label} help={y.Help}>
                     {getFieldDecorator(y.Name, {
                       rules: [{ required: y.Required, message: y.RequiredMessage }],
                     })(<TextArea placeholder={y.PlaceHolder} rows={y.Rows} />)}
