@@ -7,7 +7,7 @@ namespace FormCore
   public class Form
   {
     public int Id { get; set; }
-    public int FormType { get; set; }
+    public int Type { get; set; }
     public string Title { get; set; }
 
     public virtual ICollection<Section> Sections { get; set; }

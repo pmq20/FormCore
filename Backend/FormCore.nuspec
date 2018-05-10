@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>FormCore</id>
+    <version>0.1.0</version>
+    <title>FormCore</title>
+    <authors>Minqi Pan</authors>
+    <owners>pmq20</owners>
+    <licenseUrl>https://raw.githubusercontent.com/pmq20/form_core_csharp/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/pmq20/form_core_csharp</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.</description>
+    <copyright>Copyright © Minqi Pan 2018</copyright>
+    <tags>antd form dynamic</tags>
+  </metadata>
+</package>

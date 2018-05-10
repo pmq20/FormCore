@@ -2,9 +2,7 @@
 {
   public enum FieldType
   {
-    Unknown = 0,
-
-    Input,
+    Input = 1,
     TextArea
   }
 }
