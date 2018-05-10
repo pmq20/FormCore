@@ -2,6 +2,8 @@
 
 The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.
 
+
+[![NuGet](https://img.shields.io/nuget/v/FormCore.svg?style=flat-square)](https://www.nuget.org/packages/FormCore)
 [![NuGet](https://img.shields.io/nuget/dt/FormCore.svg?style=flat-square)](https://www.nuget.org/packages/FormCore)
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][quality-image]][quality-url]
