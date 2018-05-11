@@ -1,3 +1,7 @@
+*.css
+*.js
+yarn.lock
+
 # Logs
 logs
 *.log

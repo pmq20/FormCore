@@ -1,15 +1,53 @@
 {
   "name": "antd-formcore",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.",
-  "main": "index.js",
-  "homepage": "https://github.com/pmq20/form_core_csharp",
-  "keywords": [
-    "antd"
+  "main": "./lib/index",
+  "module": "./es/index",
+  "files": [
+    "lib",
+    "es",
+    "assets/index.css"
   ],
+  "homepage": "https://github.com/pmq20/form_core_csharp",
+  "maintainers": [
+    {
+      "name": "Minqi Pan",
+      "email": "pmq2001@gmail.com"
+    }
+  ],
+  "keywords": [
+    "antd",
+    "dynamic",
+    "form",
+    "formcore"
+  ],
+  "devDependencies": {
+    "coveralls": "^2.11.15",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.1",
+    "enzyme-to-json": "^3.0.0",
+    "jest": "^20.0.4",
+    "pre-commit": "1.x",
+    "querystring": "^0.2.0",
+    "rc-dialog": "6.x",
+    "rc-tools": "7.x"
+  },
   "dependencies": {
+    "babel-runtime": "^6.26.0",
     "antd": "^3.4.3",
-    "react": "^16.2.0"
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": " git+ssh://git@github.com/pmq20/form_core_csharp.git"
+  },
+  "bugs": {
+    "url": "http://github.com/pmq20/form_core_csharp/issues"
+  },
+  "scripts": {
+    "compile": "rc-tools run compile --babel-runtime"
   },
   "author": "Minqi Pan",
   "license": "MIT"
