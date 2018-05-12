@@ -7,6 +7,7 @@ The C# + React + Ant Design implementation of https://github.com/rails-engine/fo
 [![NPM version][npm-image]][npm-url]
 [![NuGet](https://img.shields.io/nuget/dt/FormCore.svg)](https://www.nuget.org/packages/FormCore)
 [![NPM download][download-image]][download-url]
+[![NPM quality][quality-image]][quality-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/pmq20/form_core_csharp.svg)](http://isitmaintained.com/project/pmq20/form_core_csharp "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/pmq20/form_core_csharp.svg)](http://isitmaintained.com/project/pmq20/form_core_csharp "Percentage of issues still open")
@@ -18,6 +19,8 @@ The C# + React + Ant Design implementation of https://github.com/rails-engine/fo
 [snyk-url]: https://snyk.io/test/npm/antd-formcore
 [download-image]: https://img.shields.io/npm/dm/antd-formcore.svg
 [download-url]: https://npmjs.org/package/antd-formcore
+[quality-image]: http://npm.packagequality.com/shield/antd-formcore.svg
+[quality-url]: http://packagequality.com/#?package=antd-formcore
 
 ## Usage
 
