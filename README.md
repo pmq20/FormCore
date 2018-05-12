@@ -5,9 +5,9 @@ The C# + React + Ant Design implementation of https://github.com/rails-engine/fo
 
 [![NuGet](https://img.shields.io/nuget/v/FormCore.svg)](https://www.nuget.org/packages/FormCore)
 [![NPM version][npm-image]][npm-url]
+[![NPM quality][quality-image]][quality-url]
 [![NuGet](https://img.shields.io/nuget/dt/FormCore.svg)](https://www.nuget.org/packages/FormCore)
 [![NPM download][download-image]][download-url]
-[![NPM quality][quality-image]][quality-url]
 [![Known Vulnerabilities][snyk-image]][snyk-url]
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/pmq20/form_core_csharp.svg)](http://isitmaintained.com/project/pmq20/form_core_csharp "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/pmq20/form_core_csharp.svg)](http://isitmaintained.com/project/pmq20/form_core_csharp "Percentage of issues still open")
