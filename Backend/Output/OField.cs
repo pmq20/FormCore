@@ -6,7 +6,7 @@ using FormCore;
 
 namespace FormCore
 {
-  public class OField
+  public class OField : IComparable<OField>
   {
     public int Id { get; set; }
     public int FormId { get; set; }
@@ -21,7 +21,7 @@ namespace FormCore
     public string Formatter { get; set; }
     public string Mode { get; set; }
     public string TokenSeparators { get; set; }
-    public string PayloadJSON { get; set; }
+    public string PayloadJson { get; set; }
     public IEnumerable<OValidation> Validations { get; set; }
 
     public OField(Field instance)
@@ -38,10 +38,15 @@ namespace FormCore
       Formatter = instance.Formatter;
       Mode = instance.Mode;
       TokenSeparators = instance.TokenSeparators;
-      PayloadJSON = instance.PayloadJSON;
+      PayloadJson = instance.PayloadJson;
 
       SectionTitle = instance.Section.Title;
       Validations = instance.Validations.Select(x => new OValidation(x));
+    }
+
+    public int CompareTo(OField other)
+    {
+      return (int)(other.Position - Position);
     }
   }
 }
