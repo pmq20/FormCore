@@ -20,7 +20,7 @@ namespace FormCore
     
     public int CompareTo(OSection other)
     {
-      return (int)(other.Position - Position);
+      return Position.CompareTo(other.Position);
     }
   }
 }

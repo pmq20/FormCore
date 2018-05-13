@@ -25,6 +25,5 @@
 
     Hidden = 200,
     MoneyInput = 201,
-    RatesInput = 202,
   }
 }
