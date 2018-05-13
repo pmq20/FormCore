@@ -2,7 +2,6 @@
 
 The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.
 
-
 [![NuGet](https://img.shields.io/nuget/v/FormCore.svg)](https://www.nuget.org/packages/FormCore)
 [![NPM version][npm-image]][npm-url]
 [![NPM quality][quality-image]][quality-url]
@@ -28,7 +27,7 @@ The C# + React + Ant Design implementation of https://github.com/rails-engine/fo
 
     PM> Install-Package FormCore
 
-Let your EF Context class inherit from `FormCore.Context`. E.g.,
+Let your Entity Framework Context class inherit from `FormCore.Context`. E.g.,
 
     public class Context : FormCore.Context {}
 
