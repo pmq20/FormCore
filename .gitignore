@@ -2,3 +2,5 @@ Thumbs.db
 .DS_Store
 *.dll
 *~
+/Frontend/es/
+/Frontend/lib/
