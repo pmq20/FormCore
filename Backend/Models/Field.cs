@@ -16,11 +16,10 @@ namespace FormCore
     public string DefaultValue { get; set; }
     public string PlaceHolder { get; set; }
     public string Help { get; set; }
-    public int Rows { get; set; }
     public string Formatter { get; set; }
     public string Mode { get; set; }
     public string TokenSeparators { get; set; }
-    public string Options { get; set; }
+    public string PayloadJSON { get; set; }
 
     public virtual Form Form { get; set; }
     public virtual Section Section { get; set; }

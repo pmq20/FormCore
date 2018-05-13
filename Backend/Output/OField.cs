@@ -18,11 +18,10 @@ namespace FormCore
     public string DefaultValue { get; set; }
     public string PlaceHolder { get; set; }
     public string Help { get; set; }
-    public int Rows { get; set; }
     public string Formatter { get; set; }
     public string Mode { get; set; }
     public string TokenSeparators { get; set; }
-    public string Options { get; set; }
+    public string PayloadJSON { get; set; }
     public IEnumerable<OValidation> Validations { get; set; }
 
     public OField(Field instance)
@@ -36,11 +35,10 @@ namespace FormCore
       DefaultValue = instance.DefaultValue;
       PlaceHolder = instance.PlaceHolder;
       Help = instance.Help;
-      Rows = instance.Rows;
       Formatter = instance.Formatter;
       Mode = instance.Mode;
       TokenSeparators = instance.TokenSeparators;
-      Options = instance.Options;
+      PayloadJSON = instance.PayloadJSON;
 
       SectionTitle = instance.Section.Title;
       Validations = instance.Validations.Select(x => new OValidation(x));
