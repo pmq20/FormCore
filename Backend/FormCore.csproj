@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
-    <Compile Include="Enumerations\DraftStatus.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Enumerations\FieldType.cs" />
