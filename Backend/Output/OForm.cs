@@ -22,11 +22,5 @@ namespace FormCore
       Sections.Sort();
       Fields.Sort();
     }
-
-    public static OForm Show(Context db, int id)
-    {
-      var form = db.FormCoreForms.Include("Sections").Include("Fields.Validations").Include("Fields.Section").First(x => x.Id == id);
-      return new OForm(form);
-    }
   }
 }

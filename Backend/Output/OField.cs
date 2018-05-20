@@ -13,7 +13,6 @@ namespace FormCore
     public int Id { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
-    public string SectionTitle { get; set; }
     public string Column { get; set; }
     public string Label { get; set; }
     public FieldType Type { get; set; }
@@ -30,7 +29,6 @@ namespace FormCore
       Id = instance.Id;
       FormId = instance.FormId;
       SectionId = instance.SectionId;
-      SectionTitle = instance.Section.Title;
       Label = instance.Label;
       Type = instance.Type;
       Position = instance.Position;

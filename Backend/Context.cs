@@ -18,5 +18,7 @@ namespace FormCore
     public virtual DbSet<Form> FormCoreForms { get; set; }
     public virtual DbSet<Section> FormCoreSections { get; set; }
     public virtual DbSet<Field> FormCoreFields { get; set; }
+    public virtual DbSet<Validation> FormCoreValidations { get; set; }
+    public virtual DbSet<Draft> FormCoreDrafts { get; set; }
   }
 }

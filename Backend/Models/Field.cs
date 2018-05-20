@@ -32,5 +32,21 @@ namespace FormCore
     public dynamic PlaceHolder => string.IsNullOrEmpty(PlaceHolderJson) ? null : JsonConvert.DeserializeObject<dynamic>(PlaceHolderJson);
     [NotMapped]
     public dynamic Payload => string.IsNullOrEmpty(PayloadJson) ? null : JsonConvert.DeserializeObject<dynamic>(PayloadJson);
+
+    public Validation CreateValidation(Context db, Validation validation)
+    {
+      var ret = new Validation
+      {
+        FormId = FormId,
+        FieldId = Id,
+        Type = validation.Type,
+        Level = validation.Level,
+        Expectation = validation.Expectation,
+        Message = validation.Message,
+      };
+      db.FormCoreValidations.Add(ret);
+      db.SaveChanges();
+      return ret;
+    }
   }
 }
