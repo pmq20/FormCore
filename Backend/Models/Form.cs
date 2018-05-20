@@ -10,7 +10,6 @@ namespace FormCore
   public class Form
   {
     public int Id { get; set; }
-    public string Table { get; set; }
     public string Title { get; set; }
 
     public virtual ICollection<Section> Sections { get; set; }
@@ -27,7 +26,6 @@ namespace FormCore
     {
       var ret = new Form
       {
-        Table = form.Table,
         Title = form.Title,
       };
       db.FormCoreForms.Add(ret);
