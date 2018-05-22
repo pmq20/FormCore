@@ -12,15 +12,12 @@ namespace FormCore
     public List<OSection> Sections { get; set; }
     public List<OField> Fields { get; set; }
 
-    public OForm(Form form)
+    public OForm(Context db, Form form)
     {
       Id = form.Id;
       Title = form.Title;
-      Sections = form.Sections.Select(x => new OSection(x)).ToList();
-      Fields = form.Fields.Select(x => new OField(x)).ToList();
-
-      Sections.Sort();
-      Fields.Sort();
+      Sections = form.AllSections(db).Select(x => new OSection(x)).ToList();
+      Fields = form.AllFields(db).Select(x => new OField(x)).ToList();
     }
   }
 }

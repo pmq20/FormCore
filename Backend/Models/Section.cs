@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FormCore
 {
   [Table("FormCoreSections")]
-  public class Section
+  public class Section : IComparable<Section>
   {
     public int Id { get; set; }
     public int FormId { get; set; }
@@ -13,6 +14,11 @@ namespace FormCore
 
     public virtual Form Form { get; set; }
     public virtual ICollection<Field> Fields { get; set; }
+
+    public int CompareTo(Section other)
+    {
+      return Position.CompareTo(other.Position);
+    }
 
     public object CreateField(Context db, Field field)
     {

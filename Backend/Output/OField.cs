@@ -8,7 +8,7 @@ using Newtonsoft.Json;
 
 namespace FormCore
 {
-  public class OField : IComparable<OField>
+  public class OField
   {
     public int Id { get; set; }
     public int FormId { get; set; }
@@ -54,11 +54,6 @@ namespace FormCore
       {
         Column = c;
       }
-    }
-
-    public int CompareTo(OField other)
-    {
-      return Position.CompareTo(other.Position);
     }
   }
 }

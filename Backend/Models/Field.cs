@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 
 namespace FormCore
 {
   [Table("FormCoreFields")]
-  public class Field
+  public class Field : IComparable<Field>
   {
     public int Id { get; set; }
     public int FormId { get; set; }
@@ -32,6 +33,11 @@ namespace FormCore
     public dynamic PlaceHolder => string.IsNullOrEmpty(PlaceHolderJson) ? null : JsonConvert.DeserializeObject<dynamic>(PlaceHolderJson);
     [NotMapped]
     public dynamic Payload => string.IsNullOrEmpty(PayloadJson) ? null : JsonConvert.DeserializeObject<dynamic>(PayloadJson);
+
+    public int CompareTo(Field other)
+    {
+      return Position.CompareTo(other.Position);
+    }
 
     public Validation CreateValidation(Context db, Validation validation)
     {

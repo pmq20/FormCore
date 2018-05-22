@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FormCore
 {
-  public class OSection : IComparable<OSection>
+  public class OSection
   {
     public int Id { get; set; }
     public double Position { get; set; }
@@ -16,11 +16,6 @@ namespace FormCore
       Id = x.Id;
       Position = x.Position;
       Title = x.Title;
-    }
-    
-    public int CompareTo(OSection other)
-    {
-      return Position.CompareTo(other.Position);
     }
   }
 }
