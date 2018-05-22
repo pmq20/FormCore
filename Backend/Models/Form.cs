@@ -95,7 +95,7 @@ namespace FormCore
       }
       else
       {
-        ret = Parent.Sections.ToList();
+        ret = Parent.AllSections(db).ToList();
         foreach (var item in Sections)
         {
           ret.RemoveAll(x => x.Id == item.Id);
@@ -120,7 +120,7 @@ namespace FormCore
       }
       else
       {
-        ret = Parent.Fields.ToList();
+        ret = Parent.AllFields(db).ToList();
         foreach (var item in Fields)
         {
           ret.RemoveAll(x => x.ColumnJson == item.ColumnJson);
