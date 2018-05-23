@@ -91,15 +91,18 @@ namespace FormCore
       List<Section> ret;
       if (null == Parent)
       {
-        ret = Sections.ToList();
+        ret = Sections?.ToList() ?? new List<Section>();
       }
       else
       {
-        ret = Parent.AllSections(db).ToList();
-        foreach (var item in Sections)
+        ret = Parent.AllSections(db);
+        if (null != Sections)
         {
-          ret.RemoveAll(x => x.Id == item.Id);
-          ret.Add(item);
+          foreach (var item in Sections)
+          {
+            ret.RemoveAll(x => x.Id == item.Id);
+            ret.Add(item);
+          }
         }
       }
       ret.Sort();
@@ -116,15 +119,18 @@ namespace FormCore
       List<Field> ret;
       if (null == Parent)
       {
-        ret = Fields.ToList();
+        ret = Fields?.ToList() ?? new List<Field>();
       }
       else
       {
-        ret = Parent.AllFields(db).ToList();
-        foreach (var item in Fields)
+        ret = Parent.AllFields(db);
+        if (null != Fields)
         {
-          ret.RemoveAll(x => x.ColumnJson == item.ColumnJson);
-          ret.Add(item);
+          foreach (var item in Fields)
+          {
+            ret.RemoveAll(x => x.ColumnJson == item.ColumnJson);
+            ret.Add(item);
+          }
         }
       }
       ret.Sort();
