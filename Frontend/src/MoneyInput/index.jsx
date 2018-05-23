@@ -4,6 +4,10 @@ import { Input, Tooltip } from 'antd';
 // eslint-disable-next-line no-unused-vars
 import styles from './index.less';
 
+function isNumber(obj) {
+  return typeof obj === 'number' && !isNaN(obj);
+}
+
 export default class MoneyInput extends React.Component {
   onChange = e => {
     const { value } = e.target;
@@ -14,7 +18,10 @@ export default class MoneyInput extends React.Component {
   };
   // '.' at the end or only '-' in the input box.
   onBlur = () => {
-    const { value, onBlur, onChange } = this.props;
+    const { onBlur, onChange } = this.props;
+    let { value } = this.props;
+    if (isNumber(value)) value = value.toString();
+
     if (value && (value.charAt(value.length - 1) === '.' || value === '-')) {
       onChange({ value: value.slice(0, -1) });
     }
