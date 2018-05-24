@@ -13,6 +13,7 @@ namespace FormCore
     public int Id { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
+    public bool Inherited { get; set; }
     public string Column { get; set; }
     public string Label { get; set; }
     public FieldType Type { get; set; }
@@ -24,11 +25,12 @@ namespace FormCore
     public dynamic Payload { get; set; }
     public IEnumerable<OValidation> Validations { get; set; }
 
-    public OField(Field instance)
+    public OField(Form form, Field instance)
     {
       Id = instance.Id;
       FormId = instance.FormId;
       SectionId = instance.SectionId;
+      Inherited = (instance.FormId != form.Id);
       Label = instance.Label;
       Type = instance.Type;
       Position = instance.Position;
