@@ -1,8 +1,6 @@
 import numeral from 'numeral';
 import React from 'react';
 import { Input, Tooltip } from 'antd';
-// eslint-disable-next-line no-unused-vars
-import styles from './index.less';
 
 export default class MoneyInput extends React.Component {
   onChange = e => {
@@ -43,24 +41,26 @@ export default class MoneyInput extends React.Component {
     }
 
     return (
-      <Tooltip
-        trigger={['focus']}
-        title={title}
-        placement="bottomLeft"
-        overlayClassName="numeric-input"
-      >
-        <Input
-          {...restProps}
-          value={value}
-          onChange={this.onChange}
-          onBlur={this.onBlur}
-          addonBefore={addonBefore}
-          addonAfter={addonAfter}
-          placeholder={placeholder}
-          maxLength="25"
-          autoComplete="off"
-        />
-      </Tooltip>
+      <div className="formcore_moneyinput">
+        <Tooltip
+          trigger={['focus']}
+          title={title}
+          placement="bottomLeft"
+          overlayClassName="numeric-input"
+        >
+          <Input
+            {...restProps}
+            value={value}
+            onChange={this.onChange}
+            onBlur={this.onBlur}
+            addonBefore={addonBefore}
+            addonAfter={addonAfter}
+            placeholder={placeholder}
+            maxLength="25"
+            autoComplete="off"
+          />
+        </Tooltip>
+      </div>
     );
   }
 }
