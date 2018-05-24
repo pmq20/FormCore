@@ -144,7 +144,7 @@ namespace FormCore
         var ValidationErrors = new Dictionary<string, string[]>();
         foreach (var validation in this.Validations)
         {
-            var field = db.FormCoreFields.Where(f => f.Id == validation.FieldId).FirstOrDefault();
+            var field = db.FormCoreFields.Find(validation.FieldId);
             var key = field.Column;
             var errors = new List<string>();
             if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);

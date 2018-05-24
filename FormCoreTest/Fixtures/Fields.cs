@@ -23,17 +23,8 @@ namespace FormCoreTest.Fixtures
         }
         public static void MockData(List<Model> list, Mock<Context> mockContext)
         {
-            var data = list.AsQueryable();
-
-            var mockSet = new Mock<DbSet<Model>>();
-
-            mockSet.As<IQueryable<Model>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<Model>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<Model>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<Model>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
-
-
-            mockContext.Setup(m => m.FormCoreFields).Returns(mockSet.Object);
+            var set = new Mock<DbSet<Model>>().SetupData(list, objs => list.FirstOrDefault(b => b.Id == (int)objs.First()));
+            mockContext.Setup(c => c.FormCoreFields).Returns(set.Object);
         }
     }
 }

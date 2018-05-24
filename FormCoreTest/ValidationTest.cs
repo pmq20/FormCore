@@ -13,19 +13,35 @@ namespace FormCoreTest
     [TestClass]
     public class ValidationTest
     {
+        Mock<Context> mockContext;
+        Form form;
+        Field field;
+        Validation validataion;
+        public ValidationTest()
+        {
+            mockContext = new Mock<Context>();
+            form = Forms.Create(mockContext);
+            field = Fields.Create(mockContext, form);
+            validataion = Validations.Create(mockContext, form, field);
+
+            // calc virtual dbsets manually
+            form.Validations = mockContext.Object.FormCoreValidations.Where(v => v.FormId == form.Id).ToList();
+        }
+
+        [TestMethod]
+        public void DbTest()
+        {
+            Assert.AreEqual(form.Validations.Count, 1);
+
+            Assert.AreEqual(mockContext.Object.FormCoreForms.Count(), 1);
+
+            // find should work well
+            Assert.AreEqual(mockContext.Object.FormCoreForms.Find(form.Id).Id, form.Id);
+        }
+
         [TestMethod]
         public void Success()
         {
-            var mockContext = new Mock<Context>();
-            var form = Forms.Create(mockContext);
-            var field = Fields.Create(mockContext, form);
-            var validataion = Validations.Create(mockContext, form, field);
-
-            form.Validations = mockContext.Object.FormCoreValidations.ToList();
-
-            Assert.AreEqual(mockContext.Object.FormCoreForms.Count(), 1);
-            Assert.AreEqual(form.Validations.Count, 1);
-
             var draft = new Draft
             {
                 FormId = form.Id,
