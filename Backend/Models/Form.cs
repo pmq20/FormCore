@@ -137,5 +137,20 @@ namespace FormCore
       _allFields = ret;
       return ret;
     }
+
+
+    public Dictionary<string, string[]> Validate(Context db, Draft draft)
+    {
+        var ValidationErrors = new Dictionary<string, string[]>();
+        foreach (var validation in this.Validations)
+        {
+            var field = db.FormCoreFields.Where(f => f.Id == validation.FieldId).FirstOrDefault();
+            var key = field.Column;
+            var errors = new List<string>();
+            if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);
+            if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
+        }
+        return ValidationErrors;
+    }
   }
 }

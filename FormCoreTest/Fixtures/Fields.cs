@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using FormCore;
 using Moq;
 using System.Data.Entity;
+using Newtonsoft.Json;
 using Model = FormCore.Field;
 
 namespace FormCoreTest.Fixtures
@@ -15,7 +16,7 @@ namespace FormCoreTest.Fixtures
         public static Model Create(Mock<Context> mockContext, Form form)
         {
             var data = new List<Model> {
-              new Model { Id=1, FormId = form.Id, ColumnJson="AAA", },
+              new Model { Id=1, FormId = form.Id, ColumnJson= JsonConvert.SerializeObject("AAA"), },
             };
             MockData(data, mockContext);
             return data[0];

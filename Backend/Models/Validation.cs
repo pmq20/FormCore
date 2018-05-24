@@ -17,5 +17,21 @@ namespace FormCore
     public ValidationLevel Level { get; set; }
     public string Expectation { get; set; }
     public string Message { get; set; }
+
+    public bool IsNotValid(Draft draft, Context db) {
+      var field = db.FormCoreFields.Where(f => f.Id == FieldId).FirstOrDefault();
+      if (Type == ValidationType.Presence) {
+        var val = draft.Data[field.Column];
+        if (val == null) {
+          return true;
+        } else if (val.Value is string) {
+          return string.IsNullOrEmpty(val.Value);
+        } else {
+          return false;
+        }
+      }
+
+      return true;
+    }
   }
 }

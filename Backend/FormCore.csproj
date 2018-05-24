@@ -67,6 +67,7 @@
     <Compile Include="Enumerations\ValidationType.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include=".editorconfig" />
     <None Include="App.config" />
     <None Include="FormCore.nuspec" />
     <None Include="packages.config" />

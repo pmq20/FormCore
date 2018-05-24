@@ -69,7 +69,7 @@
     <Compile Include="Fixtures\Validations.cs" />
     <Compile Include="Fixtures\Fields.cs" />
     <Compile Include="Fixtures\Forms.cs" />
-    <Compile Include="Validation.cs" />
+    <Compile Include="ValidationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
