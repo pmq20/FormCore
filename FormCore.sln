@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27428.2043
+VisualStudioVersion = 15.0.27428.2015
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormCore", "FormCore.csproj", "{1E09F3FC-831E-4871-9B7E-A43EF42C70C7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormCore", "Backend\FormCore.csproj", "{1E09F3FC-831E-4871-9B7E-A43EF42C70C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {112D95CC-F281-46F2-A7AE-458E01B52FAF}
+		SolutionGuid = {539A95FF-32A4-49C3-BFDC-5C43EDD1B48C}
 	EndGlobalSection
 EndGlobal

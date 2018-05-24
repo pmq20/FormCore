@@ -4,4 +4,5 @@ Thumbs.db
 *~
 /Frontend/es/
 /Frontend/lib/
-/packages
+/packages/
+/.vs/

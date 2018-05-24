@@ -20,6 +20,85 @@ import { USAStates } from './USAStates';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
+export function RenderField(y, getFieldDecorator) {
+  switch (y.Type) {
+    case 5:
+      return (
+        <Form.Item label={y.Label} help={y.Help}>
+          {getFieldDecorator(y.Column, {
+            initialValue: y.DefaultValue,
+          })(<Input placeholder={y.PlaceHolder} />)}
+        </Form.Item>
+      );
+    case 6:
+      return (
+        <Form.Item label={y.Label} help={y.Help}>
+          {getFieldDecorator(y.Column, {
+            initialValue: y.DefaultValue,
+          })(
+            <InputNumber
+              formatter={value => (y.Formatter ? y.Formatter.replace('___', value) : value)}
+              style={{ width: '100%' }}
+            />
+          )}
+        </Form.Item>
+      );
+    case 10:
+      return (
+        <Form.Item label={y.Label} help={y.Help}>
+          {getFieldDecorator(y.Column, {
+            initialValue: y.DefaultValue,
+          })(
+            <Select
+              mode={y.Payload.Mode}
+              style={{ width: '100%' }}
+              tokenSeparators={y.Payload.TokenSeparators}
+            >
+              {window.jQuery.map(
+                y.Payload.Options === 'USAStates' ? USAStates : y.Payload.Options,
+                (val, key) => (
+                  <Option key={key} value={key}>
+                    {val}
+                  </Option>
+                )
+              )}
+            </Select>
+          )}
+        </Form.Item>
+      );
+    case 102:
+      return (
+        <Form.Item label={y.Label} help={y.Help}>
+          {getFieldDecorator(y.Column, {
+            initialValue: y.DefaultValue,
+          })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} />)}
+        </Form.Item>
+      );
+    case 200:
+      return (
+        <Form.Item label={y.Label} help={y.Help}>
+          {getFieldDecorator(y.Column, {
+            initialValue: y.DefaultValue,
+          })(<Input placeholder={y.PlaceHolder} style={{ display: 'none' }} />)}
+        </Form.Item>
+      );
+    case 201:
+      return (
+        <Form.Item label={y.Label} help={y.Help}>
+          {getFieldDecorator(y.Column, {
+            initialValue: y.DefaultValue,
+          })(<MoneyInput style={{ width: '100%' }} />)}
+        </Form.Item>
+      );
+    default:
+      throw new Error(
+        `FormCore: Unspported field type ${
+          y.Type
+        }. Pull Requests are welcome: https://github.com/pmq20/form_core_csharp/pulls`
+      );
+  }
+}
+
 class AntdFormCore extends React.Component {
   state = {
     width: '100%',
@@ -112,98 +191,11 @@ class AntdFormCore extends React.Component {
         >
           <Form layout="vertical" hideRequiredMark>
             <Row gutter={16}>
-              {localFields.map(y => {
-                switch (y.Type) {
-                  case 5:
-                    return (
-                      <Col lg={8} md={12} sm={24} key={y.Id}>
-                        <Form.Item label={y.Label} help={y.Help}>
-                          {getFieldDecorator(y.Column, {
-                            initialValue: defaultValues[y.Column],
-                          })(<Input placeholder={y.PlaceHolder} />)}
-                        </Form.Item>
-                      </Col>
-                    );
-                  case 6:
-                    return (
-                      <Col lg={8} md={12} sm={24} key={y.Id}>
-                        <Form.Item label={y.Label} help={y.Help}>
-                          {getFieldDecorator(y.Column, {
-                            initialValue: defaultValues[y.Column],
-                          })(
-                            <InputNumber
-                              formatter={value =>
-                                y.Formatter ? y.Formatter.replace('___', value) : value
-                              }
-                              style={{ width: '100%' }}
-                            />
-                          )}
-                        </Form.Item>
-                      </Col>
-                    );
-                  case 10:
-                    return (
-                      <Col lg={8} md={12} sm={24} key={y.Id}>
-                        <Form.Item label={y.Label} help={y.Help}>
-                          {getFieldDecorator(y.Column, {
-                            initialValue: defaultValues[y.Column],
-                          })(
-                            <Select
-                              mode={y.Payload.Mode}
-                              style={{ width: '100%' }}
-                              tokenSeparators={y.Payload.TokenSeparators}
-                            >
-                              {window.jQuery.map(
-                                y.Payload.Options === 'USAStates' ? USAStates : y.Payload.Options,
-                                (val, key) => (
-                                  <Option key={key} value={key}>
-                                    {val}
-                                  </Option>
-                                )
-                              )}
-                            </Select>
-                          )}
-                        </Form.Item>
-                      </Col>
-                    );
-                  case 102:
-                    return (
-                      <Col lg={8} md={12} sm={24} key={y.Id}>
-                        <Form.Item label={y.Label} help={y.Help}>
-                          {getFieldDecorator(y.Column, {
-                            initialValue: defaultValues[y.Column],
-                          })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} />)}
-                        </Form.Item>
-                      </Col>
-                    );
-                  case 200:
-                    return (
-                      <Col lg={8} md={12} sm={24} key={y.Id}>
-                        <Form.Item label={y.Label} help={y.Help}>
-                          {getFieldDecorator(y.Column, {
-                            initialValue: defaultValues[y.Column],
-                          })(<Input placeholder={y.PlaceHolder} style={{ display: 'none' }} />)}
-                        </Form.Item>
-                      </Col>
-                    );
-                  case 201:
-                    return (
-                      <Col lg={8} md={12} sm={24} key={y.Id}>
-                        <Form.Item label={y.Label} help={y.Help}>
-                          {getFieldDecorator(y.Column, {
-                            initialValue: defaultValues[y.Column],
-                          })(<MoneyInput style={{ width: '100%' }} />)}
-                        </Form.Item>
-                      </Col>
-                    );
-                  default:
-                    throw new Error(
-                      `FormCore: Unspported field type ${
-                        y.Type
-                      }. Pull Requests are welcome: https://github.com/pmq20/form_core_csharp/pulls`
-                    );
-                }
-              })}
+              {localFields.map(y => (
+                <Col lg={8} md={12} sm={24} key={y.Id}>
+                  {RenderField(y, getFieldDecorator)}
+                </Col>
+              ))}
             </Row>
           </Form>
         </Card>
