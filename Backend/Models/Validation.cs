@@ -5,11 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FormCore
-{
+namespace FormCore {
   [Table("FormCoreValidations")]
-  public class Validation
-  {
+  public class Validation {
     public int Id { get; set; }
     public int FormId { get; set; }
     public int FieldId { get; set; }

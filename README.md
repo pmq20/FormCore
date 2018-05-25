@@ -45,6 +45,10 @@ Finally apply the migration against your database,
 
     npm install --save antd-formcore
 
+### Contributing    
+
+Please use [EditorConfig](http://editorconfig.org/#download) to format your codes.
+
 ## License
 
 MIT

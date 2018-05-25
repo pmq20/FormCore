@@ -4,10 +4,8 @@ using System.Data.Entity;
 using System.Data.Entity.Core.Objects;
 using System.Data.Entity.Infrastructure;
 
-namespace FormCore
-{
-  public class Context : DbContext
-  {
+namespace FormCore {
+  public class Context : DbContext {
     protected Context() { }
     protected Context(DbCompiledModel model) : base(model) { }
     public Context(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection) { }

@@ -4,11 +4,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace FormCore
-{
+namespace FormCore {
   [Table("FormCoreForms")]
-  public class Form
-  {
+  public class Form {
     private List<Section> _allSections;
     private List<Field> _allFields;
 
@@ -23,57 +21,45 @@ namespace FormCore
     [NotMapped]
     public Form Parent { get; private set; }
 
-    public static Form Load(Context db, int id)
-    {
+    public static Form Load(Context db, int id) {
       var ret = db.FormCoreForms.Include("Sections.Fields.Validations")
         .First(x => x.Id == id);
-      if (ret.ParentId > 0)
-      {
+      if (ret.ParentId > 0) {
         ret.Parent = Load(db, ret.ParentId);
-      }
-      else
-      {
+      } else {
         ret.Parent = null;
       }
       return ret;
     }
 
-    public static Form Create(Context db, Form form)
-    {
-      var ret = new Form
-      {
+    public static Form Create(Context db, Form form) {
+      var ret = new Form {
         Title = form.Title,
       };
       db.FormCoreForms.Add(ret);
       db.SaveChanges();
-      foreach (var section in form.Sections)
-      {
+      foreach (var section in form.Sections) {
         ret.CreateSection(db, section);
       }
       return ret;
     }
-    
-    private Section CreateSection(Context db, Section section)
-    {
-      var ret = new Section
-      {
+
+    private Section CreateSection(Context db, Section section) {
+      var ret = new Section {
         FormId = Id,
         Title = section.Title,
         Position = section.Position,
       };
       db.FormCoreSections.Add(ret);
       db.SaveChanges();
-      foreach (var field in section.Fields)
-      {
+      foreach (var field in section.Fields) {
         ret.CreateField(db, field);
       }
       return ret;
     }
 
-    public Draft CreateDraft(Context db, dynamic data)
-    {
-      var draft = new Draft
-      {
+    public Draft CreateDraft(Context db, dynamic data) {
+      var draft = new Draft {
         FormId = this.Id,
         DataJson = JsonConvert.SerializeObject(data),
       };
@@ -81,25 +67,18 @@ namespace FormCore
       db.SaveChanges();
       return draft;
     }
-    
-    public List<Section> AllSections(Context db)
-    {
-      if (null != _allSections)
-      {
+
+    public List<Section> AllSections(Context db) {
+      if (null != _allSections) {
         return _allSections;
       }
       List<Section> ret;
-      if (null == Parent)
-      {
+      if (null == Parent) {
         ret = Sections?.ToList() ?? new List<Section>();
-      }
-      else
-      {
+      } else {
         ret = Parent.AllSections(db);
-        if (null != Sections)
-        {
-          foreach (var item in Sections)
-          {
+        if (null != Sections) {
+          foreach (var item in Sections) {
             ret.RemoveAll(x => x.Id == item.Id);
             ret.Add(item);
           }
@@ -110,24 +89,17 @@ namespace FormCore
       return ret;
     }
 
-    public List<Field> AllFields(Context db)
-    {
-      if (null != _allFields)
-      {
+    public List<Field> AllFields(Context db) {
+      if (null != _allFields) {
         return _allFields;
       }
       List<Field> ret;
-      if (null == Parent)
-      {
+      if (null == Parent) {
         ret = Fields?.ToList() ?? new List<Field>();
-      }
-      else
-      {
+      } else {
         ret = Parent.AllFields(db);
-        if (null != Fields)
-        {
-          foreach (var item in Fields)
-          {
+        if (null != Fields) {
+          foreach (var item in Fields) {
             ret.RemoveAll(x => x.ColumnJson == item.ColumnJson);
             ret.Add(item);
           }
@@ -139,31 +111,29 @@ namespace FormCore
     }
 
 
-    public Dictionary<string, string[]> Validate(Context db, Draft draft, ValidationLevel level = ValidationLevel.Warning )
-    {
-        ValidationLevel[] levels;
-        switch (level) {
-          case ValidationLevel.Error:
-            levels = new ValidationLevel[] { ValidationLevel.Error };
-            break;
-          case ValidationLevel.Warning:
-          default:
-            levels = new ValidationLevel[] { ValidationLevel.Warning, ValidationLevel.Error };
-            break;
-        }
+    public Dictionary<string, string[]> Validate(Context db, Draft draft, ValidationLevel level = ValidationLevel.Warning) {
+      ValidationLevel[] levels;
+      switch (level) {
+        case ValidationLevel.Error:
+          levels = new ValidationLevel[] { ValidationLevel.Error };
+          break;
+        case ValidationLevel.Warning:
+        default:
+          levels = new ValidationLevel[] { ValidationLevel.Warning, ValidationLevel.Error };
+          break;
+      }
 
-        var ValidationErrors = new Dictionary<string, string[]>();
-        foreach (var validation in this.Validations)
-        {
-            if (!levels.Contains(validation.Level)) continue;
+      var ValidationErrors = new Dictionary<string, string[]>();
+      foreach (var validation in this.Validations) {
+        if (!levels.Contains(validation.Level)) continue;
 
-            var field = db.FormCoreFields.Find(validation.FieldId);
-            var key = field.Column;
-            var errors = new List<string>();
-            if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);
-            if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
-        }
-        return ValidationErrors;
+        var field = db.FormCoreFields.Find(validation.FieldId);
+        var key = field.Column;
+        var errors = new List<string>();
+        if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);
+        if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
+      }
+      return ValidationErrors;
     }
   }
 }

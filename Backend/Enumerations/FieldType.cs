@@ -1,7 +1,5 @@
-﻿namespace FormCore
-{
-  public enum FieldType
-  {
+﻿namespace FormCore {
+  public enum FieldType {
     AutoComplete = 1,
     Cascader = 2,
     Checkbox = 3,
@@ -18,10 +16,10 @@
     TimePicker = 14,
     Transfer = 15,
     Upload = 16,
-    
-    MonthPicker=101,
-    RangePicker=102,
-    WeekPicker=103,
+
+    MonthPicker = 101,
+    RangePicker = 102,
+    WeekPicker = 103,
 
     Hidden = 200,
     MoneyInput = 201,

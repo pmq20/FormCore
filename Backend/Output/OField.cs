@@ -6,10 +6,8 @@ using System.Web;
 using FormCore;
 using Newtonsoft.Json;
 
-namespace FormCore
-{
-  public class OField
-  {
+namespace FormCore {
+  public class OField {
     public int Id { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
@@ -25,8 +23,7 @@ namespace FormCore
     public dynamic Payload { get; set; }
     public IEnumerable<OValidation> Validations { get; set; }
 
-    public OField(Form form, Field instance)
-    {
+    public OField(Form form, Field instance) {
       Id = instance.Id;
       FormId = instance.FormId;
       SectionId = instance.SectionId;
@@ -44,16 +41,12 @@ namespace FormCore
       AssignColumn(instance);
     }
 
-    private void AssignColumn(Field instance)
-    {
+    private void AssignColumn(Field instance) {
       var c = instance.Column;
-      if (c is Newtonsoft.Json.Linq.JArray)
-      {
+      if (c is Newtonsoft.Json.Linq.JArray) {
         var list = (c as Newtonsoft.Json.Linq.JArray).Select(x => (string)x).ToList();
         Column = string.Join("__FORMCORE__", list);
-      }
-      else
-      {
+      } else {
         Column = c;
       }
     }
