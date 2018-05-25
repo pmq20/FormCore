@@ -19,7 +19,7 @@ namespace FormCoreTest.Fixtures
                   Id =1,
                   FormId = form.Id,
                   FieldId = field.Id,
-                  Level = ValidationLevel.Error,
+                  Level = ValidationLevel.Warning,
                   Type = ValidationType.Presence,
                   Message = "asdf",
               },

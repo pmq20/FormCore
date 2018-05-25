@@ -44,7 +44,7 @@ namespace FormCoreTest
         }
 
         [TestMethod]
-        public void Success()
+        public void ValidateTest()
         {
             var draft = new Draft
             {
@@ -63,6 +63,28 @@ namespace FormCoreTest
             draft.DataJson = JsonConvert.SerializeObject(new { });
             errors = form.Validate(context, draft);
             Assert.AreEqual(errors.Count, 1);
+        }
+
+        [TestMethod]
+        public void ValidateTestOnlyError()
+        {
+            var draft = new Draft
+            {
+                FormId = form.Id,
+            };
+
+            draft.DataJson = JsonConvert.SerializeObject(new { AAA = "BBB", });
+            var errors = form.Validate(context, draft, ValidationLevel.Error);
+            Console.WriteLine(errors);
+            Assert.AreEqual(errors.Count, 0);
+
+            draft.DataJson = JsonConvert.SerializeObject(new { AAA = "", });
+            errors = form.Validate(context, draft, ValidationLevel.Error);
+            Assert.AreEqual(errors.Count, 0);
+
+            draft.DataJson = JsonConvert.SerializeObject(new { });
+            errors = form.Validate(context, draft, ValidationLevel.Error);
+            Assert.AreEqual(errors.Count, 0);
         }
     }
 }

@@ -139,11 +139,24 @@ namespace FormCore
     }
 
 
-    public Dictionary<string, string[]> Validate(Context db, Draft draft)
+    public Dictionary<string, string[]> Validate(Context db, Draft draft, ValidationLevel level = ValidationLevel.Warning )
     {
+        ValidationLevel[] levels;
+        switch (level) {
+          case ValidationLevel.Error:
+            levels = new ValidationLevel[] { ValidationLevel.Error };
+            break;
+          case ValidationLevel.Warning:
+          default:
+            levels = new ValidationLevel[] { ValidationLevel.Warning, ValidationLevel.Error };
+            break;
+        }
+
         var ValidationErrors = new Dictionary<string, string[]>();
         foreach (var validation in this.Validations)
         {
+            if (!levels.Contains(validation.Level)) continue;
+
             var field = db.FormCoreFields.Find(validation.FieldId);
             var key = field.Column;
             var errors = new List<string>();
