@@ -1,0 +1,11 @@
+sudo: false
+language: node_js
+node_js:
+  - '8'
+  - '10'
+install:
+  - cd Frontend && npm install
+script:
+  - cd Frontend && npm run compile
+after_script:
+  - cd Frontend && npm install codecov && codecov
