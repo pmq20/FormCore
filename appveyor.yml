@@ -5,9 +5,7 @@ environment:
 
 install:
   - ps: Install-Product node $env:nodejs_version
-  - cd Frontend && npm install && cd ..
-
-test_script:
   - node --version
   - npm --version
-  - npm run compile
+  - cd Frontend && npm install && npm run compile && cd ..
+  - nuget restore FormCore.sln
