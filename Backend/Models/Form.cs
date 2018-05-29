@@ -129,6 +129,8 @@ namespace FormCore {
 
         var field = db.FormCoreFields.Find(validation.FieldId);
         var key = field.Column;
+        if (!(key is string)) key = field.Label;
+
         var errors = new List<string>();
         if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);
         if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
