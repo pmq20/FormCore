@@ -9,3 +9,7 @@ install:
   - npm --version
   - cd Frontend && npm install && npm run compile && cd ..
   - nuget restore FormCore.sln
+
+test_script:
+  - where vstest.console
+  - vstest.console /logger:Appveyor bin\Debug\FormCoreTest.dll
