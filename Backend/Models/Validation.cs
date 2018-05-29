@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace FormCore {
   [Table("FormCoreValidations")]
@@ -22,8 +23,10 @@ namespace FormCore {
         var val = draft.Data[field.StoredColumn];
         if (val == null) {
           return true;
-        } else if (val.Value is string) {
-          return string.IsNullOrEmpty(val.Value);
+        } else if (val.Type == JTokenType.Array) {
+          return val.Count <= 0;
+        } else if (val.Type == JTokenType.String) {
+          return string.IsNullOrEmpty(val.Value as string);
         } else {
           return false;
         }
