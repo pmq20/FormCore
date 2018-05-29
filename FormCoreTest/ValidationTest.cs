@@ -14,15 +14,15 @@ namespace FormCoreTest {
     Mock<Context> mockContext;
     Context context;
     Form form;
-    Field field;
-    Validation validataion;
+    Field[] fields;
+    Validation[] validataions;
     public ValidationTest() {
       mockContext = new Mock<Context>();
       context = mockContext.Object;
 
       form = Forms.Create(mockContext);
-      field = Fields.Create(mockContext, form);
-      validataion = Validations.Create(mockContext, form, field);
+      fields = Fields.Create(mockContext, form);
+      validataions = Validations.Create(mockContext, form, fields);
 
       Base.CalcVirtualAttributes(context);
     }
@@ -30,13 +30,13 @@ namespace FormCoreTest {
     [TestMethod]
     public void DbTest() {
       // entityframework should work
-      Assert.AreEqual(context.FormCoreForms.Count(), 1);
+      Assert.AreEqual(1, context.FormCoreForms.Count());
 
       // virtual attributes should work
-      Assert.AreEqual(form.Validations.Count, 1);
+      Assert.AreEqual(2, form.Validations.Count);
 
       // find should work
-      Assert.AreEqual(context.FormCoreForms.Find(form.Id).Id, form.Id);
+      Assert.AreEqual(form.Id, context.FormCoreForms.Find(form.Id).Id);
     }
 
     [TestMethod]
@@ -45,18 +45,18 @@ namespace FormCoreTest {
         FormId = form.Id,
       };
 
-      draft.DataJson = JsonConvert.SerializeObject(new { AAA = "BBB", });
+      draft.DataJson = JsonConvert.SerializeObject(new { AAA = "BBB", DDD__FORMCORE__EEE = "aa" });
       var errors = form.Validate(context, draft);
-      Console.WriteLine(errors);
-      Assert.AreEqual(errors.Count, 0);
+      //Console.WriteLine(errors);
+      Assert.AreEqual(0, errors.Count);
 
-      draft.DataJson = JsonConvert.SerializeObject(new { AAA = "", });
+      draft.DataJson = JsonConvert.SerializeObject(new { AAA = "", DDD__FORMCORE__EEE = "" });
       errors = form.Validate(context, draft);
-      Assert.AreEqual(errors.Count, 1);
+      Assert.AreEqual(errors.Count, 2);
 
       draft.DataJson = JsonConvert.SerializeObject(new { });
       errors = form.Validate(context, draft);
-      Assert.AreEqual(errors.Count, 1);
+      Assert.AreEqual(errors.Count, 2);
     }
 
     [TestMethod]
@@ -67,7 +67,6 @@ namespace FormCoreTest {
 
       draft.DataJson = JsonConvert.SerializeObject(new { AAA = "BBB", });
       var errors = form.Validate(context, draft, ValidationLevel.Error);
-      Console.WriteLine(errors);
       Assert.AreEqual(errors.Count, 0);
 
       draft.DataJson = JsonConvert.SerializeObject(new { AAA = "", });

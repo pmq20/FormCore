@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
+using System.Linq;
 
 namespace FormCore {
   [Table("FormCoreFields")]
@@ -31,6 +32,22 @@ namespace FormCore {
     public dynamic PlaceHolder => string.IsNullOrEmpty(PlaceHolderJson) ? null : JsonConvert.DeserializeObject<dynamic>(PlaceHolderJson);
     [NotMapped]
     public dynamic Payload => string.IsNullOrEmpty(PayloadJson) ? null : JsonConvert.DeserializeObject<dynamic>(PayloadJson);
+
+    /// <summary>
+    /// Column name stored in database
+    /// </summary>
+    [NotMapped]
+    public string StoredColumn {
+      get {
+        var c = Column;
+        if (c is Newtonsoft.Json.Linq.JArray) {
+          var list = (c as Newtonsoft.Json.Linq.JArray).Select(x => (string)x).ToList();
+          return string.Join("__FORMCORE__", list);
+        } else {
+          return c;
+        }
+      }
+    }
 
     public int CompareTo(Field other) {
       return Position.CompareTo(other.Position);

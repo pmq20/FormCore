@@ -37,18 +37,8 @@ namespace FormCore {
       Formatter = instance.Formatter;
       Payload = instance.Payload;
       Validations = instance.Validations.Select(x => new OValidation(x));
-
-      AssignColumn(instance);
+      Column = instance.StoredColumn;
     }
-
-    private void AssignColumn(Field instance) {
-      var c = instance.Column;
-      if (c is Newtonsoft.Json.Linq.JArray) {
-        var list = (c as Newtonsoft.Json.Linq.JArray).Select(x => (string)x).ToList();
-        Column = string.Join("__FORMCORE__", list);
-      } else {
-        Column = c;
-      }
-    }
+    
   }
 }

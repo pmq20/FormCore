@@ -128,8 +128,7 @@ namespace FormCore {
         if (!levels.Contains(validation.Level)) continue;
 
         var field = db.FormCoreFields.Find(validation.FieldId);
-        var key = field.Column;
-        if (!(key is string)) key = field.Label;
+        var key = field.StoredColumn;
 
         var errors = new List<string>();
         if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);

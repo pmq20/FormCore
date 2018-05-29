@@ -19,7 +19,7 @@ namespace FormCore {
     public bool IsNotValid(Draft draft, Context db) {
       var field = db.FormCoreFields.Find(FieldId);
       if (Type == ValidationType.Presence) {
-        var val = draft.Data[field.Column];
+        var val = draft.Data[field.StoredColumn];
         if (val == null) {
           return true;
         } else if (val.Value is string) {
