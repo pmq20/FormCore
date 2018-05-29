@@ -12,4 +12,10 @@ install:
 
 test_script:
   - where vstest.console
-  - vstest.console /logger:Appveyor bin\Debug\FormCoreTest.dll
+  - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"vstest.console.exe" -targetargs:"/logger:Appveyor FormCoreTest\bin\Debug\FormCoreTest.dll" -output:".\coverage.xml" -filter:"+[FormCore*]* -[FormCoreTest*]*"
+
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml" -t 2787e7bb-b119-4f49-8dec-d0ba330d909f
