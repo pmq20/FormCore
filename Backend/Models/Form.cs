@@ -131,7 +131,7 @@ namespace FormCore {
         var key = field.StoredColumn;
 
         var errors = new List<string>();
-        if (validation.IsNotValid(draft, db)) errors.Add(validation.Message);
+        if (validation.IsNotValid(draft, db)) errors.Add(validation.ReadableMessage(field));
         if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
       }
       return ValidationErrors;

@@ -31,5 +31,15 @@ namespace FormCore {
 
       return true;
     }
+
+    public string ReadableMessage(Field field) {
+      if (Type == ValidationType.Presence) {
+        if (Message == null || string.Empty == Message) {
+          return $"{field.Label} cannot be blank";
+        }
+      }
+
+      return Message;
+    }
   }
 }
