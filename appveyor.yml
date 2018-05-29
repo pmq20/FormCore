@@ -8,10 +8,12 @@ install:
   - node --version
   - npm --version
   - cd Frontend && npm install && npm run compile && cd ..
+
+build_script:
   - nuget restore FormCore.sln
+  - msbuild /verbosity:quiet FormCore.sln
 
 test_script:
-  - where vstest.console
   - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"vstest.console.exe" -targetargs:"/logger:Appveyor FormCoreTest\bin\Debug\FormCoreTest.dll" -output:".\coverage.xml" -filter:"+[FormCore*]* -[FormCoreTest*]*"
 
 after_test:
