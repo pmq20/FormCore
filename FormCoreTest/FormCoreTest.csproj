@@ -84,6 +84,7 @@
     <Compile Include="Fixtures\Fields.cs" />
     <Compile Include="Fixtures\Forms.cs" />
     <Compile Include="JsonTest.cs" />
+    <Compile Include="ShareWithJS.cs" />
     <Compile Include="ValidationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
