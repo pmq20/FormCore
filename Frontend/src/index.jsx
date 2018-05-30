@@ -16,13 +16,14 @@ import {
 import FooterToolbar from './FooterToolbar';
 import MoneyInput from './MoneyInput';
 import { USAStates } from './USAStates';
+import { FieldType } from './Constants';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 function IsFieldHidden(y) {
   switch (y.Type) {
-    case 200:
+    case FieldType.Hidden:
       return true;
     default:
       return false;
@@ -31,7 +32,7 @@ function IsFieldHidden(y) {
 
 export function RenderField(y, getFieldDecorator) {
   switch (y.Type) {
-    case 5:
+    case FieldType.Input:
       return (
         <Form.Item label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -39,7 +40,7 @@ export function RenderField(y, getFieldDecorator) {
           })(<Input placeholder={y.PlaceHolder} />)}
         </Form.Item>
       );
-    case 6:
+    case FieldType.InputNumber:
       return (
         <Form.Item label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -52,7 +53,7 @@ export function RenderField(y, getFieldDecorator) {
           )}
         </Form.Item>
       );
-    case 10:
+    case FieldType.Select:
       return (
         <Form.Item label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -75,7 +76,7 @@ export function RenderField(y, getFieldDecorator) {
           )}
         </Form.Item>
       );
-    case 102:
+    case FieldType.RangePicker:
       return (
         <Form.Item label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -83,7 +84,7 @@ export function RenderField(y, getFieldDecorator) {
           })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} />)}
         </Form.Item>
       );
-    case 200:
+    case FieldType.Hidden:
       return (
         <Form.Item label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -91,7 +92,7 @@ export function RenderField(y, getFieldDecorator) {
           })(<Input placeholder={y.PlaceHolder} style={{ display: 'none' }} />)}
         </Form.Item>
       );
-    case 201:
+    case FieldType.MoneyInput:
       return (
         <Form.Item label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
