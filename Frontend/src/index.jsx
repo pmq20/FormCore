@@ -20,6 +20,15 @@ import { USAStates } from './USAStates';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
+function IsFieldHidden(y) {
+  switch (y.Type) {
+    case 200:
+      return true;
+    default:
+      return false;
+  }
+}
+
 export function RenderField(y, getFieldDecorator) {
   switch (y.Type) {
     case 5:
@@ -192,7 +201,7 @@ class AntdFormCore extends React.Component {
           <Form layout="vertical" hideRequiredMark>
             <Row gutter={16}>
               {localFields.map(y => (
-                <Col lg={8} md={12} sm={24} key={y.Id}>
+                <Col lg={8} md={12} sm={24} key={y.Id} hidden={IsFieldHidden(y)}>
                   {RenderField(y, getFieldDecorator)}
                 </Col>
               ))}
