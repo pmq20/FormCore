@@ -132,7 +132,7 @@ class AntdFormCore extends React.Component {
   };
 
   render() {
-    const { form, sections, fields, onSubmit, extra } = this.props;
+    const { form, sections, fields, onSubmit, renderExtra } = this.props;
     const { submitting } = this.state;
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form;
     const defaultValues = {};
@@ -214,7 +214,7 @@ class AntdFormCore extends React.Component {
     return (
       <Fragment>
         {ret}
-        {extra}
+        {renderExtra(this)}
         <FooterToolbar style={{ width: this.state.width }}>
           {getErrorInfo()}
           <Button type="primary" onClick={validate} loading={submitting}>

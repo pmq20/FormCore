@@ -1,6 +1,6 @@
 {
   "name": "antd-formcore",
-  "version": "0.6.3-beta.2",
+  "version": "0.6.3-beta.8",
   "description": "The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.",
   "main": "./lib/index",
   "module": "./es/index",
@@ -34,11 +34,11 @@
     "rc-tools": "7.x"
   },
   "dependencies": {
+    "antd": "^3.5.4",
     "babel-runtime": "^6.26.0",
-    "antd": "^3.4.3",
     "lodash": "^4.17.4",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0"
   },
   "repository": {
     "type": "git",
