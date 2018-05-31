@@ -214,7 +214,7 @@ class AntdFormCore extends React.Component {
     return (
       <Fragment>
         {ret}
-        {renderExtra(this)}
+        {_.isFunction(renderExtra) ? renderExtra(this) : renderExtra}
         <FooterToolbar style={{ width: this.state.width }}>
           {getErrorInfo()}
           <Button type="primary" onClick={validate} loading={submitting}>
