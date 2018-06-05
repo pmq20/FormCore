@@ -34,7 +34,7 @@ export function RenderField(y, getFieldDecorator) {
   switch (y.Type) {
     case FieldType.Input:
       return (
-        <Form.Item label={y.Label} help={y.Help}>
+        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
           })(<Input placeholder={y.PlaceHolder} />)}
@@ -42,7 +42,7 @@ export function RenderField(y, getFieldDecorator) {
       );
     case FieldType.InputNumber:
       return (
-        <Form.Item label={y.Label} help={y.Help}>
+        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
           })(
@@ -55,7 +55,7 @@ export function RenderField(y, getFieldDecorator) {
       );
     case FieldType.Select:
       return (
-        <Form.Item label={y.Label} help={y.Help}>
+        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
           })(
@@ -78,7 +78,7 @@ export function RenderField(y, getFieldDecorator) {
       );
     case FieldType.RangePicker:
       return (
-        <Form.Item label={y.Label} help={y.Help}>
+        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
           })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} />)}
@@ -86,7 +86,7 @@ export function RenderField(y, getFieldDecorator) {
       );
     case FieldType.Hidden:
       return (
-        <Form.Item label={y.Label} help={y.Help}>
+        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
           })(<Input placeholder={y.PlaceHolder} style={{ display: 'none' }} />)}
@@ -94,7 +94,7 @@ export function RenderField(y, getFieldDecorator) {
       );
     case FieldType.MoneyInput:
       return (
-        <Form.Item label={y.Label} help={y.Help}>
+        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
           })(<MoneyInput style={{ width: '100%' }} />)}
