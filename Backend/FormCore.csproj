@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Input\FForm.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\Field.cs" />
     <Compile Include="Enumerations\FieldType.cs" />
@@ -72,8 +73,6 @@
     <None Include="FormCore.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Input\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
