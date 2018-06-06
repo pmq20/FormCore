@@ -31,33 +31,7 @@ namespace FormCore {
       }
       return ret;
     }
-
-    public static Form Create(Context db, Form form) {
-      var ret = new Form {
-        Title = form.Title,
-      };
-      db.FormCoreForms.Add(ret);
-      db.SaveChanges();
-      foreach (var section in form.Sections) {
-        ret.CreateSection(db, section);
-      }
-      return ret;
-    }
-
-    private Section CreateSection(Context db, Section section) {
-      var ret = new Section {
-        FormId = Id,
-        Title = section.Title,
-        Position = section.Position,
-      };
-      db.FormCoreSections.Add(ret);
-      db.SaveChanges();
-      foreach (var field in section.Fields) {
-        ret.CreateField(db, field);
-      }
-      return ret;
-    }
-
+    
     public Draft CreateDraft(Context db, dynamic data) {
       var draft = new Draft {
         FormId = this.Id,
@@ -135,6 +109,16 @@ namespace FormCore {
         if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
       }
       return ValidationErrors;
+    }
+
+    public static Form Create(Context db, Form parentForm) {
+      var ret = new Form {
+        ParentId = parentForm.Id,
+        Title = parentForm.Title,
+      };
+      db.FormCoreForms.Add(ret);
+      db.SaveChanges();
+      return ret;
     }
   }
 }

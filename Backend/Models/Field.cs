@@ -52,19 +52,5 @@ namespace FormCore {
     public int CompareTo(Field other) {
       return Position.CompareTo(other.Position);
     }
-
-    public Validation CreateValidation(Context db, Validation validation) {
-      var ret = new Validation {
-        FormId = FormId,
-        FieldId = Id,
-        Type = validation.Type,
-        Level = validation.Level,
-        Expectation = validation.Expectation,
-        Message = validation.Message,
-      };
-      db.FormCoreValidations.Add(ret);
-      db.SaveChanges();
-      return ret;
-    }
   }
 }
