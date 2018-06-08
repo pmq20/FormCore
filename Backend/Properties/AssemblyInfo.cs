@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FormCore")]
-[assembly: AssemblyCopyright("Copyright © Minqi Pan 2018")]
+[assembly: AssemblyCopyright("Copyright (c) 2018 Minqi Pan, Xiang Yan")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
