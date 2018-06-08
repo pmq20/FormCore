@@ -1,4 +1,4 @@
-<h1 align="center" style="border-bottom: none;">Form Core C\#</h1>
+<h1 align="center" style="border-bottom: none;">Form Core C#</h1>
 <h3 align="center">The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.</h3>
 <p align="center">
 <a href="https://travis-ci.org/pmq21/form_core_csharp">
