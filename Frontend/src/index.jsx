@@ -226,4 +226,13 @@ class AntdFormCore extends React.Component {
   }
 }
 
-export default Form.create()(AntdFormCore);
+export default Form.create({
+  onValuesChange(props, changedValues, allValues) {
+    const { onValuesChange = () => {}} = props;
+    onValuesChange(changedValues, allValues);
+  },
+  onFieldsChange(props, changedFields) {
+    const { onFieldsChange = () => {}} = props;
+    onFieldsChange(changedFields);
+  },
+})(AntdFormCore);
