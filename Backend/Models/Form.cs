@@ -111,11 +111,19 @@ namespace FormCore {
       return ValidationErrors;
     }
 
-    public static Form Create(Context db, Form parentForm) {
-      var ret = new Form {
-        ParentId = parentForm.Id,
-        Title = parentForm.Title,
-      };
+    public static Form Create(Context db, string title, int parentId) {
+      Form ret;
+      if (parentId > 0) {
+        var parentForm = Form.Load(db, parentId);
+        ret = new Form {
+          ParentId = parentForm.Id,
+          Title = String.IsNullOrEmpty(title) ? parentForm.Title : title,
+        };
+      } else {
+        ret = new Form {
+          Title = title,
+        };
+      }
       db.FormCoreForms.Add(ret);
       db.SaveChanges();
       return ret;
