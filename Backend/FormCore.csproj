@@ -51,6 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Exceptions\AccessDenied.cs" />
+    <Compile Include="Exceptions\Error.cs" />
+    <Compile Include="Exceptions\NotFound.cs" />
+    <Compile Include="Input\FField.cs" />
+    <Compile Include="Input\FSection.cs" />
+    <Compile Include="Services\FieldsServices.cs" />
     <Compile Include="Services\FormsServices.cs" />
     <Compile Include="Input\FForm.cs" />
     <Compile Include="Models\Draft.cs" />
@@ -67,6 +73,7 @@
     <Compile Include="Models\Section.cs" />
     <Compile Include="Enumerations\ValidationLevel.cs" />
     <Compile Include="Enumerations\ValidationType.cs" />
+    <Compile Include="Services\SectionsServices.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />

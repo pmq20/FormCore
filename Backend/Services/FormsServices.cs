@@ -33,9 +33,12 @@ namespace FormCore {
       }).ToList();
     }
 
-    public static TO Show(Context db, int id, Func<T, TO> returning = null)
+    public static TO Show(Context db, int id, Func<T, bool> permitting = null, Func<T, TO> returning = null)
     {
       var form = Form.Load(db, id) as T;
+      if (null != permitting && !permitting.Invoke(form)) {
+        throw new Exceptions.AccessDenied();
+      }
       if (null == returning) {
         return (TO) new OForm(db, form);
       } else {

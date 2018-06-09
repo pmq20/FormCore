@@ -9,9 +9,9 @@ using Newtonsoft.Json;
 namespace FormCore {
   public class OField {
     public int Id { get; set; }
+    public bool Inherited { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
-    public bool Inherited { get; set; }
     public string Column { get; set; }
     public string Label { get; set; }
     public FieldType Type { get; set; }
@@ -25,9 +25,9 @@ namespace FormCore {
 
     public OField(Form form, Field instance) {
       Id = instance.Id;
+      Inherited = instance.FormId != form.Id;
       FormId = instance.FormId;
       SectionId = instance.SectionId;
-      Inherited = (instance.FormId != form.Id);
       Label = instance.Label;
       Type = instance.Type;
       Position = instance.Position;

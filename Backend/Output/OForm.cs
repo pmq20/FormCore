@@ -16,7 +16,7 @@ namespace FormCore {
     public OForm(Context db, Form form) {
       Id = form.Id;
       Title = form.Title;
-      Sections = form.AllSections(db).Select(x => new OSection(x)).ToList();
+      Sections = form.AllSections(db).Select(x => new OSection(form, x)).ToList();
       Fields = form.AllFields(db).Select(x => new OField(form, x)).ToList();
       if (null != form.Parent) {
         ParentId = form.Parent.Id;

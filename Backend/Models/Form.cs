@@ -23,12 +23,11 @@ namespace FormCore {
 
     public static Form Load(Context db, int id) {
       var ret = db.FormCoreForms.Include("Sections.Fields.Validations")
-        .First(x => x.Id == id);
-      if (ret.ParentId > 0) {
-        ret.Parent = Load(db, ret.ParentId);
-      } else {
-        ret.Parent = null;
+        .FirstOrDefault(x => x.Id == id);
+      if (null == ret) {
+        throw new Exceptions.NotFound();
       }
+      ret.Parent = ret.ParentId > 0 ? Load(db, ret.ParentId) : null;
       return ret;
     }
     
