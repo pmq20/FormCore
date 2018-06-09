@@ -12,6 +12,7 @@ namespace FormCore {
     public List<OSection> Sections { get; set; }
     public List<OField> Fields { get; set; }
 
+    public OForm() { }
     public OForm(Context db, Form form) {
       Id = form.Id;
       Title = form.Title;

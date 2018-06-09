@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context.cs" />
+    <Compile Include="Services\FormsServices.cs" />
     <Compile Include="Input\FForm.cs" />
     <Compile Include="Models\Draft.cs" />
     <Compile Include="Models\Field.cs" />
