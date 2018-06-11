@@ -18,7 +18,7 @@ namespace FormCore {
       if (null == section) {
         throw new Exceptions.NotFound();
       }
-      return new OSection(form, section);
+      return new OSection(section);
     }
 
     public static int Create(Context db, int id, FSection input, Func<T, bool> permitting) {
