@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FormCore")]
-[assembly: AssemblyDescription("https://github.com/pmq20/form_core_csharp")]
+[assembly: AssemblyDescription("https://github.com/pmq20/FormCore")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("FormCore")]

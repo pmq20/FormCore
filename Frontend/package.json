@@ -9,7 +9,7 @@
     "es",
     "assets/index.css"
   ],
-  "homepage": "https://github.com/pmq20/form_core_csharp",
+  "homepage": "https://github.com/pmq20/FormCore",
   "keywords": [
     "antd",
     "dynamic",
@@ -36,10 +36,10 @@
   },
   "repository": {
     "type": "git",
-    "url": " git+ssh://git@github.com/pmq20/form_core_csharp.git"
+    "url": " git+ssh://git@github.com/pmq20/FormCore.git"
   },
   "bugs": {
-    "url": "http://github.com/pmq20/form_core_csharp/issues"
+    "url": "http://github.com/pmq20/FormCore/issues"
   },
   "scripts": {
     "compile": "rc-tools run compile --babel-runtime"

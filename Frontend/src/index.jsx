@@ -104,7 +104,7 @@ export function RenderField(y, getFieldDecorator) {
       throw new Error(
         `FormCore: Unspported field type ${
           y.Type
-        }. Pull Requests are welcome: https://github.com/pmq20/form_core_csharp/pulls`
+        }. Pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
       );
   }
 }

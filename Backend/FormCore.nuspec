@@ -6,8 +6,8 @@
     <title>FormCore</title>
     <authors>Minqi Pan, Xiang Yan</authors>
     <owners>pmq20</owners>
-    <licenseUrl>https://raw.githubusercontent.com/pmq20/form_core_csharp/master/LICENSE</licenseUrl>
-    <projectUrl>http://github.com/pmq20/form_core_csharp</projectUrl>
+    <licenseUrl>https://raw.githubusercontent.com/pmq20/FormCore/master/LICENSE</licenseUrl>
+    <projectUrl>http://github.com/pmq20/FormCore</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.</description>
     <copyright>Copyright © Minqi Pan, Xiang Yan 2018</copyright>
