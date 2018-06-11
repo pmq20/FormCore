@@ -25,8 +25,8 @@
 <a href="https://npmjs.org/package/antd-formcore">
   <img alt="NPM download" src="https://img.shields.io/npm/dm/antd-formcore.svg" />
 </a>
-<a href="https://snyk.io/test/npm/antd-formcore">
-  <img alt="Known Vulnerabilities" src="https://snyk.io/test/npm/antd-formcore/badge.svg" />
+<a href="https://snyk.io/test/github/pmq20/FormCore?targetFile=Frontend%2Fpackage.json">
+  <img src="https://snyk.io/test/github/pmq20/FormCore/badge.svg?targetFile=Frontend%2Fpackage.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/pmq20/FormCore?targetFile=Frontend%2Fpackage.json" style="max-width:100%;">
 </a>
 <a href="http://isitmaintained.com/project/pmq20/FormCore">
   <img alt="Average time to resolve an issue" src="http://isitmaintained.com/badge/resolution/pmq20/FormCore.svg" />
