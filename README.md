@@ -1,5 +1,5 @@
 <h1 align="center" style="border-bottom: none;">Form Core C#</h1>
-<h3 align="center">.NET + React + Ant Design infrastructure enabling ASP.NET applications to generate dynamic forms</h3>
+<h3 align="center">.NET + React + Ant Design infrastructure for dynamic forms</h3>
 <p align="center">
 <a href="https://travis-ci.org/pmq20/FormCore">
   <img alt="Build Status" src="https://travis-ci.org/pmq20/FormCore.svg?branch=master" />
@@ -25,8 +25,8 @@
 <a href="https://npmjs.org/package/antd-formcore">
   <img alt="NPM download" src="https://img.shields.io/npm/dm/antd-formcore.svg" />
 </a>
-<a href="https://snyk.io/test/npm/antd-formcore">
-  <img alt="Known Vulnerabilities" src="https://snyk.io/test/npm/antd-formcore/badge.svg" />
+<a href="https://snyk.io/test/github/pmq20/FormCore?targetFile=Frontend%2Fpackage.json">
+  <img src="https://snyk.io/test/github/pmq20/FormCore/badge.svg?targetFile=Frontend%2Fpackage.json" alt="Known Vulnerabilities" data-canonical-src="https://snyk.io/test/github/pmq20/FormCore?targetFile=Frontend%2Fpackage.json" style="max-width:100%;">
 </a>
 <a href="http://isitmaintained.com/project/pmq20/FormCore">
   <img alt="Average time to resolve an issue" src="http://isitmaintained.com/badge/resolution/pmq20/FormCore.svg" />
@@ -34,8 +34,8 @@
 <a href="http://isitmaintained.com/project/pmq20/FormCore">
   <img alt="Percentage of issues still open" src="http://isitmaintained.com/badge/open/pmq20/FormCore.svg" />
 </a>
-<a href="https://gitter.im/FormCore/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
-  <img alt="Join the chat at https://gitter.im/FormCore/Lobby" src="https://badges.gitter.im/FormCore/Lobby.svg" />
+<a href="https://gitter.im/antd-formcore/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
+  <img alt="Join the chat at https://gitter.im/antd-formcore/Lobby" src="https://badges.gitter.im/antd-formcore/Lobby.svg" />
 </a>
 </p>
 
@@ -79,5 +79,6 @@ MIT
 
 ## See Also
 
-- [React](https://github.com/facebook/react/): A declarative, efficient, and flexible JavaScript library for building user interfaces.
-- [Ant Design](https://github.com/ant-design/ant-design/): A UI Design Language.
+- [.NET Framework](https://microsoft.com/net): a software framework developed by Microsoft.
+- [React](https://github.com/facebook/react/): a declarative, efficient, and flexible JavaScript library for building user interfaces.
+- [Ant Design](https://github.com/ant-design/ant-design/): a UI Design Language.
