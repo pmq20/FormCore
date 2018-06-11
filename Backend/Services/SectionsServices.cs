@@ -9,6 +9,18 @@ namespace FormCore {
   public class SectionsServices<T>
     where T : Form
   {
+    public static OSection Show(Context db, int id, int sectionId, Func<T, bool> permitting) {
+      var form = Form.Load(db, id) as T;
+      if (null != permitting && !permitting.Invoke(form)) {
+        throw new Exceptions.AccessDenied();
+      }
+      var section = form.Sections.FirstOrDefault(x => sectionId == x.Id);
+      if (null == section) {
+        throw new Exceptions.NotFound();
+      }
+      return new OSection(form, section);
+    }
+
     public static int Create(Context db, int id, FSection input, Func<T, bool> permitting) {
       var form = Form.Load(db, id) as T;
       if (null != permitting && !permitting.Invoke(form)) {
