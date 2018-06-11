@@ -4,8 +4,8 @@
 <a href="https://travis-ci.org/pmq20/FormCore">
   <img alt="Build Status" src="https://travis-ci.org/pmq20/FormCore.svg?branch=master" />
 </a>
-<a href="https://ci.appveyor.com/project/pmq20/form-core-csharp/branch/master">
-  <img alt="Build status" src="https://ci.appveyor.com/api/projects/status/9030m3bc55r401rf/branch/master?svg=true" />
+<a href="https://ci.appveyor.com/project/pmq20/formcore/branch/master">
+  <img alt="Build status" src="https://ci.appveyor.com/api/projects/status/ijeeeliscqh900sv/branch/master?svg=true" />
 </a>
 <a href="https://codecov.io/gh/pmq20/FormCore">
   <img alt="codecov" src="https://codecov.io/gh/pmq20/FormCore/branch/master/graph/badge.svg" />
