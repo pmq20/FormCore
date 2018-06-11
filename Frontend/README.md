@@ -1,4 +1,4 @@
-<h1 align="center" style="border-bottom: none;">Form Core</h1>
+<h1 align="center" style="border-bottom: none;">FormCore</h1>
 <h3 align="center">.NET + React + Ant Design infrastructure for dynamic forms</h3>
 <p align="center">
 <a href="https://travis-ci.org/pmq20/FormCore">

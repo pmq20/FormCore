@@ -47,6 +47,7 @@ namespace FormCore {
       }
       section.Title = input.Title;
       section.Position = input.Position;
+      db.SaveChanges();
     }
   }
 }
