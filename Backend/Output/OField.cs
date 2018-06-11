@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace FormCore {
   public class OField {
     public int Id { get; set; }
-    public bool Inherited { get; set; }
+    public int ParentId { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
     public string Column { get; set; }
@@ -23,9 +23,9 @@ namespace FormCore {
     public dynamic Payload { get; set; }
     public IEnumerable<OValidation> Validations { get; set; }
 
-    public OField(Form form, Field instance) {
+    public OField(Field instance) {
       Id = instance.Id;
-      Inherited = instance.FormId != form.Id;
+      ParentId = instance.ParentId;
       FormId = instance.FormId;
       SectionId = instance.SectionId;
       Label = instance.Label;

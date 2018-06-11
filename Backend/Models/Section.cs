@@ -7,6 +7,7 @@ namespace FormCore {
   public class Section : IComparable<Section> {
     public int Id { get; set; }
     public int FormId { get; set; }
+    public int ParentId { get; set; }
     public string Title { get; set; }
     public double Position { get; set; }
 
