@@ -79,6 +79,6 @@ MIT
 
 ## See Also
 
-- [.NET Framework](https://microsoft.com/net): a software framework developed by Microsoft.
+- [.NET](https://microsoft.com/net): a software framework developed by Microsoft.
 - [React](https://github.com/facebook/react/): a declarative, efficient, and flexible JavaScript library for building user interfaces.
 - [Ant Design](https://github.com/ant-design/ant-design/): a UI Design Language.
