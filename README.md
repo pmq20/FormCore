@@ -34,8 +34,8 @@
 <a href="http://isitmaintained.com/project/pmq20/FormCore">
   <img alt="Percentage of issues still open" src="http://isitmaintained.com/badge/open/pmq20/FormCore.svg" />
 </a>
-<a href="https://gitter.im/FormCore/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
-  <img alt="Join the chat at https://gitter.im/FormCore/Lobby" src="https://badges.gitter.im/FormCore/Lobby.svg" />
+<a href="https://gitter.im/antd-formcore/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
+  <img alt="Join the chat at https://gitter.im/antd-formcore/Lobby" src="https://badges.gitter.im/antd-formcore/Lobby.svg" />
 </a>
 </p>
 
@@ -69,7 +69,7 @@ Please use [EditorConfig](http://editorconfig.org/#download) to format your code
 
 ## Team
 
-| [![Minqi Pan](https://github.com/pmq20.png?size=100)](https://github.com/pmq20) | [![Xiang Yan](https://github.com/debbbbie.png?size=100)](https://github.com/debbbbie) [![Join the chat at https://gitter.im/antd-formcore/Lobby](https://badges.gitter.im/antd-formcore/Lobby.svg)](https://gitter.im/antd-formcore/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
+| [![Minqi Pan](https://github.com/pmq20.png?size=100)](https://github.com/pmq20) | [![Xiang Yan](https://github.com/debbbbie.png?size=100)](https://github.com/debbbbie) |
 |---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | [Minqi Pan](https://github.com/pmq20)                                           | [Xiang Yan](https://github.com/debbbbie)                                              |
 
