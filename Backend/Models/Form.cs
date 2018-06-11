@@ -52,7 +52,7 @@ namespace FormCore {
         ret = Parent.AllSections(db);
         if (null != Sections) {
           foreach (var item in Sections) {
-            ret.RemoveAll(x => x.Id == item.Id);
+            ret.RemoveAll(x => x.Id == item.ParentId);
             ret.Add(item);
           }
         }
@@ -73,7 +73,7 @@ namespace FormCore {
         ret = Parent.AllFields(db);
         if (null != Fields) {
           foreach (var item in Fields) {
-            ret.RemoveAll(x => x.ColumnJson == item.ColumnJson);
+            ret.RemoveAll(x => x.Id == item.ParentId);
             ret.Add(item);
           }
         }
