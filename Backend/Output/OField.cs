@@ -1,28 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using FormCore;
-using Newtonsoft.Json;
 
 namespace FormCore {
   public class OField {
-    public int Id { get; set; }
-    public int ParentId { get; set; }
-    public int FormId { get; set; }
-    public int SectionId { get; set; }
-    public string Column { get; set; }
-    public string Label { get; set; }
-    public FieldType Type { get; set; }
-    public double Position { get; set; }
-    public dynamic DefaultValue { get; set; }
-    public dynamic PlaceHolder { get; set; }
-    public string Help { get; set; }
-    public string Formatter { get; set; }
-    public dynamic Payload { get; set; }
-    public IEnumerable<OValidation> Validations { get; set; }
-
     public OField(Field instance) {
       Id = instance.Id;
       ParentId = instance.ParentId;
@@ -39,6 +19,20 @@ namespace FormCore {
       Validations = instance.Validations.Select(x => new OValidation(x));
       Column = instance.StoredColumn;
     }
-    
+
+    public int Id { get; set; }
+    public int ParentId { get; set; }
+    public int FormId { get; set; }
+    public int SectionId { get; set; }
+    public string Column { get; set; }
+    public string Label { get; set; }
+    public FieldType Type { get; set; }
+    public double Position { get; set; }
+    public dynamic DefaultValue { get; set; }
+    public dynamic PlaceHolder { get; set; }
+    public string Help { get; set; }
+    public string Formatter { get; set; }
+    public dynamic Payload { get; set; }
+    public IEnumerable<OValidation> Validations { get; set; }
   }
 }

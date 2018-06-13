@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using Newtonsoft.Json;
 using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FormCore {
   [Table("FormCoreFields")]
@@ -27,27 +28,35 @@ namespace FormCore {
     public virtual ICollection<Validation> Validations { get; set; }
 
     [NotMapped]
-    public dynamic Column => string.IsNullOrEmpty(ColumnJson) ? null : JsonConvert.DeserializeObject<dynamic>(ColumnJson);
+    public dynamic Column =>
+      string.IsNullOrEmpty(ColumnJson) ? null : JsonConvert.DeserializeObject<dynamic>(ColumnJson);
+
     [NotMapped]
-    public dynamic DefaultValue => string.IsNullOrEmpty(DefaultValueJson) ? null : JsonConvert.DeserializeObject<dynamic>(DefaultValueJson);
+    public dynamic DefaultValue => string.IsNullOrEmpty(DefaultValueJson)
+      ? null
+      : JsonConvert.DeserializeObject<dynamic>(DefaultValueJson);
+
     [NotMapped]
-    public dynamic PlaceHolder => string.IsNullOrEmpty(PlaceHolderJson) ? null : JsonConvert.DeserializeObject<dynamic>(PlaceHolderJson);
+    public dynamic PlaceHolder => string.IsNullOrEmpty(PlaceHolderJson)
+      ? null
+      : JsonConvert.DeserializeObject<dynamic>(PlaceHolderJson);
+
     [NotMapped]
-    public dynamic Payload => string.IsNullOrEmpty(PayloadJson) ? null : JsonConvert.DeserializeObject<dynamic>(PayloadJson);
+    public dynamic Payload =>
+      string.IsNullOrEmpty(PayloadJson) ? null : JsonConvert.DeserializeObject<dynamic>(PayloadJson);
 
     /// <summary>
-    /// Column name stored in database
+    ///   Column name stored in database
     /// </summary>
     [NotMapped]
     public string StoredColumn {
       get {
         var c = Column;
-        if (c is Newtonsoft.Json.Linq.JArray) {
-          var list = (c as Newtonsoft.Json.Linq.JArray).Select(x => (string)x).ToList();
+        if (c is JArray) {
+          var list = (c as JArray).Select(x => (string) x).ToList();
           return string.Join("__FORMCORE__", list);
-        } else {
-          return c;
         }
+        return c;
       }
     }
 

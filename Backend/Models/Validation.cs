@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
 namespace FormCore {
@@ -22,26 +17,18 @@ namespace FormCore {
       var field = db.FormCoreFields.Find(FieldId);
       if (Type == ValidationType.Presence) {
         var val = draft.Data[field.StoredColumn];
-        if (val == null) {
-          return true;
-        } else if (val.Type == JTokenType.Array) {
-          return val.Count <= 0;
-        } else if (val.Type == JTokenType.String) {
-          return string.IsNullOrEmpty(val.Value as string);
-        } else {
-          return false;
-        }
+        if (val == null) return true;
+        if (val.Type == JTokenType.Array) return val.Count <= 0;
+        if (val.Type == JTokenType.String) return string.IsNullOrEmpty(val.Value as string);
+        return false;
       }
 
       return true;
     }
 
     public string ReadableMessage(Field field) {
-      if (Type == ValidationType.Presence) {
-        if (Message == null || string.Empty == Message) {
-          return $"{field.Label} cannot be blank";
-        }
-      }
+      if (Type == ValidationType.Presence)
+        if (Message == null || string.Empty == Message) return $"{field.Label} cannot be blank";
 
       return Message;
     }

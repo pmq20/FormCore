@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Dynamic;
 using System.Linq;
+using FormCore.Exceptions;
 using Newtonsoft.Json;
 
 namespace FormCore {
   [Table("FormCoreForms")]
   public class Form {
-    private List<Section> _allSections;
     private List<Field> _allFields;
+    private List<Section> _allSections;
 
     public int Id { get; set; }
     public int ParentId { get; set; }
@@ -26,17 +25,15 @@ namespace FormCore {
     public static Form Load(Context db, int id) {
       var ret = db.FormCoreForms.Include("Sections.Fields.Validations")
         .FirstOrDefault(x => x.Id == id);
-      if (null == ret) {
-        throw new Exceptions.NotFound();
-      }
+      if (null == ret) throw new NotFound();
       ret.Parent = ret.ParentId > 0 ? Load(db, ret.ParentId) : null;
       return ret;
     }
-    
+
     public Draft CreateDraft(Context db, dynamic data) {
       var draft = new Draft {
-        FormId = this.Id,
-        DataJson = JsonConvert.SerializeObject(data),
+        FormId = Id,
+        DataJson = JsonConvert.SerializeObject(data)
       };
       db.FormCoreDrafts.Add(draft);
       db.SaveChanges();
@@ -44,20 +41,17 @@ namespace FormCore {
     }
 
     public List<Section> AllSections(Context db) {
-      if (null != _allSections) {
-        return _allSections;
-      }
+      if (null != _allSections) return _allSections;
       List<Section> ret;
       if (null == Parent) {
         ret = Sections?.ToList() ?? new List<Section>();
       } else {
         ret = Parent.AllSections(db);
-        if (null != Sections) {
+        if (null != Sections)
           foreach (var item in Sections) {
             ret.RemoveAll(x => x.Id == item.ParentId);
             ret.Add(item);
           }
-        }
       }
       ret.Sort();
       _allSections = ret;
@@ -65,20 +59,17 @@ namespace FormCore {
     }
 
     public List<Field> AllFields(Context db) {
-      if (null != _allFields) {
-        return _allFields;
-      }
+      if (null != _allFields) return _allFields;
       List<Field> ret;
       if (null == Parent) {
         ret = Fields?.ToList() ?? new List<Field>();
       } else {
         ret = Parent.AllFields(db);
-        if (null != Fields) {
+        if (null != Fields)
           foreach (var item in Fields) {
             ret.RemoveAll(x => x.Id == item.ParentId);
             ret.Add(item);
           }
-        }
       }
       ret.Sort();
       _allFields = ret;
@@ -86,20 +77,21 @@ namespace FormCore {
     }
 
 
-    public Dictionary<string, string[]> Validate(Context db, Draft draft, ValidationLevel level = ValidationLevel.Warning) {
+    public Dictionary<string, string[]> Validate(Context db, Draft draft,
+      ValidationLevel level = ValidationLevel.Warning) {
       ValidationLevel[] levels;
       switch (level) {
         case ValidationLevel.Error:
-          levels = new ValidationLevel[] { ValidationLevel.Error };
+          levels = new[] {ValidationLevel.Error};
           break;
         case ValidationLevel.Warning:
         default:
-          levels = new ValidationLevel[] { ValidationLevel.Warning, ValidationLevel.Error };
+          levels = new[] {ValidationLevel.Warning, ValidationLevel.Error};
           break;
       }
 
       var ValidationErrors = new Dictionary<string, string[]>();
-      foreach (var validation in this.Validations) {
+      foreach (var validation in Validations) {
         if (!levels.Contains(validation.Level)) continue;
 
         var field = db.FormCoreFields.Find(validation.FieldId);
