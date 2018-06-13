@@ -64,7 +64,10 @@ namespace FormCore {
       return Position.CompareTo(other.Position);
     }
 
-    public virtual void Delete(Context db) {
+    public void Delete(Context db) {
+      foreach (var validation in Validations.ToList()) {
+        validation.Delete(db);
+      }
       db.Entry(this).State = EntityState.Deleted;
     }
   }

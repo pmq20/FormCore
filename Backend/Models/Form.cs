@@ -15,6 +15,7 @@ namespace FormCore {
     public int ParentId { get; set; }
     public string Title { get; set; }
 
+    public virtual ICollection<Draft> Drafts { get; set; }
     public virtual ICollection<Section> Sections { get; set; }
     public virtual ICollection<Field> Fields { get; set; }
     public virtual ICollection<Validation> Validations { get; set; }
@@ -104,7 +105,14 @@ namespace FormCore {
       return ValidationErrors;
     }
 
-    public virtual void Delete(Context db) {
+    public void Delete(Context db) {
+      // TODO Delete inherited forms
+      foreach (var draft in Drafts.ToList()) {
+        draft.Delete(db);
+      }
+      foreach (var section in Sections.ToList()) {
+        section.Delete(db);
+      }
       db.Entry(this).State = EntityState.Deleted;
     }
   }

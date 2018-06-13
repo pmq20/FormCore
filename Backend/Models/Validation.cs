@@ -36,7 +36,7 @@ namespace FormCore {
       return Message;
     }
 
-    public virtual void Delete(Context db) {
+    public void Delete(Context db) {
       db.Entry(this).State = EntityState.Deleted;
     }
   }
