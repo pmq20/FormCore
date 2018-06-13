@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,5 +16,9 @@ namespace FormCore {
 
     [NotMapped]
     public dynamic Data => string.IsNullOrEmpty(DataJson) ? null : JsonConvert.DeserializeObject<dynamic>(DataJson);
+
+    public virtual void Delete(Context db) {
+      db.Entry(this).State = EntityState.Deleted;
+    }
   }
 }

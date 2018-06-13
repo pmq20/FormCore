@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using Newtonsoft.Json;
 using System.Linq;
 
@@ -52,6 +53,10 @@ namespace FormCore {
 
     public int CompareTo(Field other) {
       return Position.CompareTo(other.Position);
+    }
+
+    public virtual void Delete(Context db) {
+      db.Entry(this).State = EntityState.Deleted;
     }
   }
 }

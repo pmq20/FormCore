@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 
 namespace FormCore {
   [Table("FormCoreSections")]
@@ -16,6 +17,10 @@ namespace FormCore {
 
     public int CompareTo(Section other) {
       return Position.CompareTo(other.Position);
+    }
+
+    public virtual void Delete(Context db) {
+      db.Entry(this).State = EntityState.Deleted;
     }
   }
 }
