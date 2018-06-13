@@ -13,6 +13,9 @@ namespace FormCore {
     public string Expectation { get; set; }
     public string Message { get; set; }
 
+    public virtual Form Form { get; set; }
+    public virtual Field Field { get; set; }
+
     public bool IsNotValid(Draft draft, Context db) {
       var field = db.FormCoreFields.Find(FieldId);
       if (Type == ValidationType.Presence) {
