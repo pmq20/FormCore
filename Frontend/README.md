@@ -1,5 +1,5 @@
 <h1 align="center" style="border-bottom: none;">FormCore</h1>
-<h3 align="center">.NET + React + Ant Design infrastructure for dynamic forms</h3>
+<h3 align="center">.NET + React + Ant Design infrastructure for inheritable dynamic forms</h3>
 <p align="center">
 <a href="https://travis-ci.org/pmq20/FormCore">
   <img alt="Build Status" src="https://travis-ci.org/pmq20/FormCore.svg?branch=master" />

@@ -9,7 +9,7 @@
     <licenseUrl>https://raw.githubusercontent.com/pmq20/FormCore/master/LICENSE</licenseUrl>
     <projectUrl>http://github.com/pmq20/FormCore</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>The C# + React + Ant Design implementation of https://github.com/rails-engine/form_core -- a Rails engine providing abilities to generate dynamic forms.</description>
+    <description>.NET + React + Ant Design infrastructure for inheritable dynamic forms.</description>
     <copyright>Copyright © Minqi Pan, Xiang Yan 2018</copyright>
     <tags>antd form dynamic</tags>
   </metadata>

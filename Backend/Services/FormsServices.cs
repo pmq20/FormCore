@@ -11,8 +11,8 @@ namespace FormCore {
       Action<Form> after = null) {
       before?.Invoke();
       Form form;
-      if (input.ParentId > 0) {
-        var parentForm = Form.Load(db, input.ParentId) as TForm;
+      if (null != input.ParentId && input.ParentId > 0) {
+        var parentForm = Form.Load(db, input.ParentId.Value) as TForm;
         if (null != permitting && !permitting.Invoke(parentForm)) throw new AccessDenied();
         form = new Form {
           ParentId = parentForm.Id,
@@ -50,6 +50,11 @@ namespace FormCore {
     public static void Update(Context db, int id, FForm input, Func<TForm, bool> permitting = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
+      if (null != input.ParentId && input.ParentId > 0) {
+        var parentForm = Form.Load(db, input.ParentId.Value) as TForm;
+        if (null != permitting && !permitting.Invoke(parentForm)) throw new AccessDenied();
+        form.ParentId = parentForm.Id;
+      }
       if (!string.IsNullOrEmpty(input.Title)) form.Title = input.Title;
       db.SaveChanges();
     }
