@@ -200,6 +200,14 @@ class AntdFormCore extends React.Component {
     };
     const ret = sections.map(x => {
       const localFields = _.filter(fields, y => x.Id === y.SectionId);
+      if (x.ParentId > 0) {
+        _.forEach(_.filter(fields, y => x.ParentId === y.SectionId), y => {
+          if (undefined === _.find(localFields, z => z.ParentId === y.Id)) {
+            localFields.push(y);
+          }
+        });
+      }
+      localFields.sort((a, b) => a.Position - b.Position);
       return (
         <Card
           key={x.Id}
