@@ -2,8 +2,8 @@
 
 namespace FormCore {
   public class FForm {
+    [Required] public string Title { get; set; }
+
     public int? ParentId { get; set; }
-    [Required]
-    public string Title { get; set; }
   }
 }

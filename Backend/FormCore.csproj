@@ -56,6 +56,7 @@
     <Compile Include="Exceptions\NotFound.cs" />
     <Compile Include="Input\FField.cs" />
     <Compile Include="Input\FSection.cs" />
+    <Compile Include="Services\FieldsServices.cs" />
     <Compile Include="Services\FormsServices.cs" />
     <Compile Include="Input\FForm.cs" />
     <Compile Include="Models\Draft.cs" />
