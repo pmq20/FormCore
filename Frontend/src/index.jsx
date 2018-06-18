@@ -16,7 +16,7 @@ import {
 import FooterToolbar from './FooterToolbar';
 import MoneyInput from './MoneyInput';
 import { USAStates } from './USAStates';
-import { FieldType } from './Constants';
+import FieldType from './Constants/FieldType';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
@@ -118,7 +118,7 @@ export function RenderField(y, getFieldDecorator, inputProps = {}) {
   }
 }
 
-class AntdFormCore extends React.Component {
+class AntdFormCoreForm extends React.Component {
   state = {
     width: '100%',
     submitting: false,
@@ -243,7 +243,7 @@ class AntdFormCore extends React.Component {
   }
 }
 
-export default Form.create({
+const FormCoreForm = Form.create({
   onValuesChange(props, changedValues, allValues) {
     const { onValuesChange = () => {} } = props;
     onValuesChange(changedValues, allValues);
@@ -252,4 +252,9 @@ export default Form.create({
     const { onFieldsChange = () => {} } = props;
     onFieldsChange(changedFields);
   },
-})(AntdFormCore);
+})(AntdFormCoreForm);
+
+export {
+  FormCoreForm,
+  FieldType
+};
