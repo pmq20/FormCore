@@ -1,5 +1,3 @@
 import FieldType from './FieldType';
 
-export {
-  FieldType,
-};
+export { FieldType };

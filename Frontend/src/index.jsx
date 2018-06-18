@@ -30,14 +30,14 @@ function IsFieldHidden(y) {
   }
 }
 
-export function RenderField(y, getFieldDecorator) {
+export function RenderField(y, getFieldDecorator, inputProps = {}) {
   switch (y.Type) {
     case FieldType.Input:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
-          })(<Input placeholder={y.PlaceHolder} />)}
+          })(<Input placeholder={y.PlaceHolder} {...inputProps} />)}
         </Form.Item>
       );
     case FieldType.InputNumber:
@@ -49,6 +49,7 @@ export function RenderField(y, getFieldDecorator) {
             <InputNumber
               formatter={value => (y.Formatter ? y.Formatter.replace('___', value) : value)}
               style={{ width: '100%' }}
+              {...inputProps}
             />
           )}
         </Form.Item>
@@ -63,6 +64,7 @@ export function RenderField(y, getFieldDecorator) {
               mode={y.Payload.Mode}
               style={{ width: '100%' }}
               tokenSeparators={y.Payload.TokenSeparators}
+              {...inputProps}
             >
               {window.jQuery.map(
                 y.Payload.Options === 'USAStates' ? USAStates : y.Payload.Options,
@@ -81,7 +83,7 @@ export function RenderField(y, getFieldDecorator) {
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
-          })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} />)}
+          })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} {...inputProps} />)}
         </Form.Item>
       );
     case FieldType.Hidden:
@@ -89,7 +91,14 @@ export function RenderField(y, getFieldDecorator) {
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
-          })(<Input placeholder={y.PlaceHolder} style={{ display: 'none' }} />)}
+          })(
+            <Input
+              disabled
+              placeholder={y.PlaceHolder}
+              style={{ display: 'none' }}
+              {...inputProps}
+            />
+          )}
         </Form.Item>
       );
     case FieldType.MoneyInput:
@@ -97,7 +106,7 @@ export function RenderField(y, getFieldDecorator) {
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
-          })(<MoneyInput style={{ width: '100%' }} />)}
+          })(<MoneyInput style={{ width: '100%' }} {...inputProps} />)}
         </Form.Item>
       );
     default:
@@ -228,11 +237,11 @@ class AntdFormCore extends React.Component {
 
 export default Form.create({
   onValuesChange(props, changedValues, allValues) {
-    const { onValuesChange = () => {}} = props;
+    const { onValuesChange = () => {} } = props;
     onValuesChange(changedValues, allValues);
   },
   onFieldsChange(props, changedFields) {
-    const { onFieldsChange = () => {}} = props;
+    const { onFieldsChange = () => {} } = props;
     onFieldsChange(changedFields);
   },
 })(AntdFormCore);
