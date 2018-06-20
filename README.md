@@ -39,6 +39,11 @@
 </a>
 </p>
 
+## Features
+
+* Forms are inheritable, so are the fields and sections therein
+* Field Types are extendable
+
 ## Usage
 
 ### Backend

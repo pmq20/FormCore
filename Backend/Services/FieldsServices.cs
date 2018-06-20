@@ -54,6 +54,12 @@ namespace FormCore {
       if (null != input.Position) {
         field.Position = input.Position.Value;
       }
+      if (null != input.Type) {
+        field.Type = input.Type.Value;
+      }
+      if (null != input.DefaultValue) {
+        field.DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue);
+      }
       if (null != input.ParentId && input.ParentId.Value > 0) {
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId.Value).Include("Form").FirstOrDefault();
         if (null == parentField) throw new NotFound();
