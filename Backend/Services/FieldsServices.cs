@@ -37,7 +37,7 @@ namespace FormCore {
       db.FormCoreFields.Add(field);
       db.SaveChanges();
       if (typeof(TField) != typeof(Field)) {
-        var sql = $"UPDATE TOP(1) dbo.FormCoreFields SET Discriminator='{typeof(TField).Name}' where Id={form.Id}";
+        var sql = $"UPDATE TOP(1) dbo.FormCoreFields SET Discriminator='{typeof(TField).Name}' where Id={field.Id}";
         db.Database.ExecuteSqlCommand(sql);
       }
       return field.Id;

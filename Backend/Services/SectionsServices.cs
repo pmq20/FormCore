@@ -25,7 +25,7 @@ namespace FormCore {
       db.FormCoreSections.Add(section);
       db.SaveChanges();
       if (typeof(TSection) != typeof(Section)) {
-        var sql = $"UPDATE TOP(1) dbo.FormCoreSections SET Discriminator='{typeof(TSection).Name}' where Id={form.Id}";
+        var sql = $"UPDATE TOP(1) dbo.FormCoreSections SET Discriminator='{typeof(TSection).Name}' where Id={section.Id}";
         db.Database.ExecuteSqlCommand(sql);
       }
       return section.Id;

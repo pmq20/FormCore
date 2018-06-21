@@ -13,7 +13,7 @@ namespace FormCore {
 
     [NotMapped]
     public dynamic Data => string.IsNullOrEmpty(DataJson) ? null : JsonConvert.DeserializeObject<dynamic>(DataJson);
-
+    
     public void Delete(Context db) {
       db.Entry(this).State = EntityState.Deleted;
     }

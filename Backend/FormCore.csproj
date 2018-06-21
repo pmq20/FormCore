@@ -55,8 +55,10 @@
     <Compile Include="Exceptions\AccessDenied.cs" />
     <Compile Include="Exceptions\Error.cs" />
     <Compile Include="Exceptions\NotFound.cs" />
+    <Compile Include="Input\FDraft.cs" />
     <Compile Include="Input\FField.cs" />
     <Compile Include="Input\FSection.cs" />
+    <Compile Include="Services\DraftsServices.cs" />
     <Compile Include="Services\FieldsServices.cs" />
     <Compile Include="Services\FormsServices.cs" />
     <Compile Include="Input\FForm.cs" />

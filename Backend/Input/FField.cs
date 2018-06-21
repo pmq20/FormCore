@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FormCore {
+﻿namespace FormCore {
   public class FField {
     public int? SectionId { get; set; }
     public string Label { get; set; }
