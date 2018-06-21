@@ -14,7 +14,7 @@ install:
 
 build_script:
   - nuget restore FormCore.sln
-  - msbuild /verbosity:quiet FormCore.sln
+  - msbuild FormCore.sln /p:Configuration=Debug
 
 test_script:
   - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"vstest.console.exe" -targetargs:"/logger:Appveyor FormCoreTest\bin\Debug\FormCoreTest.dll" -output:".\coverage.xml" -filter:"+[FormCore*]* -[FormCoreTest*]*"

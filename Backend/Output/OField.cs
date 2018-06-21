@@ -9,7 +9,8 @@ namespace FormCore {
       FormId = instance.FormId;
       SectionId = instance.SectionId;
       Label = instance.Label;
-      Type = instance.Type;
+      FieldType = instance.FieldType;
+      InputStyle = instance.InputStyle;
       Position = instance.Position;
       DefaultValue = instance.DefaultValue;
       PlaceHolder = instance.PlaceHolder;
@@ -24,9 +25,10 @@ namespace FormCore {
     public int ParentId { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
+    public FieldType FieldType { get; set; }
+    public InputStyle InputStyle { get; set; }
     public string Column { get; set; }
     public string Label { get; set; }
-    public FieldType Type { get; set; }
     public double Position { get; set; }
     public dynamic DefaultValue { get; set; }
     public dynamic PlaceHolder { get; set; }

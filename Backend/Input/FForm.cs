@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace FormCore {
+﻿namespace FormCore {
   public class FForm {
-    [Required] public string Title { get; set; }
-
+    public string Title { get; set; }
     public int? ParentId { get; set; }
   }
 }

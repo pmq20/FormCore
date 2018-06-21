@@ -17,7 +17,7 @@ namespace FormCore {
         FormId = form.Id,
         SectionId = section.Id,
         Label = input.Label,
-        Type = input.Type.Value,
+        FieldType = input.FieldType.Value,
         Position = input.Position ?? 0,
         Help = input.Help,
         Formatter = input.Formatter,
@@ -54,8 +54,8 @@ namespace FormCore {
       if (null != input.Position) {
         field.Position = input.Position.Value;
       }
-      if (null != input.Type) {
-        field.Type = input.Type.Value;
+      if (null != input.FieldType) {
+        field.FieldType = input.FieldType.Value;
       }
       if (null != input.DefaultValue) {
         field.DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue);

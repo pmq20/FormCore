@@ -13,9 +13,10 @@ namespace FormCore {
     public int FormId { get; set; }
     public int SectionId { get; set; }
     public int ParentId { get; set; }
+    public FieldType FieldType { get; set; }
+    public InputStyle InputStyle { get; set; }
     public string ColumnJson { get; set; }
     public string Label { get; set; }
-    public FieldType Type { get; set; }
     public double Position { get; set; }
     public string DefaultValueJson { get; set; }
     public string PlaceHolderJson { get; set; }

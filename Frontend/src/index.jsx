@@ -17,13 +17,14 @@ import FooterToolbar from './FooterToolbar';
 import MoneyInput from './MoneyInput';
 import { USAStates } from './USAStates';
 import FieldType from './Constants/FieldType';
+import InputStyle from './Constants/InputStyle';
 
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 function IsFieldHidden(y) {
   switch (y.Type) {
-    case FieldType.Hidden:
+    case InputStyle.Hidden:
       return true;
     default:
       return false;
@@ -32,7 +33,7 @@ function IsFieldHidden(y) {
 
 export function RenderField(y, getFieldDecorator, inputProps = {}) {
   switch (y.Type) {
-    case FieldType.Input:
+    case InputStyle.Input:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -40,7 +41,7 @@ export function RenderField(y, getFieldDecorator, inputProps = {}) {
           })(<Input placeholder={y.PlaceHolder} {...inputProps} />)}
         </Form.Item>
       );
-    case FieldType.InputNumber:
+    case InputStyle.InputNumber:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -54,7 +55,7 @@ export function RenderField(y, getFieldDecorator, inputProps = {}) {
           )}
         </Form.Item>
       );
-    case FieldType.Select:
+    case InputStyle.Select:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -78,7 +79,7 @@ export function RenderField(y, getFieldDecorator, inputProps = {}) {
           )}
         </Form.Item>
       );
-    case FieldType.RangePicker:
+    case InputStyle.RangePicker:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -86,7 +87,7 @@ export function RenderField(y, getFieldDecorator, inputProps = {}) {
           })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} {...inputProps} />)}
         </Form.Item>
       );
-    case FieldType.Hidden:
+    case InputStyle.Hidden:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -101,7 +102,7 @@ export function RenderField(y, getFieldDecorator, inputProps = {}) {
           )}
         </Form.Item>
       );
-    case FieldType.MoneyInput:
+    case InputStyle.MoneyInput:
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
@@ -255,6 +256,8 @@ const FormCoreForm = Form.create({
 })(AntdFormCoreForm);
 
 export {
-  FormCoreForm,
-  FieldType
+  Form,
+  RenderField,
+  FieldType,
+  InputStyle,
 };
