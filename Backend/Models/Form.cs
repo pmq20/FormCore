@@ -92,6 +92,16 @@ namespace FormCore {
       }
 
       var ValidationErrors = new Dictionary<string, string[]>();
+
+      // append parentErrors
+      if(null != Parent) {
+        var parentErrors = Parent.Validate(db, draft);
+        foreach(var key in parentErrors.Keys) {
+          ValidationErrors.Add(key, parentErrors[key]);
+        }
+      }
+
+      // append selfErrors
       foreach (var validation in Validations) {
         if (!levels.Contains(validation.Level)) continue;
 
