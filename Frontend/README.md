@@ -41,8 +41,9 @@
 
 ## Features
 
-* Forms are inheritable, so are the fields and sections therein
-* Field Types are extendable
+* Front-end and back-end are separated, exposing a fine set of form-related API
+* Forms are inheritable, so that the end user does not need to build every form from scratch
+* Input styles of form fields are extendable so that you can design your own input box for front-end rendering
 
 ## Usage
 
