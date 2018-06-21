@@ -1,20 +1,12 @@
 import _ from 'lodash';
 import React, { Fragment } from 'react';
-import {
-  Icon,
-  Popover,
-  Card,
-  Form,
-  Select,
-  DatePicker,
-  Button,
-  Col,
-  Row,
-} from 'antd';
+import { Icon, Popover, Card, Form, Button, Col, Row } from 'antd';
+import RenderField from './RenderField';
+import InputStyle from './Constants/InputStyle';
 import FooterToolbar from './FooterToolbar';
 
 function IsFieldHidden(y) {
-  switch (y.Type) {
+  switch (y.InputStyle) {
     case InputStyle.Hidden:
       return true;
     default:
