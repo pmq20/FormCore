@@ -5,20 +5,13 @@ import {
   Popover,
   Card,
   Form,
-  Input,
   Select,
-  InputNumber,
   DatePicker,
   Button,
   Col,
   Row,
 } from 'antd';
 import FooterToolbar from './FooterToolbar';
-import MoneyInput from './MoneyInput';
-import { USAStates } from './USAStates';
-
-const { Option } = Select;
-const { RangePicker } = DatePicker;
 
 function IsFieldHidden(y) {
   switch (y.Type) {

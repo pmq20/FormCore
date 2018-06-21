@@ -1,4 +1,4 @@
-export const USAStates = {
+export default {
   AL: 'Alabama',
   AK: 'Alaska',
   AZ: 'Arizona',

@@ -1,5 +1,20 @@
+import React from 'react';
+import {
+  Form,
+  Input,
+  Select,
+  InputNumber,
+  DatePicker,
+} from 'antd';
+import InputStyle from './Constants/InputStyle';
+import USAStates from './Constants/USAStates';
+import MoneyInput from './MoneyInput';
+
+const { Option } = Select;
+const { RangePicker } = DatePicker;
+
 export default function RenderField(y, getFieldDecorator, inputProps = {}) {
-    switch (y.Type) {
+    switch (y.InputStyle) {
       case InputStyle.Input:
         return (
           <Form.Item key={y.Id} label={y.Label} help={y.Help}>
@@ -79,10 +94,9 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
         );
       default:
         throw new Error(
-          `FormCore: Unspported field type ${
+          `FormCore: Unspported input style ${
             y.Type
-          }. Pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
+          }. You might want to consider using customized input styles. Pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
         );
     }
   }
-  
