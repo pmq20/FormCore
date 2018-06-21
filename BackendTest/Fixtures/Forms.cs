@@ -13,6 +13,7 @@ namespace FormCoreTest.Fixtures {
     public static Model Create(Mock<Context> mockContext) {
       var data = new List<Model> {
               new Model { Id=1, Title = "BBB" },
+              new Model { Id=2, Title = "CCC", ParentId = 1}
             };
       MockData(data, mockContext);
       return data[0];

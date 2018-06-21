@@ -21,6 +21,7 @@ namespace FormCoreTest {
       context = mockContext.Object;
 
       form = Forms.Create(mockContext);
+      form = Form.Load(context, 2);
       fields = Fields.Create(mockContext, form);
       validataions = Validations.Create(mockContext, form, fields);
 
@@ -30,7 +31,7 @@ namespace FormCoreTest {
     [TestMethod]
     public void DbTest() {
       // entityframework should work
-      Assert.AreEqual(1, context.FormCoreForms.Count());
+      Assert.AreEqual(2, context.FormCoreForms.Count());
 
       // virtual attributes should work
       Assert.AreEqual(2, form.Validations.Count);
