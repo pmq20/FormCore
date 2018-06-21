@@ -2,7 +2,7 @@
   public class ODraft {
     public ODraft(Draft instance) {
       Id = instance.Id;
-      FormId = instance.Id;
+      FormId = instance.FormId;
       Data = instance.Data;
     }
 
