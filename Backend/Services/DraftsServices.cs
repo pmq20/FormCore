@@ -50,7 +50,7 @@ namespace FormCore {
       db.SaveChanges();
     }
 
-    public static void Delete(Context db, int id, Func<TDraft, bool> permitting = null, Action<Draft> after = null) {
+    public static void Delete(Context db, int id, Func<TDraft, bool> permitting = null, Action<TDraft> after = null) {
       var draft = db.FormCoreDrafts.Where(x => x.Id == id).Include("Form").FirstOrDefault() as TDraft;
       if (null != permitting && !permitting.Invoke(draft)) throw new AccessDenied();
       draft.Delete(db);
