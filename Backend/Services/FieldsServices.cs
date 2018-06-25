@@ -57,6 +57,9 @@ namespace FormCore {
       if (null != input.FieldType) {
         field.FieldType = input.FieldType.Value;
       }
+      if (null != input.InputStyle) {
+        field.InputStyle = input.InputStyle.Value;
+      }
       if (null != input.DefaultValue) {
         field.DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue);
       }
