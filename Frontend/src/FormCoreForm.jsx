@@ -37,7 +37,7 @@ class AntdFormCoreForm extends React.Component {
   };
 
   render() {
-    const { form, sections, fields, onSubmit, renderExtra } = this.props;
+    const { form, sections, fields, onSubmit, renderExtra, skipValidate } = this.props;
     const { submitting } = this.state;
     const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form;
     const defaultValues = {};
@@ -48,10 +48,12 @@ class AntdFormCoreForm extends React.Component {
     const validate = () => {
       this.setState({ submitting: true });
       validateFieldsAndScroll((error, values) => {
-        if (!error) {
+        if (!error || skipValidate) {
           onSubmit(values, () => {
             this.setState({ submitting: false });
           });
+        } else {
+          this.setState({ submitting: false });
         }
       });
     };
