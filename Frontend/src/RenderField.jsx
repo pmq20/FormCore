@@ -58,8 +58,8 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
         </Form.Item>
       );
     case InputStyle.RangePicker:
-      defaultValue = y.DefaultValue.map(x => (x ? moment(x) : null));
-      if (!defaultValue[0] && defaultValue[1]) {
+      defaultValue = !y.DefaultValue ? null : y.DefaultValue.map(x => (x ? moment(x) : null));
+      if (defaultValue && !defaultValue[0] && defaultValue[1]) {
         [, defaultValue[0]] = defaultValue;
       }
       return (
