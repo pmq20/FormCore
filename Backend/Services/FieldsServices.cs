@@ -68,6 +68,9 @@ namespace FormCore {
       if (null != input.PlaceHolder) {
         field.PlaceHolderJson = JsonConvert.SerializeObject(input.PlaceHolder);
       }
+      if (null != input.Payload) {
+        field.PayloadJson = JsonConvert.SerializeObject(input.Payload);
+      }
       if (null != input.ParentId && input.ParentId.Value > 0) {
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId.Value).Include("Form").FirstOrDefault();
         if (null == parentField) throw new NotFound();
