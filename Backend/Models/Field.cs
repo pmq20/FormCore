@@ -21,7 +21,6 @@ namespace FormCore {
     public string DefaultValueJson { get; set; }
     public string PlaceHolderJson { get; set; }
     public string Help { get; set; }
-    public string Formatter { get; set; }
     public string PayloadJson { get; set; }
 
     public virtual Form Form { get; set; }

@@ -15,7 +15,6 @@ namespace FormCore {
       DefaultValue = instance.DefaultValue;
       PlaceHolder = instance.PlaceHolder;
       Help = instance.Help;
-      Formatter = instance.Formatter;
       Payload = instance.Payload;
       Validations = instance.Validations.Select(x => new OValidation(x));
       Column = instance.StoredColumn;

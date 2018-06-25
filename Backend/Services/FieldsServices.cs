@@ -20,7 +20,6 @@ namespace FormCore {
         FieldType = input.FieldType.Value,
         Position = input.Position ?? 0,
         Help = input.Help,
-        Formatter = input.Formatter,
         ColumnJson = JsonConvert.SerializeObject(input.Column),
         DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue),
         PlaceHolderJson = JsonConvert.SerializeObject(input.PlaceHolder),
