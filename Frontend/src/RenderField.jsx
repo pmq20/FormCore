@@ -26,7 +26,11 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
             initialValue: y.DefaultValue,
           })(
             <InputNumber
-              formatter={value => (y.Formatter ? y.Formatter.replace('___', value) : value)}
+              formatter={value =>
+                `${y.Payload.Prefix ? `${y.Payload.Prefix} ` : ''}${value}${
+                  y.Payload.Suffix ? ` ${y.Payload.Suffix}` : ''
+                }`
+              }
               style={{ width: '100%' }}
               {...inputProps}
             />
