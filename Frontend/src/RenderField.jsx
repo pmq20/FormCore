@@ -1,4 +1,5 @@
 import React from 'react';
+import moment from 'moment';
 import { Form, Input, Select, InputNumber, DatePicker } from 'antd';
 import InputStyle from './Constants/InputStyle';
 import USAStates from './Constants/USAStates';
@@ -56,10 +57,14 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
         </Form.Item>
       );
     case InputStyle.RangePicker:
+      const rangeDefaultValue = y.DefaultValue.map(x => (x ? moment(x) : null));
+      if (!rangeDefaultValue[0] && rangeDefaultValue[1]) {
+        rangeDefaultValue[0] = rangeDefaultValue[1];
+      }
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
-            initialValue: y.DefaultValue,
+            initialValue: rangeDefaultValue,
           })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} {...inputProps} />)}
         </Form.Item>
       );
