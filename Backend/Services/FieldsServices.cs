@@ -48,14 +48,17 @@ namespace FormCore {
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
       var field = form.Fields.FirstOrDefault(x => fieldId == x.Id);
       if (null == field) throw new NotFound();
+      if (null != input.FieldType) {
+        field.FieldType = input.FieldType.Value;
+      }
+      if (FieldType.BuiltIn == field.FieldType && null != input.Column) {
+        field.ColumnJson = JsonConvert.SerializeObject(input.Column);
+      }
       if (!string.IsNullOrEmpty(input.Label)) {
         field.Label = input.Label;
       }
       if (null != input.Position) {
         field.Position = input.Position.Value;
-      }
-      if (null != input.FieldType) {
-        field.FieldType = input.FieldType.Value;
       }
       if (null != input.InputStyle) {
         field.InputStyle = input.InputStyle.Value;
