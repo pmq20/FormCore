@@ -9,6 +9,7 @@ const { Option } = Select;
 const { RangePicker } = DatePicker;
 
 export default function RenderField(y, getFieldDecorator, inputProps = {}) {
+  let defaultValue = null;
   switch (y.InputStyle) {
     case InputStyle.Input:
       return (
@@ -57,14 +58,14 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
         </Form.Item>
       );
     case InputStyle.RangePicker:
-      const rangeDefaultValue = y.DefaultValue.map(x => (x ? moment(x) : null));
-      if (!rangeDefaultValue[0] && rangeDefaultValue[1]) {
-        rangeDefaultValue[0] = rangeDefaultValue[1];
+      defaultValue = y.DefaultValue.map(x => (x ? moment(x) : null));
+      if (!defaultValue[0] && defaultValue[1]) {
+        [, defaultValue[0]] = defaultValue;
       }
       return (
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
-            initialValue: rangeDefaultValue,
+            initialValue: defaultValue,
           })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} {...inputProps} />)}
         </Form.Item>
       );
