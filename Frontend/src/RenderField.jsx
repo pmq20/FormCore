@@ -89,7 +89,7 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
         <Form.Item key={y.Id} label={y.Label} help={y.Help}>
           {getFieldDecorator(y.Column, {
             initialValue: y.DefaultValue,
-          })(<MoneyInput style={{ width: '100%' }} {...inputProps} />)}
+          })(<MoneyInput style={{ width: '100%' }} placeholder={y.PlaceHolder} {...inputProps} />)}
         </Form.Item>
       );
     default:
