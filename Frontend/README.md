@@ -16,9 +16,6 @@
 <a href="https://npmjs.org/package/antd-formcore">
   <img alt="NPM version" src="https://img.shields.io/npm/v/antd-formcore.svg" />
 </a>
-<a href="http://packagequality.com/#?package=antd-formcore">
-  <img alt="NPM quality" src="http://npm.packagequality.com/shield/antd-formcore.svg" />
-</a>
 <a href="https://www.nuget.org/packages/FormCore">
   <img alt="NuGet" src="https://img.shields.io/nuget/dt/FormCore.svg" />
 </a>
