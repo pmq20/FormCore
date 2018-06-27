@@ -18,12 +18,13 @@ namespace FormCore {
         SectionId = section.Id,
         Label = input.Label,
         FieldType = input.FieldType.Value,
+        InputStyle = input.InputStyle.Value,
         Position = input.Position ?? 0,
         Help = input.Help,
-        ColumnJson = JsonConvert.SerializeObject(input.Column),
-        DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue),
-        PlaceHolderJson = JsonConvert.SerializeObject(input.PlaceHolder),
-        PayloadJson = JsonConvert.SerializeObject(input.Payload),
+        ColumnJson = null == input.Column ? null : JsonConvert.SerializeObject(input.Column),
+        DefaultValueJson = null == input.DefaultValue ? null : JsonConvert.SerializeObject(input.DefaultValue),
+        PlaceHolderJson = null == input.PlaceHolder ? null : JsonConvert.SerializeObject(input.PlaceHolder),
+        PayloadJson = null == input.Payload ? null : JsonConvert.SerializeObject(input.Payload),
       };
       if (null != input.ParentId && input.ParentId.Value > 0) {
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId).Include("Form").FirstOrDefault();
