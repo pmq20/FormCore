@@ -7,29 +7,23 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using FormCoreTest.Fixtures;
 using Newtonsoft.Json;
+using FormCoreTest.Helpers;
 
 namespace FormCoreTest {
   [TestClass]
   public class ValidationTest {
     Mock<Context> mockContext;
-    Context context;
-    Form form;
-    Field[] fields;
-    Validation[] validataions;
+    CommonFixtureCreator creator;
     public ValidationTest() {
       mockContext = new Mock<Context>();
-      context = mockContext.Object;
-
-      form = Forms.Create(mockContext);
-      form = Form.Load(context, 2);
-      fields = Fields.Create(mockContext, form);
-      validataions = Validations.Create(mockContext, form, fields);
-
-      Base.CalcVirtualAttributes(context);
+      creator = new CommonFixtureCreator(mockContext);
     }
 
     [TestMethod]
     public void DbTest() {
+      var form = creator.form;
+      var context = creator.context;
+
       // entityframework should work
       Assert.AreEqual(2, context.FormCoreForms.Count());
 
@@ -42,6 +36,9 @@ namespace FormCoreTest {
 
     [TestMethod]
     public void ValidateTest() {
+      var form = creator.form;
+      var context = creator.context;
+
       var draft = new Draft {
         FormId = form.Id,
       };
@@ -62,6 +59,9 @@ namespace FormCoreTest {
 
     [TestMethod]
     public void ValidateTestOnlyError() {
+      var form = creator.form;
+      var context = creator.context;
+
       var draft = new Draft {
         FormId = form.Id,
       };

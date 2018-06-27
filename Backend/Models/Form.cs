@@ -125,5 +125,10 @@ namespace FormCore {
       }
       db.Entry(this).State = EntityState.Deleted;
     }
+
+    private void ClearCache() {
+      _allFields = null;
+      _allSections = null;
+    }
   }
 }

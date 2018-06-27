@@ -83,10 +83,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fixtures\Base.cs" />
+    <Compile Include="Fixtures\Sections.cs" />
     <Compile Include="Fixtures\Validations.cs" />
     <Compile Include="Fixtures\Fields.cs" />
     <Compile Include="Fixtures\Forms.cs" />
+    <Compile Include="Helpers\CommonFixtureCreator.cs" />
+    <Compile Include="Helpers\InvokeMethods.cs" />
     <Compile Include="JsonTest.cs" />
+    <Compile Include="Services\FormsServicesTest.cs" />
+    <Compile Include="Services\FieldsServicesTest.cs" />
     <Compile Include="ShareWithJS.cs" />
     <Compile Include="ValidationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

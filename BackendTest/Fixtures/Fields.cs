@@ -11,10 +11,12 @@ using Model = FormCore.Field;
 
 namespace FormCoreTest.Fixtures {
   public class Fields {
-    public static Model[] Create(Mock<Context> mockContext, Form form) {
+    public static Model[] Create(Mock<Context> mockContext, Form form, Section section) {
       var data = new List<Model> {
-              new Model { Id=1, FormId = form.Id, ColumnJson= JsonConvert.SerializeObject("AAA"), },
-              new Model { Id=2, FormId = form.Id, ColumnJson= JsonConvert.SerializeObject(new string[] {"DDD", "EEE" }), },
+              new Model { Id=1, FormId = form.Id, SectionId = section.Id,
+                ColumnJson = JsonConvert.SerializeObject("AAA") },
+              new Model { Id=2, FormId = form.Id, SectionId = section.Id,
+                ColumnJson = JsonConvert.SerializeObject(new string[] {"DDD", "EEE" }), },
             };
       MockData(data, mockContext);
       return data.ToArray();
