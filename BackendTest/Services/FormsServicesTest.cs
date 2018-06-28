@@ -72,8 +72,6 @@ namespace FormCoreTest.Services {
       actualSectionIds = newOForm.Sections.Select(s => s.Id).ToArray();
       expectedSectionIds = form1.Sections.Select(s => s.Id).ToArray();
       Assert.IsTrue(actualSectionIds.SequenceEqual(expectedSectionIds));
-
     }
-
   }
 }
