@@ -52,6 +52,7 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="Enumerations\FieldType.cs" />
+    <Compile Include="Enumerations\OptionType.cs" />
     <Compile Include="Exceptions\AccessDenied.cs" />
     <Compile Include="Exceptions\Error.cs" />
     <Compile Include="Exceptions\NotFound.cs" />

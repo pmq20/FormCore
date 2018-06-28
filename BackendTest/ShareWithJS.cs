@@ -31,6 +31,7 @@ namespace FormCoreTest {
       var enumKlasses = new[] {
         typeof(InputStyle),
         typeof(FieldType),
+        typeof(OptionType),
       };
       if (projectUIPath != null && Directory.Exists(jsPath))
         foreach (var enumKlass in enumKlasses) {
