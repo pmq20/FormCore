@@ -17,7 +17,7 @@ build_script:
   - msbuild FormCore.sln /p:Configuration=Debug
 
 test_script:
-  - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"vstest.console.exe" -targetargs:"/logger:Appveyor FormCoreTest\bin\Debug\FormCoreTest.dll" -output:".\coverage.xml" -filter:"+[FormCore*]* -[FormCoreTest*]*"
+  - packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"vstest.console.exe" -targetargs:"/logger:Appveyor BackendTest\bin\Debug\FormCoreTest.dll" -output:".\coverage.xml" -filter:"+[FormCore*]* -[FormCoreTest*]*"
 
 after_test:
   - ps: |
