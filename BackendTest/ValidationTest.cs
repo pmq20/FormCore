@@ -26,6 +26,7 @@ namespace FormCoreTest {
 
       // entityframework should work
       Assert.AreEqual(2, context.FormCoreForms.Count());
+      Assert.AreEqual(1, context.FormCoreDrafts.Count());
 
       // virtual attributes should work
       Assert.AreEqual(2, form.Validations.Count);

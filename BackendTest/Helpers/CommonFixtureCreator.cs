@@ -28,6 +28,8 @@ namespace FormCoreTest.Helpers {
       fields = Fields.Create(mockContext, form, sections[0]);
       validataions = Validations.Create(mockContext, form, fields);
 
+      Drafts.Create(mockContext, form);
+
       Base.CalcVirtualAttributes(context);
     }
   }

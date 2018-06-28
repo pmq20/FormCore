@@ -19,6 +19,9 @@ namespace FormCoreTest.Fixtures {
             .Where(f => f.FormId == form.Id).ToList();
         form.Sections = db.FormCoreSections
             .Where(f => f.FormId == form.Id).ToList();
+
+        form.Drafts = db.FormCoreDrafts
+            .Where(f => f.FormId == form.Id).ToList();
       }
 
       // sections

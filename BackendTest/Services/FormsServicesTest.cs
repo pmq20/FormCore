@@ -72,6 +72,22 @@ namespace FormCoreTest.Services {
       actualSectionIds = newOForm.Sections.Select(s => s.Id).ToArray();
       expectedSectionIds = form1.Sections.Select(s => s.Id).ToArray();
       Assert.IsTrue(actualSectionIds.SequenceEqual(expectedSectionIds));
+
+      // allow delete
+      // TODO delete not working on mock-test
+      //Base.CalcVirtualAttributes(context);
+      //try {
+      //  FormsServices<Form, OForm>.Delete(context, newForm.Id, allow);
+      //  Assert.Fail();
+      //} catch (Exception e) {
+      //  Assert.IsTrue(e is Exception);
+      //}
+      //FormsServices<Form, OForm>.Index(context,
+      //  () => {
+      //    return context.FormCoreForms.ToList().Select(f => Form.Load(context, f.Id)).ToList();
+      //  },
+      //  f => new OForm(context, f));
+
     }
   }
 }

@@ -83,6 +83,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Fixtures\Base.cs" />
+    <Compile Include="Fixtures\Drafts.cs" />
     <Compile Include="Fixtures\Sections.cs" />
     <Compile Include="Fixtures\Validations.cs" />
     <Compile Include="Fixtures\Fields.cs" />
