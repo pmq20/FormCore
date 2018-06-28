@@ -4,6 +4,12 @@ import MoneyInput from './MoneyInput';
 import FieldType from './Constants/FieldType';
 import OptionType from './Constants/OptionType';
 import InputStyle from './Constants/InputStyle';
-import USAStates from './Constants/USAStates';
 
-export { FormCoreForm, RenderField, FieldType, OptionType, InputStyle, USAStates, MoneyInput };
+export {
+  FormCoreForm,
+  RenderField,
+  FieldType,
+  OptionType,
+  InputStyle,
+  MoneyInput,
+};
