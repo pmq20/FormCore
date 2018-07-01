@@ -43,6 +43,7 @@ namespace FormCore {
         section.Position = input.Position.Value;
       }
       if (null != input.ParentId && input.ParentId.Value > 0) {
+        if (input.ParentId.Value == section.Id) throw new AccessDenied("ParentID is not valid");
         var parentSection = db.FormCoreSections.Where(x => x.Id == input.ParentId.Value).Include("Form").FirstOrDefault();
         if (null == parentSection) throw new NotFound();
         if (null != permitting && !permitting.Invoke(parentSection.Form as TForm)) throw new AccessDenied();

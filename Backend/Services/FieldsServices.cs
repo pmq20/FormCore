@@ -73,6 +73,7 @@ namespace FormCore {
         field.PayloadJson = JsonConvert.SerializeObject(input.Payload);
       }
       if (null != input.ParentId && input.ParentId.Value > 0) {
+        if (input.ParentId.Value == field.Id) throw new AccessDenied("ParentID is not valid");
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId.Value).Include("Form").FirstOrDefault();
         if (null == parentField) throw new NotFound();
         if (null != permitting && !permitting.Invoke(parentField.Form as TForm)) throw new AccessDenied();

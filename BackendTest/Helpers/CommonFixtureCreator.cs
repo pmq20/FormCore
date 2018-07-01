@@ -32,5 +32,25 @@ namespace FormCoreTest.Helpers {
 
       Base.CalcVirtualAttributes(context);
     }
+    public int GenFieldID() {
+      return context.FormCoreFields.Select(f => f.Id).Max() + 1;
+    }
+
+    public int GenFormID() {
+      return context.FormCoreForms.Select(f => f.Id).Max() + 1;
+    }
+
+    /// <summary>
+    /// Mock auto created record, ID is 0. This can solve this problem
+    /// </summary>
+    public void UpdateNewID(Field newField) {
+      newField.Id = this.GenFieldID();
+      context.SaveChanges();
+    }
+
+    internal void UpdateNewID(Form newForm) {
+      newForm.Id = this.GenFormID();
+      context.SaveChanges();
+    }
   }
 }

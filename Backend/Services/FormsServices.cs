@@ -51,6 +51,7 @@ namespace FormCore {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
       if (null != input.ParentId && input.ParentId > 0) {
+        if (input.ParentId.Value == form.Id) throw new AccessDenied("ParentID is not valid");
         var parentForm = Form.Load(db, input.ParentId.Value) as TForm;
         if (null != permitting && !permitting.Invoke(parentForm)) throw new AccessDenied();
         form.ParentId = parentForm.Id;

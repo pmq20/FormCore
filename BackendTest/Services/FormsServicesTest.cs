@@ -48,6 +48,7 @@ namespace FormCoreTest.Services {
       // allow create
       var newFormId = FormsServices<Form, OForm>.Create(context, input, before, allow, after);
       var newForm = context.FormCoreForms.Find(newFormId);
+      creator.UpdateNewID(newForm);
       Assert.AreEqual(form.Id, newForm.ParentId);
       Assert.AreEqual(form.Title, newForm.Title);
 
@@ -57,13 +58,21 @@ namespace FormCoreTest.Services {
       var expectedSectionIds = form.Sections.Select(s => s.Id).ToArray();
       Assert.IsTrue(actualSectionIds.SequenceEqual(expectedSectionIds));
 
+      // parentid cannot be itself
+      try {
+        input = new FForm { ParentId = newForm.Id };
+        FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentId = newForm.Id }, allow);
+        Assert.Fail();
+      } catch (Exception e) {
+        Assert.IsTrue(e is AccessDenied);
+      }
 
       // allow update, parent form#1 will have no fields
       newForm.InvokeMethod<Form>("ClearCache");
       form1.InvokeMethod<Form>("ClearCache");
       form.InvokeMethod<Form>("ClearCache");
       FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentId = form1.Id }, allow);
-      newForm = context.FormCoreForms.Find(newFormId);
+      newForm = context.FormCoreForms.Find(newForm.Id);
       Assert.AreEqual(form1.Id, newForm.ParentId);
       Assert.AreEqual(form.Title, newForm.Title);
 

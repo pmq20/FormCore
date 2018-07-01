@@ -1,4 +1,5 @@
 ﻿using FormCore;
+using FormCore.Exceptions;
 using FormCoreTest.Fixtures;
 using FormCoreTest.Helpers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -20,26 +21,41 @@ namespace FormCoreTest.Services {
     }
 
     [TestMethod]
-    public void Create() {
+    public void ComplexTest() {
+      var form = creator.form;
+      var context = creator.context;
+      var field = creator.fields[0];
+      Func<Form, bool> allow = (f => true);
+      Func<Form, bool> disallow = (f => false);
+
+      // create
       FField input = new FField {
-        SectionId = creator.form.Sections.First().Id,
-        Label = "aa",
+        SectionId = form.Sections.First().Id,
         Column = "bb",
-        ParentId = null,
+        ParentId = field.Id,
         FieldType = FieldType.BuiltIn,
         InputStyle = InputStyle.Input,
         Position = 0,
         DefaultValue = "",
       };
+      var newFieldId = FieldsServices<Form, Field>.Create(context, form.Id, input, allow);
+      var newField = context.FormCoreFields.Find(newFieldId);
+      creator.UpdateNewID(newField);
+      Assert.AreEqual(field.Label, newField.Label);
 
-      var newFieldId = FieldsServices<Form, Field>.Create(
-        creator.context,
-        creator.form.Id,
-        input,
-        form => true
-      );
-      var newField = creator.context.FormCoreFields.Find(newFieldId);
-      Assert.AreEqual("aa", newField.Label);
+      // update
+      Base.CalcVirtualAttributes(context);
+      try {
+        input = new FField { Position = 1, ParentId = newField.Id };
+        FieldsServices<Form, Field>.Update(context, form.Id, newField.Id, input, allow);
+        Assert.Fail();
+      }catch (Exception e) {
+        Assert.IsTrue(e is AccessDenied);
+      }
+      input = new FField { Position = 1, ParentId = creator.fields[1].Id };
+      FieldsServices<Form, Field>.Update(context, form.Id, newField.Id, input, allow);
+      newField = context.FormCoreFields.Find(newField.Id);
+      Assert.AreEqual(1, newField.Position);
     }
 
   }
