@@ -2,7 +2,6 @@ import React from 'react';
 import moment from 'moment';
 import { Form, Input, Select, InputNumber, DatePicker } from 'antd';
 import InputStyle from './Constants/InputStyle';
-import USAStates from './Constants/USAStates';
 import MoneyInput from './MoneyInput';
 
 const { Option } = Select;
@@ -49,19 +48,13 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
               tokenSeparators={y.Payload.TokenSeparators}
               {...inputProps}
             >
-              {y.Payload.Options === 'USAStates' ? (
-                window.jQuery.map(USAStates, (val, key) => (
-                  <Option key={val} value={key}>
-                    {val}
-                  </Option>
-                ))
-              ) : (
-                window.jQuery.map(y.Payload.Options, (option) => (
+              {
+                window.jQuery.map(y.Payload.Options, option => (
                   <Option key={option.Value} value={option.Display}>
                     {option.Value}
                   </Option>
                 ))
-              )}
+              }
             </Select>
           )}
         </Form.Item>
