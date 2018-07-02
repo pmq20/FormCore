@@ -41,6 +41,26 @@ namespace FormCore {
         var sql = $"UPDATE TOP(1) dbo.FormCoreFields SET Discriminator='{typeof(TField).Name}' where Id={field.Id}";
         db.Database.ExecuteSqlCommand(sql);
       }
+
+      // copy validations
+      if (null != input.ParentId && input.ParentId.Value > 0) {
+        var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId).Include("Form").FirstOrDefault();
+        if (field.Validations == null || field.Validations.Count <= 0) {
+          foreach (var validation in parentField.Validations) {
+            var newValidation = new Validation {
+              FormId = form.Id,
+              FieldId = field.Id,
+              Type = validation.Type,
+              Level = validation.Level,
+              Expectation = validation.Expectation,
+              Message = validation.Message,
+            };
+            db.FormCoreValidations.Add(newValidation);
+            db.SaveChanges();
+          }
+        }
+      }
+
       return field.Id;
     }
 
