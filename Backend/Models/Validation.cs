@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FormCore {
   [Table("FormCoreValidations")]
-  public class Validation {
+  public class Validation : Base {
     public int Id { get; set; }
     public int FormId { get; set; }
     public int FieldId { get; set; }

@@ -8,7 +8,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FormCore {
   [Table("FormCoreFields")]
-  public class Field : IComparable<Field> {
+  public class Field : Base, IComparable<Field> {
     public int Id { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }

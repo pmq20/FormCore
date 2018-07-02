@@ -44,7 +44,7 @@ namespace FormCoreTest.Services {
       Assert.AreEqual(field.Label, newField.Label);
 
       // update
-      Base.CalcVirtualAttributes(context);
+      TestBase.CalcVirtualAttributes(context);
       try {
         input = new FField { Position = 1, ParentId = newField.Id };
         FieldsServices<Form, Field>.Update(context, form.Id, newField.Id, input, allow);

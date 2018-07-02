@@ -30,7 +30,7 @@ namespace FormCoreTest.Helpers {
 
       Drafts.Create(mockContext, form);
 
-      Base.CalcVirtualAttributes(context);
+      TestBase.CalcVirtualAttributes(context);
     }
     public int GenFieldID() {
       return context.FormCoreFields.Select(f => f.Id).Max() + 1;

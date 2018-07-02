@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace FormCore {
   [Table("FormCoreSections")]
-  public class Section : IComparable<Section> {
+  public class Section : Base, IComparable<Section> {
     public int Id { get; set; }
     public int FormId { get; set; }
     public int ParentId { get; set; }
