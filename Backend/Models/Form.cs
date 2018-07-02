@@ -93,25 +93,17 @@ namespace FormCore {
 
       var ValidationErrors = new Dictionary<string, string[]>();
 
-      // append parentErrors
-      if(null != Parent) {
-        var parentErrors = Parent.Validate(db, draft);
-        foreach(var key in parentErrors.Keys) {
-          ValidationErrors.Add(key, parentErrors[key]);
+      var fields = AllFields(db);
+      foreach(var field in fields) {
+        foreach( var validation in field.Validations) {
+          if (!levels.Contains(validation.Level)) continue;
+          var key = field.StoredColumn;
+          var errors = new List<string>();
+          if (validation.IsNotValid(draft, db)) errors.Add(validation.ReadableMessage(field));
+          if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
         }
       }
-
-      // append selfErrors
-      foreach (var validation in Validations) {
-        if (!levels.Contains(validation.Level)) continue;
-
-        var field = db.FormCoreFields.Find(validation.FieldId);
-        var key = field.StoredColumn;
-
-        var errors = new List<string>();
-        if (validation.IsNotValid(draft, db)) errors.Add(validation.ReadableMessage(field));
-        if (errors.Count > 0) ValidationErrors.Add(key, errors.ToArray());
-      }
+      
       return ValidationErrors;
     }
 
