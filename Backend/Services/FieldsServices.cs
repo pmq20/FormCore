@@ -37,6 +37,10 @@ namespace FormCore {
       }
       db.FormCoreFields.Add(field);
       db.SaveChanges();
+      if (FieldType.Custom == field.FieldType) {
+        field.ColumnJson = JsonConvert.SerializeObject($"__CUSTOM_FIELD_{field.Id}");
+        db.SaveChanges();
+      }
       if (typeof(TField) != typeof(Field)) {
         var sql = $"UPDATE TOP(1) dbo.FormCoreFields SET Discriminator='{typeof(TField).Name}' where Id={field.Id}";
         db.Database.ExecuteSqlCommand(sql);
@@ -103,6 +107,10 @@ namespace FormCore {
         if (string.IsNullOrEmpty(field.ColumnJson)) field.ColumnJson = parentField.ColumnJson;
       }
       db.SaveChanges();
+      if (FieldType.Custom == field.FieldType) {
+        field.ColumnJson = JsonConvert.SerializeObject($"__CUSTOM_FIELD_{field.Id}");
+        db.SaveChanges();
+      }
     }
 
     public static void Delete(Context db, int id, int fieldId, Func<TForm, bool> permitting = null) {
