@@ -48,13 +48,11 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
               tokenSeparators={y.Payload.TokenSeparators}
               {...inputProps}
             >
-              {
-                window.jQuery.map(y.Payload.Options, option => (
-                  <Option key={option.Value} value={option.Display}>
-                    {option.Value}
-                  </Option>
-                ))
-              }
+              {window.jQuery.map(y.Payload.Options, option => (
+                <Option key={option.Value} value={option.Value}>
+                  {option.Display}
+                </Option>
+              ))}
             </Select>
           )}
         </Form.Item>
