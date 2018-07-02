@@ -33,6 +33,7 @@ namespace FormCore {
         field.ParentId = parentField.Id;
         if (string.IsNullOrEmpty(field.Label)) field.Label = parentField.Label;
         if (string.IsNullOrEmpty(field.ColumnJson)) field.ColumnJson = parentField.ColumnJson;
+        if (string.IsNullOrEmpty(field.PayloadJson)) field.PayloadJson = parentField.PayloadJson;
       }
       db.FormCoreFields.Add(field);
       db.SaveChanges();
