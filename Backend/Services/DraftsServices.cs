@@ -29,7 +29,7 @@ namespace FormCore {
 
     public static List<TODraft> Index(Context db, Func<List<TDraft>> query, Func<TDraft, TODraft> returning = null) {
       return query.Invoke().ToList().Select(draft => {
-        if (null == returning) return (TODraft)new ODraft(draft);
+        if (null == returning) return (TODraft)new ODraft(db, draft);
         return returning.Invoke(draft);
       }).ToList();
     }
@@ -38,7 +38,7 @@ namespace FormCore {
       var draft = db.FormCoreDrafts.Where(x => x.Id == id).Include("Form").FirstOrDefault() as TDraft;
       if (null == draft) throw new NotFound();
         if (null != permitting && !permitting.Invoke(draft)) throw new AccessDenied();
-      if (null == returning) return (TODraft)new ODraft(draft);
+      if (null == returning) return (TODraft)new ODraft(db, draft);
       return returning.Invoke(draft);
     }
 
