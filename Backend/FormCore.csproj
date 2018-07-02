@@ -59,6 +59,7 @@
     <Compile Include="Input\FDraft.cs" />
     <Compile Include="Input\FField.cs" />
     <Compile Include="Input\FSection.cs" />
+    <Compile Include="Models\Base.cs" />
     <Compile Include="Services\DraftsServices.cs" />
     <Compile Include="Services\FieldsServices.cs" />
     <Compile Include="Services\FormsServices.cs" />

@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace FormCore {
   [Table("FormCoreForms")]
-  public class Form {
+  public class Form :Base {
     private List<Field> _allFields;
     private List<Section> _allSections;
 

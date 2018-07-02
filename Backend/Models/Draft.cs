@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace FormCore {
   [Table("FormCoreDrafts")]
-  public class Draft {
+  public class Draft: Base {
     public int Id { get; set; }
     public int FormId { get; set; }
     public string DataJson { get; set; }

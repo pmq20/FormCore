@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FormCoreTest.Fixtures {
-  class Base {
+  class TestBase {
     /// <summary>
     /// calc virtual attributes manually
     /// </summary>
