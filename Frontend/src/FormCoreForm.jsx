@@ -39,7 +39,7 @@ class AntdFormCoreForm extends React.Component {
   render() {
     const { form, sections, fields, onSubmit, renderExtra, skipValidate } = this.props;
     const { submitting } = this.state;
-    const { getFieldDecorator, validateFieldsAndScroll, getFieldsError } = form;
+    const { validateFieldsAndScroll, getFieldsError } = form;
     const defaultValues = {};
     const fieldLabels = {};
     _.each(fields, x => {
@@ -106,6 +106,20 @@ class AntdFormCoreForm extends React.Component {
         });
       }
       localFields.sort((a, b) => a.Position - b.Position);
+      let rowColContent = null;
+      if (localFields.length === 1) {
+        rowColContent = RenderField(localFields[0], form, {}, renderExtra);
+      } else {
+        rowColContent = (
+          <Row gutter={16}>
+            {localFields.map(y => (
+              <Col lg={8} md={12} sm={24} key={y.Id} hidden={IsFieldHidden(y)}>
+                {RenderField(y, form, {}, renderExtra)}
+              </Col>
+            ))}
+          </Row>
+        );
+      }
       return (
         <Card
           key={x.Id}
@@ -115,13 +129,7 @@ class AntdFormCoreForm extends React.Component {
           style={{ marginBottom: 24 }}
         >
           <Form layout="vertical" hideRequiredMark>
-            <Row gutter={16}>
-              {localFields.map(y => (
-                <Col lg={8} md={12} sm={24} key={y.Id} hidden={IsFieldHidden(y)}>
-                  {RenderField(y, getFieldDecorator)}
-                </Col>
-              ))}
-            </Row>
+            {rowColContent}
           </Form>
         </Card>
       );
@@ -129,7 +137,6 @@ class AntdFormCoreForm extends React.Component {
     return (
       <Fragment>
         {ret}
-        {_.isFunction(renderExtra) ? renderExtra(this) : renderExtra}
         <FooterToolbar style={{ width: this.state.width }}>
           {getErrorInfo()}
           <Button type="primary" onClick={validate} loading={submitting}>

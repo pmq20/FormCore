@@ -7,27 +7,28 @@ import MoneyInput from './MoneyInput';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
-export default function RenderField(y, getFieldDecorator, inputProps = {}) {
+export default function RenderField(field, form, inputProps = {}, renderExtra = null) {
   let defaultValue = null;
-  switch (y.InputStyle) {
+  const { getFieldDecorator } = form;
+  switch (field.InputStyle) {
     case InputStyle.Input:
       return (
-        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
-          {getFieldDecorator(y.Column, {
-            initialValue: y.DefaultValue,
-          })(<Input placeholder={y.PlaceHolder} {...inputProps} />)}
+        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+          {getFieldDecorator(field.Column, {
+            initialValue: field.DefaultValue,
+          })(<Input placeholder={field.PlaceHolder} {...inputProps} />)}
         </Form.Item>
       );
     case InputStyle.InputNumber:
       return (
-        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
-          {getFieldDecorator(y.Column, {
-            initialValue: y.DefaultValue,
+        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+          {getFieldDecorator(field.Column, {
+            initialValue: field.DefaultValue,
           })(
             <InputNumber
               formatter={value =>
-                `${y.Payload.Prefix ? `${y.Payload.Prefix} ` : ''}${value}${
-                  y.Payload.Suffix ? ` ${y.Payload.Suffix}` : ''
+                `${field.Payload.Prefix ? `${field.Payload.Prefix} ` : ''}${value}${
+                  field.Payload.Suffix ? ` ${field.Payload.Suffix}` : ''
                 }`
               }
               style={{ width: '100%' }}
@@ -38,17 +39,17 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
       );
     case InputStyle.Select:
       return (
-        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
-          {getFieldDecorator(y.Column, {
-            initialValue: y.DefaultValue,
+        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+          {getFieldDecorator(field.Column, {
+            initialValue: field.DefaultValue,
           })(
             <Select
-              mode={y.Payload.Mode}
+              mode={field.Payload.Mode}
               style={{ width: '100%' }}
-              tokenSeparators={y.Payload.TokenSeparators}
+              tokenSeparators={field.Payload.TokenSeparators}
               {...inputProps}
             >
-              {window.jQuery.map(y.Payload.Options, option => (
+              {window.jQuery.map(field.Payload.Options, option => (
                 <Option key={option.Value} value={option.Value}>
                   {option.Display}
                 </Option>
@@ -58,26 +59,34 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
         </Form.Item>
       );
     case InputStyle.RangePicker:
-      defaultValue = !y.DefaultValue ? null : y.DefaultValue.map(x => (x ? moment(x) : null));
+      defaultValue = !field.DefaultValue
+        ? null
+        : field.DefaultValue.map(x => (x ? moment(x) : null));
       if (defaultValue && !defaultValue[0] && defaultValue[1]) {
         [, defaultValue[0]] = defaultValue;
       }
       return (
-        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
-          {getFieldDecorator(y.Column, {
+        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+          {getFieldDecorator(field.Column, {
             initialValue: defaultValue,
-          })(<RangePicker placeholder={y.PlaceHolder} style={{ width: '100%' }} {...inputProps} />)}
+          })(
+            <RangePicker
+              placeholder={field.PlaceHolder}
+              style={{ width: '100%' }}
+              {...inputProps}
+            />
+          )}
         </Form.Item>
       );
     case InputStyle.Hidden:
       return (
-        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
-          {getFieldDecorator(y.Column, {
-            initialValue: y.DefaultValue,
+        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+          {getFieldDecorator(field.Column, {
+            initialValue: field.DefaultValue,
           })(
             <Input
               disabled
-              placeholder={y.PlaceHolder}
+              placeholder={field.PlaceHolder}
               style={{ display: 'none' }}
               {...inputProps}
             />
@@ -86,17 +95,23 @@ export default function RenderField(y, getFieldDecorator, inputProps = {}) {
       );
     case InputStyle.MoneyInput:
       return (
-        <Form.Item key={y.Id} label={y.Label} help={y.Help}>
-          {getFieldDecorator(y.Column, {
-            initialValue: y.DefaultValue,
-          })(<MoneyInput style={{ width: '100%' }} placeholder={y.PlaceHolder} {...inputProps} />)}
+        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+          {getFieldDecorator(field.Column, {
+            initialValue: field.DefaultValue,
+          })(
+            <MoneyInput style={{ width: '100%' }} placeholder={field.PlaceHolder} {...inputProps} />
+          )}
         </Form.Item>
       );
     default:
-      throw new Error(
-        `FormCore: Unspported input style ${
-          y.Type
-        }. You might want to consider using customized input styles. Pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
-      );
+      if (renderExtra) {
+        return renderExtra(field, form, inputProps);
+      } else {
+        throw new Error(
+          `FormCore: Unspported input style ${field.InputStyle} of field ${
+            field.Id
+          }. You might want to consider using customized input styles, cf. the renderExtra parameter. Otheriwse pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
+        );
+      }
   }
 }

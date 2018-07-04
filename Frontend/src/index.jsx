@@ -5,11 +5,4 @@ import FieldType from './Constants/FieldType';
 import OptionType from './Constants/OptionType';
 import InputStyle from './Constants/InputStyle';
 
-export {
-  FormCoreForm,
-  RenderField,
-  FieldType,
-  OptionType,
-  InputStyle,
-  MoneyInput,
-};
+export { FormCoreForm, RenderField, FieldType, OptionType, InputStyle, MoneyInput };

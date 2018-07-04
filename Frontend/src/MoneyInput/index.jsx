@@ -10,6 +10,7 @@ export default class MoneyInput extends React.Component {
       this.props.onChange(value);
     }
   };
+
   // '.' at the end or only '-' in the input box.
   onBlur = () => {
     const { value, onBlur, onChange } = this.props;
@@ -20,6 +21,7 @@ export default class MoneyInput extends React.Component {
       onBlur();
     }
   };
+
   render() {
     const {
       value,
