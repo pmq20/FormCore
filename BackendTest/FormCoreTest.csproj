@@ -82,6 +82,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Fixtures\Parentings.cs" />
     <Compile Include="Fixtures\TestBase.cs" />
     <Compile Include="Fixtures\Drafts.cs" />
     <Compile Include="Fixtures\Sections.cs" />

@@ -22,6 +22,7 @@ namespace FormCoreTest.Helpers {
       context = mockContext.Object;
 
       Forms.Create(mockContext);
+      Parentings.Create(mockContext);
       form = Form.Load(context, 2);
       form1 = Form.Load(context, 1);
       sections = Sections.Create(mockContext, form);

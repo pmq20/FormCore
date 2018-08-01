@@ -7,12 +7,11 @@ using Newtonsoft.Json;
 
 namespace FormCore {
   [Table("FormCoreForms")]
-  public class Form :Base {
+  public class Form : Base {
     private List<Field> _allFields;
     private List<Section> _allSections;
 
     public int Id { get; set; }
-    public int ParentId { get; set; }
     public string Title { get; set; }
 
     public virtual ICollection<Draft> Drafts { get; set; }
@@ -21,14 +20,21 @@ namespace FormCore {
     public virtual ICollection<Validation> Validations { get; set; }
 
     [NotMapped]
-    public Form Parent { get; private set; }
+    public List<Form> Parents { get; private set; }
 
     public static Form Load(Context db, int id) {
       var ret = db.FormCoreForms.Include("Sections.Fields.Validations")
         .FirstOrDefault(x => x.Id == id);
       if (null == ret) throw new NotFound();
-      ret.Parent = ret.ParentId > 0 ? Load(db, ret.ParentId) : null;
+      ret.Parents = ret.ParentIds(db).ToList().Select(x => Load(db, x)).ToList();
       return ret;
+    }
+
+    private IQueryable<int> ParentIds(Context db) {
+      return from parenting in db.FormCoreParentings
+        where parenting.ChildId == Id
+        orderby parenting.Priority descending 
+        select parenting.ParentId;
     }
 
     public Draft CreateDraft(Context db, dynamic data) {
@@ -44,10 +50,13 @@ namespace FormCore {
     public List<Section> AllSections(Context db) {
       if (null != _allSections) return _allSections;
       List<Section> ret;
-      if (null == Parent) {
+      if (!Parents.Any()) {
         ret = Sections?.ToList() ?? new List<Section>();
       } else {
-        ret = Parent.AllSections(db);
+        ret = new List<Section>();
+        foreach (var parent in Parents) {
+          ret.AddRange(parent.AllSections(db));
+        }
         if (null != Sections)
           foreach (var item in Sections) {
             ret.RemoveAll(x => x.Id == item.ParentId);
@@ -62,10 +71,13 @@ namespace FormCore {
     public List<Field> AllFields(Context db) {
       if (null != _allFields) return _allFields;
       List<Field> ret;
-      if (null == Parent) {
+      if (!Parents.Any()) {
         ret = Fields?.ToList() ?? new List<Field>();
       } else {
-        ret = Parent.AllFields(db);
+        ret = new List<Field>();
+        foreach (var parent in Parents) {
+          ret.AddRange(parent.AllFields(db));
+        }
         if (null != Fields)
           foreach (var item in Fields) {
             ret.RemoveAll(x => x.Id == item.ParentId);

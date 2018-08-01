@@ -29,7 +29,7 @@ namespace FormCoreTest.Services {
       
 
       var input = new FForm {
-        ParentId = form.Id,
+        ParentIds = new int[] { form.Id },
       };
 
       Action before = null;
@@ -47,9 +47,9 @@ namespace FormCoreTest.Services {
 
       // allow create
       var newFormId = FormsServices<Form, OForm>.Create(context, input, before, allow, after);
-      var newForm = context.FormCoreForms.Find(newFormId);
+      var newForm = Form.Load(context, newFormId);
       creator.UpdateNewID(newForm);
-      Assert.AreEqual(form.Id, newForm.ParentId);
+      Assert.AreEqual(form.Id, newForm.Parents.First().Id);
       Assert.AreEqual(form.Title, newForm.Title);
 
       // show this form
@@ -60,8 +60,8 @@ namespace FormCoreTest.Services {
 
       // parentid cannot be itself
       try {
-        input = new FForm { ParentId = newForm.Id };
-        FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentId = newForm.Id }, allow);
+        input = new FForm { ParentIds = new [] { newForm.Id } };
+        FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentIds = new [] { newForm.Id } }, allow);
         Assert.Fail();
       } catch (Exception e) {
         Assert.IsTrue(e is AccessDenied);
@@ -71,9 +71,9 @@ namespace FormCoreTest.Services {
       newForm.InvokeMethod<Form>("ClearCache");
       form1.InvokeMethod<Form>("ClearCache");
       form.InvokeMethod<Form>("ClearCache");
-      FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentId = form1.Id }, allow);
-      newForm = context.FormCoreForms.Find(newForm.Id);
-      Assert.AreEqual(form1.Id, newForm.ParentId);
+      FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentIds = new [] { form1.Id } }, allow);
+      newForm = Form.Load(context, newForm.Id);
+      Assert.AreEqual(form1.Id, newForm.Parents.First().Id);
       Assert.AreEqual(form.Title, newForm.Title);
 
       // show this form

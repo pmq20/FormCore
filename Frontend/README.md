@@ -40,6 +40,7 @@
 
 * Front-end and back-end are separated, exposing a fine set of form-related API;
 * Forms are inheritable, so that the end user does not need to build every form from scratch;
+* Multiple inheritance is supported, meaning that one form can inherit from multiple parent forms;
 * Input styles of form fields are extendable so that you can design your own input box for front-end rendering;
 * Supports built-in fields and custom fields simultaneously, similarly built-in and custom options of select input-box are both supported too.
 
