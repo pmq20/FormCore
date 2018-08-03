@@ -55,7 +55,10 @@ namespace FormCore {
       } else {
         ret = new List<Section>();
         foreach (var parent in Parents) {
-          ret.AddRange(parent.AllSections(db));
+          foreach (var item in parent.AllSections(db)) {
+            ret.RemoveAll(x => x.Id == item.Id);
+            ret.Add(item);
+          }
         }
         if (null != Sections)
           foreach (var item in Sections) {
@@ -76,7 +79,10 @@ namespace FormCore {
       } else {
         ret = new List<Field>();
         foreach (var parent in Parents) {
-          ret.AddRange(parent.AllFields(db));
+          foreach (var item in parent.AllFields(db)) {
+            ret.RemoveAll(x => x.Id == item.Id);
+            ret.Add(item);
+          }
         }
         if (null != Fields)
           foreach (var item in Fields) {
