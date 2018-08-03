@@ -8,7 +8,8 @@ namespace FormCore {
   public class FieldsServices<TForm, TField>
     where TForm : Form
     where TField : Field {
-    public static int Create(Context db, int id, FField input, Func<TForm, bool> permitting = null) {
+    public static int Create(Context db, int id, FField input, Func<TForm, bool> permitting = null,
+      Action<Field> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
       var section = form.Sections.FirstOrDefault(x => input.SectionId.Value == x.Id);
@@ -65,6 +66,7 @@ namespace FormCore {
         }
       }
 
+      after?.Invoke(field);
       return field.Id;
     }
 
