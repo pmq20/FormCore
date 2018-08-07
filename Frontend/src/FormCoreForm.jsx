@@ -105,6 +105,7 @@ class AntdFormCoreForm extends React.Component {
           }
         });
       }
+      const visibleFields = _.filter(localFields, f => f.InputStyle !== InputStyle.Hidden);
       localFields.sort((a, b) => a.Position - b.Position);
       let rowColContent = null;
       if (localFields.length === 1) {
@@ -127,6 +128,7 @@ class AntdFormCoreForm extends React.Component {
           className="card"
           bordered={false}
           style={{ marginBottom: 24 }}
+          hidden={!(visibleFields && visibleFields.length > 0)}
         >
           <Form layout="vertical" hideRequiredMark>
             {rowColContent}
