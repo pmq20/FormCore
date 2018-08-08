@@ -32,6 +32,17 @@ namespace FormCore {
       string.IsNullOrEmpty(ColumnJson) ? null : JsonConvert.DeserializeObject<dynamic>(ColumnJson);
 
     [NotMapped]
+    public string[] Columns {
+      get {
+        var column = Column;
+        if (column == null) return new string[] { };
+        if (column is string) column = new string[] { column };
+        if (column is JArray) column = (column as JArray).Select(c => c as dynamic).Select(c => c as String).ToArray();
+        return column;
+      }
+    }
+
+    [NotMapped]
     public dynamic DefaultValue => string.IsNullOrEmpty(DefaultValueJson)
       ? null
       : JsonConvert.DeserializeObject<dynamic>(DefaultValueJson);

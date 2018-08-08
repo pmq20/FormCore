@@ -21,7 +21,7 @@ namespace FormCore {
       if (Type == ValidationType.Presence) {
         var val = draft.Data[field.StoredColumn];
         if (val == null) return true;
-        if (val.Type == JTokenType.Array) return val.Count < (val as JArray).Count;
+        if (val.Type == JTokenType.Array) return val.Count < field.Columns.Length;
         if (val.Type == JTokenType.String) return string.IsNullOrEmpty(val.Value as string);
         return false;
       }
