@@ -1,6 +1,6 @@
 {
   "name": "antd-formcore",
-  "version": "0.26.8",
+  "version": "0.26.9",
   "description": ".NET + React + Ant Design infrastructure for inheritable dynamic forms.",
   "main": "./lib/index",
   "module": "./es/index",

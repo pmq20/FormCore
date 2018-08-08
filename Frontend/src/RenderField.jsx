@@ -72,11 +72,8 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
           })(
             <RangePicker
               disabledDate={current => {
-                const { Payload = {} } = field;
-                const { MinStartedAt } = Payload;
-                if (MinStartedAt) {
-                  return current && current < MinStartedAt;
-                }
+                const MinStartedAt = _.get(field, 'Payload.MinStartedAt', null);
+                return current && current < MinStartedAt;
               }}
               placeholder={field.PlaceHolder}
               style={{ width: '100%' }}
