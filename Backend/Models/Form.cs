@@ -113,7 +113,9 @@ namespace FormCore {
 
       var fields = AllFields(db);
       foreach(var field in fields) {
-        foreach( var validation in field.Validations) {
+        var validations = field.Validations;
+        if(validations == null) validations = new List<Validation>() { };
+        foreach( var validation in validations) {
           if (!levels.Contains(validation.Level)) continue;
           var key = field.StoredColumn;
           var errors = new List<string>();
