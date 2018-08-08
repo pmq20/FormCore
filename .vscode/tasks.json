@@ -1,0 +1,52 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "command": "cmd",
+  "args": [
+    "/c"
+  ],
+	"tasks": [
+		{
+			"label": "Run WEB",
+			"type": "npm",
+      "script": "start",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": false,
+        "reveal": "silent"
+      }
+    }, {
+      "type": "shell",
+      "command": "npm run compile && npm publish",
+      "label": "Publish",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "dedicated"
+      }
+		}, {
+      "type": "shell",
+      "command": "yarn install",
+      "label": "Yarn Install",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "presentation": {
+        "echo": true,
+        "reveal": "silent",
+        "focus": false,
+        "panel": "dedicated"
+      }
+    }
+	]
+}
