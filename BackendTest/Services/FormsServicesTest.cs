@@ -22,6 +22,33 @@ namespace FormCoreTest.Services {
     }
 
     [TestMethod]
+    public void UpdateParentsTest() {
+      var context = creator.context;
+      var form = creator.form;
+
+      var newForms = Forms.CreateMore(mockContext);
+      TestBase.CalcVirtualAttributes(context);
+
+
+      Func<Form, bool> allow = (f => true);
+
+      var input = new FForm { ParentIds = new int[] { newForms[0].Id, newForms[1].Id } };
+      FormsServices<Form, OForm>.Update(context, form.Id, input, allow);
+      form = Form.Load(context, form.Id);
+      CollectionAssert.AreEqual(input.ParentIds, form.Parents.Select(p => p.Id).ToArray());
+
+      input = new FForm { ParentIds = new int[] { newForms[1].Id, newForms[2].Id } };
+      FormsServices<Form, OForm>.Update(context, form.Id, input, allow);
+      form = Form.Load(context,form.Id);
+      CollectionAssert.AreEqual(input.ParentIds, form.Parents.Select(p => p.Id).ToArray());
+
+      input = new FForm { ParentIds = new int[] { newForms[0].Id, newForms[1].Id } };
+      FormsServices<Form, OForm>.Update(context, form.Id, input, allow);
+      form = Form.Load(context, form.Id);
+      CollectionAssert.AreEquivalent(input.ParentIds, form.Parents.Select(p => p.Id).ToArray());
+    }
+
+    [TestMethod]
     public void ComplexTest() {
       var context = creator.context;
       var form = creator.form;
@@ -29,6 +56,7 @@ namespace FormCoreTest.Services {
       
 
       var input = new FForm {
+        Title = form.Title,
         ParentIds = new int[] { form.Id },
       };
 
@@ -48,7 +76,7 @@ namespace FormCoreTest.Services {
       // allow create
       var newFormId = FormsServices<Form, OForm>.Create(context, input, before, allow, after);
       var newForm = Form.Load(context, newFormId);
-      creator.UpdateNewID(newForm);
+      creator.UpdateNewID(newForm, parents: input.ParentIds);
       Assert.AreEqual(form.Id, newForm.Parents.First().Id);
       Assert.AreEqual(form.Title, newForm.Title);
 
@@ -73,7 +101,7 @@ namespace FormCoreTest.Services {
       form.InvokeMethod<Form>("ClearCache");
       FormsServices<Form, OForm>.Update(context, newForm.Id, new FForm { ParentIds = new [] { form1.Id } }, allow);
       newForm = Form.Load(context, newForm.Id);
-      Assert.AreEqual(form1.Id, newForm.Parents.First().Id);
+      CollectionAssert.AreEqual(new int[] { form1.Id }, newForm.Parents.Select(f=>f.Id).ToArray());
       Assert.AreEqual(form.Title, newForm.Title);
 
       // show this form

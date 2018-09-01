@@ -23,8 +23,8 @@ namespace FormCoreTest.Helpers {
 
       Forms.Create(mockContext);
       Parentings.Create(mockContext);
-      form = Form.Load(context, 2);
-      form1 = Form.Load(context, 1);
+      form = Form.Load(context, 2);  // child
+      form1 = Form.Load(context, 1); // parent
       sections = Sections.Create(mockContext, form);
       fields = Fields.Create(mockContext, form, sections[0]);
       validataions = Validations.Create(mockContext, form, fields);
@@ -49,9 +49,20 @@ namespace FormCoreTest.Helpers {
       context.SaveChanges();
     }
 
-    internal void UpdateNewID(Form newForm) {
+    internal void UpdateNewID(Form newForm, int[] parents = null) {
       newForm.Id = this.GenFormID();
       context.SaveChanges();
+
+      if (parents != null) {
+        foreach(var pid in parents) {
+          var parenting = new FormCore.Parenting {
+            ParentId = pid,
+            ChildId = newForm.Id,
+          };
+          context.FormCoreParentings.Add(parenting);
+          context.SaveChanges();
+        }
+      }
     }
   }
 }
