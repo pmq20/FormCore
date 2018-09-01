@@ -23,7 +23,7 @@ namespace FormCore {
     public List<Form> Parents { get; private set; }
 
     public static Form Load(Context db, int id) {
-      var ret = db.FormCoreForms.Include("Sections.Fields.Validations")
+      var ret = db.FormCoreForms.Include("Sections").Include("Fields").Include("Validations")
         .FirstOrDefault(x => x.Id == id);
       if (null == ret) throw new NotFound();
       ret.Parents = ret.ParentIds(db).ToList().Select(x => Load(db, x)).ToList();
