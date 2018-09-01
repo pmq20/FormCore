@@ -8,7 +8,6 @@
     public InputStyle? InputStyle { get; set; }
     public double? Position { get; set; }
     public string Help { get; set; }
-    public string Formatter { get; set; }
     public dynamic PlaceHolder { get; set; }
     public dynamic DefaultValue { get; set; }
     public dynamic Payload { get; set; }

@@ -32,7 +32,6 @@ namespace FormCore {
     public dynamic DefaultValue { get; set; }
     public dynamic PlaceHolder { get; set; }
     public string Help { get; set; }
-    public string Formatter { get; set; }
     public dynamic Payload { get; set; }
     public IEnumerable<OValidation> Validations { get; set; }
   }
