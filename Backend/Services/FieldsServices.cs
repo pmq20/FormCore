@@ -70,10 +70,10 @@ namespace FormCore {
       return field.Id;
     }
 
-    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> permitting = null) {
+    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> permitting = null, Action<Field> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
-      var field = form.Fields.FirstOrDefault(x => fieldId == x.Id);
+      var field = form.Fields.FirstOrDefault(x => fieldId == x.Id) as TField;
       if (null == field) throw new NotFound();
       if (null != input.FieldType) {
         field.FieldType = input.FieldType.Value;
@@ -113,6 +113,7 @@ namespace FormCore {
         field.ColumnJson = JsonConvert.SerializeObject($"__CUSTOM_FIELD_{field.Id}");
         db.SaveChanges();
       }
+      after?.Invoke(field);
     }
 
     public static void Delete(Context db, int id, int fieldId, Func<TForm, bool> permitting = null) {

@@ -31,10 +31,10 @@ namespace FormCore {
       return section.Id;
     }
     
-    public static void Update(Context db, int id, int sectionId, FSection input, Func<TForm, bool> permitting = null) {
+    public static void Update(Context db, int id, int sectionId, FSection input, Func<TForm, bool> permitting = null, Action<TSection> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
-      var section = form.Sections.FirstOrDefault(x => sectionId == x.Id);
+      var section = form.Sections.FirstOrDefault(x => sectionId == x.Id) as TSection;
       if (null == section) throw new NotFound();
       if (!string.IsNullOrEmpty(input.Title)) {
         section.Title = input.Title;
@@ -51,6 +51,7 @@ namespace FormCore {
         if (string.IsNullOrEmpty(section.Title)) section.Title = parentSection.Title;
       }
       db.SaveChanges();
+      after?.Invoke(section);
     }
 
     public static void Delete(Context db, int id, int sectionId, Func<TForm, bool> permitting = null) {

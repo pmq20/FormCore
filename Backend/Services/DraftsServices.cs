@@ -42,12 +42,13 @@ namespace FormCore {
       return returning.Invoke(draft);
     }
 
-    public static void Update(Context db, int id, FDraft input, Func<TDraft, bool> permitting = null) {
+    public static void Update(Context db, int id, FDraft input, Func<TDraft, bool> permitting = null, Action<TDraft> after = null) {
       var draft = db.FormCoreDrafts.Where(x => x.Id == id).Include("Form").FirstOrDefault() as TDraft;
       if (null == draft) throw new NotFound();
       if (null != permitting && !permitting.Invoke(draft)) throw new AccessDenied();
       draft.DataJson = JsonConvert.SerializeObject(input.Data);
       db.SaveChanges();
+      after?.Invoke(draft);
     }
 
     public static void Delete(Context db, int id, Func<TDraft, bool> permitting = null, Action<TDraft> after = null) {
