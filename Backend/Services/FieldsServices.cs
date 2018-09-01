@@ -70,7 +70,7 @@ namespace FormCore {
       return field.Id;
     }
 
-    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> permitting = null, Action<Field> after = null) {
+    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> permitting = null, Action<TField> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
       var field = form.Fields.FirstOrDefault(x => fieldId == x.Id) as TField;
