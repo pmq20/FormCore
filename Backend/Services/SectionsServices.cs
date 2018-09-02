@@ -7,7 +7,8 @@ namespace FormCore {
   public class SectionsServices<TForm, TSection>
     where TForm : Form
     where TSection: Section {
-    public static int Create(Context db, int id, FSection input, Func<TForm, bool> permitting = null) {
+    public static int Create(Context db, int id, FSection input, Func<TForm, bool> permitting = null,
+      Action<Section> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
       var section = new Section {
@@ -28,6 +29,7 @@ namespace FormCore {
         var sql = $"UPDATE TOP(1) dbo.FormCoreSections SET Discriminator='{typeof(TSection).Name}' where Id={section.Id}";
         db.Database.ExecuteSqlCommand(sql);
       }
+      after?.Invoke(section);
       return section.Id;
     }
     
