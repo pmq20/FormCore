@@ -21,4 +21,5 @@ export default {
   WeekPicker: 103,
   Hidden: 200,
   MoneyInput: 201,
+  DisplayOnly: 202,
 };

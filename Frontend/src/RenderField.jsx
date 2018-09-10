@@ -97,16 +97,32 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
           )}
         </Form.Item>
       );
-    case InputStyle.MoneyInput:
-      return (
-        <Form.Item key={field.Id} label={field.Label} help={field.Help}>
-          {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
-          })(
-            <MoneyInput style={{ width: '100%' }} placeholder={field.PlaceHolder} {...inputProps} />
-          )}
-        </Form.Item>
-      );
+      case InputStyle.MoneyInput:
+        return (
+          <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+            {getFieldDecorator(field.Column, {
+              initialValue: field.DefaultValue,
+            })(
+              <MoneyInput style={{ width: '100%' }} placeholder={field.PlaceHolder} {...inputProps} />
+            )}
+          </Form.Item>
+        );
+      case InputStyle.DisplayOnly:
+        return (
+          <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+            {getFieldDecorator(field.Column, {
+              initialValue: field.DefaultValue,
+            })(
+              <Input
+                disabled
+                className="formcore_display-only-input"
+                style={{ width: '100%' }}
+                placeholder={field.PlaceHolder}
+                {...inputProps}
+              />
+            )}
+          </Form.Item>
+        );
     default:
       if (renderExtra) {
         return renderExtra(field, form, inputProps);
