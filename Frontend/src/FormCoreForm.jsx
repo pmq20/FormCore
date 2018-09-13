@@ -37,7 +37,7 @@ class AntdFormCoreForm extends React.Component {
   };
 
   render() {
-    const { form, sections, fields, onSubmit, renderExtra, skipValidate } = this.props;
+    const { form, sections, fields, onSubmit, renderExtra, skipValidate, submitPositionFixed= true } = this.props;
     const { submitting } = this.state;
     const { validateFieldsAndScroll, getFieldsError } = form;
     const defaultValues = {};
@@ -139,7 +139,7 @@ class AntdFormCoreForm extends React.Component {
     return (
       <Fragment>
         {ret}
-        <FooterToolbar style={{ width: this.state.width }}>
+        <FooterToolbar positionFixed={submitPositionFixed} style={{ width: this.state.width }}>
           {getErrorInfo()}
           <Button type="primary" onClick={validate} loading={submitting}>
             Submit
