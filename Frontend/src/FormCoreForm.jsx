@@ -37,7 +37,7 @@ class AntdFormCoreForm extends React.Component {
   };
 
   render() {
-    const { form, sections, fields, onSubmit, renderExtra, skipValidate, submitPositionFixed= true } = this.props;
+    const { form, sections, fields, onSubmit, renderExtra, skipValidate, submitPositionFixed= true, needCardMarginBottom = true } = this.props;
     const { submitting } = this.state;
     const { validateFieldsAndScroll, getFieldsError } = form;
     const defaultValues = {};
@@ -127,7 +127,7 @@ class AntdFormCoreForm extends React.Component {
           title={x.Title}
           className="card"
           bordered={false}
-          style={{ marginBottom: 24 }}
+          style={{ marginBottom: needCardMarginBottom ? 24 : 'unset' }}
           hidden={!(visibleFields && visibleFields.length > 0)}
         >
           <Form layout="vertical" hideRequiredMark>
