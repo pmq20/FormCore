@@ -8,10 +8,10 @@ namespace FormCore {
   public class FieldsServices<TForm, TField>
     where TForm : Form
     where TField : Field {
-    public static int Create(Context db, int id, FField input, Func<TForm, bool> permitting = null,
+    public static int Create(Context db, int id, FField input, Func<TForm, bool> viewPermitting = null, Func<TForm, bool> editPermitting = null,
       Action<Field> after = null) {
       var form = Form.Load(db, id) as TForm;
-      if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
+      if (null != editPermitting && !editPermitting.Invoke(form)) throw new AccessDenied();
       var section = form.Sections.FirstOrDefault(x => input.SectionId.Value == x.Id);
       if (null == section) throw new NotFound();
       var field = new Field {
@@ -30,7 +30,7 @@ namespace FormCore {
       if (null != input.ParentId && input.ParentId.Value > 0) {
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId).Include("Form").FirstOrDefault();
         if (null == parentField) throw new NotFound();
-        if (null != permitting && !permitting.Invoke(parentField.Form as TForm)) throw new AccessDenied();
+        if (null != viewPermitting && !viewPermitting.Invoke(parentField.Form as TForm)) throw new AccessDenied();
         field.ParentId = parentField.Id;
         if (string.IsNullOrEmpty(field.Label)) field.Label = parentField.Label;
         if (string.IsNullOrEmpty(field.ColumnJson)) field.ColumnJson = parentField.ColumnJson;
@@ -70,9 +70,9 @@ namespace FormCore {
       return field.Id;
     }
 
-    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> permitting = null, Action<TField> after = null) {
+    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> viewPermitting = null, Func<TForm, bool> editPermitting = null, Action<TField> after = null) {
       var form = Form.Load(db, id) as TForm;
-      if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
+      if (null != editPermitting && !editPermitting.Invoke(form)) throw new AccessDenied();
       var field = form.Fields.FirstOrDefault(x => fieldId == x.Id) as TField;
       if (null == field) throw new NotFound();
       if (null != input.FieldType) {
@@ -103,7 +103,7 @@ namespace FormCore {
         if (input.ParentId.Value == field.Id) throw new AccessDenied("ParentID is not valid");
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId.Value).Include("Form").FirstOrDefault();
         if (null == parentField) throw new NotFound();
-        if (null != permitting && !permitting.Invoke(parentField.Form as TForm)) throw new AccessDenied();
+        if (null != viewPermitting && !viewPermitting.Invoke(parentField.Form as TForm)) throw new AccessDenied();
         field.ParentId = parentField.Id;
         if (string.IsNullOrEmpty(field.Label)) field.Label = parentField.Label;
         if (string.IsNullOrEmpty(field.ColumnJson)) field.ColumnJson = parentField.ColumnJson;

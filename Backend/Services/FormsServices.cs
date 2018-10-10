@@ -7,13 +7,13 @@ namespace FormCore {
   public class FormsServices<TForm, TOForm>
     where TForm : Form
     where TOForm : OForm {
-    public static int Create(Context db, FForm input, Action before = null, Func<TForm, bool> permitting = null,
+    public static int Create(Context db, FForm input, Action before = null, Func<TForm, bool> viewPermitting = null, 
       Action<Form> after = null) {
       before?.Invoke();
       Form form;
       foreach (var parentId in input.ParentIds) {
         var parentForm = Form.Load(db, parentId) as TForm;
-        if (null != permitting && !permitting.Invoke(parentForm)) throw new AccessDenied();
+        if (null != viewPermitting && !viewPermitting.Invoke(parentForm)) throw new AccessDenied();
       }
       form = new Form {
         Title = input.Title
@@ -50,14 +50,14 @@ namespace FormCore {
       return returning.Invoke(form);
     }
 
-    public static void Update(Context db, int id, FForm input, Func<TForm, bool> permitting = null, Action<TForm> after = null) {
+    public static void Update(Context db, int id, FForm input, Func<TForm, bool> viewPermitting = null, Func<TForm, bool> editPermitting = null, Action<TForm> after = null) {
       var form = Form.Load(db, id) as TForm;
-      if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
+      if (null != editPermitting && !editPermitting.Invoke(form)) throw new AccessDenied();
       if (null != input.ParentIds && input.ParentIds.Any()) {
         foreach (var inputParentId in input.ParentIds) {
           if (inputParentId == form.Id) throw new AccessDenied("ParentID is not valid");
           var parentForm = Form.Load(db, inputParentId) as TForm;
-          if (null != permitting && !permitting.Invoke(parentForm)) throw new AccessDenied();
+          if (null != viewPermitting && !viewPermitting.Invoke(parentForm)) throw new AccessDenied();
         }
 
         // Update parentids, use input.ParentIds to override currentParentIds
