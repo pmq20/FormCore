@@ -4,13 +4,13 @@
     <id>FormCore</id>
     <version>0.27.1</version>
     <title>FormCore</title>
-    <authors>Minqi Pan, Xiang Yan</authors>
+    <authors>Minqi Pan, Xiang Yan, Chenhui Yu</authors>
     <owners>pmq20</owners>
     <licenseUrl>https://raw.githubusercontent.com/pmq20/FormCore/master/LICENSE</licenseUrl>
     <projectUrl>http://github.com/pmq20/FormCore</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>.NET + React + Ant Design infrastructure for inheritable dynamic forms.</description>
-    <copyright>Copyright © Minqi Pan, Xiang Yan 2018</copyright>
+    <copyright>Copyright © Minqi Pan, Xiang Yan, Chenhui Yu 2018</copyright>
     <tags>antd form dynamic</tags>
   </metadata>
 </package>
