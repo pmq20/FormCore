@@ -74,9 +74,9 @@ Please use [EditorConfig](http://editorconfig.org/#download) to format your code
 
 ## Team
 
-| [![Minqi Pan](https://github.com/pmq20.png?size=100)](https://github.com/pmq20) | [![Xiang Yan](https://github.com/debbbbie.png?size=100)](https://github.com/debbbbie) |
-|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
-| [Minqi Pan](https://github.com/pmq20)                                           | [Xiang Yan](https://github.com/debbbbie)                                              |
+| [![Minqi Pan](https://github.com/pmq20.png?size=100)](https://github.com/pmq20) | [![Xiang Yan](https://github.com/debbbbie.png?size=100)](https://github.com/debbbbie) | [![Chenhui Yu](https://github.com/Yuchenhui.png?size=100)](https://github.com/Yuchenhui) |
+|---------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| [Minqi Pan](https://github.com/pmq20)                                           | [Xiang Yan](https://github.com/debbbbie)                                              | [Chenhui Yu](https://github.com/Yuchenhui)                                               |
 
 ## License
 
