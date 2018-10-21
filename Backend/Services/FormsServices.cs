@@ -7,7 +7,7 @@ namespace FormCore {
   public class FormsServices<TForm, TOForm>
     where TForm : Form
     where TOForm : OForm {
-    public static int Create(Context db, FForm input, Action before = null, Func<TForm, bool> viewPermitting = null, 
+    public static int Create(Context db, FForm input, Action before = null, Func<TForm, bool> viewPermitting = null,
       Action<Form> after = null) {
       before?.Invoke();
       Form form;
@@ -27,7 +27,7 @@ namespace FormCore {
       foreach (var parentId in input.ParentIds) {
         var parenting = new Parenting {
           ParentId = parentId,
-          ChildId = form.Id,
+          ChildId = form.Id
         };
         db.FormCoreParentings.Add(parenting);
         db.SaveChanges();
@@ -43,14 +43,16 @@ namespace FormCore {
       }).ToList();
     }
 
-    public static TOForm Show(Context db, int id, Func<TForm, bool> permitting = null, Func<TForm, TOForm> returning = null) {
+    public static TOForm Show(Context db, int id, Func<TForm, bool> permitting = null,
+      Func<TForm, TOForm> returning = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
       if (null == returning) return (TOForm) new OForm(db, form);
       return returning.Invoke(form);
     }
 
-    public static void Update(Context db, int id, FForm input, Func<TForm, bool> viewPermitting = null, Func<TForm, bool> editPermitting = null, Action<TForm> after = null) {
+    public static void Update(Context db, int id, FForm input, Func<TForm, bool> viewPermitting = null,
+      Func<TForm, bool> editPermitting = null, Action<TForm> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != editPermitting && !editPermitting.Invoke(form)) throw new AccessDenied();
       if (null != input.ParentIds && input.ParentIds.Any()) {
@@ -62,32 +64,24 @@ namespace FormCore {
 
         // Update parentids, use input.ParentIds to override currentParentIds
         var currentParentIds = form.Parents.Select(p => p.Id).ToList();
-        foreach (var inputParentId in input.ParentIds) {
+        foreach (var inputParentId in input.ParentIds)
           if (!currentParentIds.Contains(inputParentId)) {
-            var parenting = new Parenting {ParentId = inputParentId, ChildId = form.Id };
+            var parenting = new Parenting {ParentId = inputParentId, ChildId = form.Id};
             db.FormCoreParentings.Add(parenting);
             db.SaveChanges();
           }
-        }
-        foreach (var currentParentId in currentParentIds) {
+        foreach (var currentParentId in currentParentIds)
           if (!input.ParentIds.Contains(currentParentId)) {
-            var parenting = db.FormCoreParentings.Where(p => p.ParentId == currentParentId && p.ChildId == form.Id).FirstOrDefault();
+            var parenting = db.FormCoreParentings.Where(p => p.ParentId == currentParentId && p.ChildId == form.Id)
+              .FirstOrDefault();
             db.FormCoreParentings.Remove(parenting);
             db.SaveChanges();
           }
-        }
         // End of update parentIds
       }
-          if (!string.IsNullOrEmpty(input.Title)) form.Title = input.Title;
+      if (!string.IsNullOrEmpty(input.Title)) form.Title = input.Title;
       db.SaveChanges();
       after?.Invoke(form);
-    }
-
-    public static void Delete(Context db, int id, Func<TForm, bool> permitting = null) {
-      var form = Form.Load(db, id) as TForm;
-      if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
-      form.Delete(db);
-      db.SaveChanges();
     }
   }
 }

@@ -84,9 +84,7 @@
   <ItemGroup>
     <Compile Include="Fixtures\Parentings.cs" />
     <Compile Include="Fixtures\TestBase.cs" />
-    <Compile Include="Fixtures\Drafts.cs" />
     <Compile Include="Fixtures\Sections.cs" />
-    <Compile Include="Fixtures\Validations.cs" />
     <Compile Include="Fixtures\Fields.cs" />
     <Compile Include="Fixtures\Forms.cs" />
     <Compile Include="Helpers\CommonFixtureCreator.cs" />
@@ -95,7 +93,6 @@
     <Compile Include="Services\FormsServicesTest.cs" />
     <Compile Include="Services\FieldsServicesTest.cs" />
     <Compile Include="ShareWithJS.cs" />
-    <Compile Include="ValidationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

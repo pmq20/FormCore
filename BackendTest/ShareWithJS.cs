@@ -1,7 +1,7 @@
 ﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using FormCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FormCoreTest {
   [TestClass]
@@ -16,7 +16,7 @@ namespace FormCoreTest {
       ret += "export default {\n";
       foreach (var val in Enum.GetValues(e)) {
         var name = Enum.GetName(e, val);
-        ret += string.Format("  {0}: {1},\n", name, (int)val);
+        ret += string.Format("  {0}: {1},\n", name, (int) val);
       }
       ret += "};\n";
       return ret;
@@ -31,15 +31,15 @@ namespace FormCoreTest {
       var enumKlasses = new[] {
         typeof(InputStyle),
         typeof(FieldType),
-        typeof(OptionType),
+        typeof(OptionType)
       };
       if (projectUIPath != null && Directory.Exists(jsPath))
         foreach (var enumKlass in enumKlasses) {
           var path = string.Format("{0}/{1}.jsx", jsPath, enumKlass.Name);
           File.WriteAllText(path, EnumClassToJs(enumKlass));
         }
-
     }
+
     [TestMethod]
     public void ShareToJS() {
       Console.WriteLine(ProjectFrontendPath());

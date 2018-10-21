@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
 using System.Linq;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -25,7 +23,6 @@ namespace FormCore {
 
     public virtual Form Form { get; set; }
     public virtual Section Section { get; set; }
-    public virtual ICollection<Validation> Validations { get; set; }
 
     [NotMapped]
     public dynamic Column =>
@@ -36,8 +33,8 @@ namespace FormCore {
       get {
         var column = Column;
         if (column == null) return new string[] { };
-        if (column is string) column = new string[] { column };
-        if (column is JArray) column = (column as JArray).Select(c => c as dynamic).Select(c => c as String).ToArray();
+        if (column is string) column = new string[] {column};
+        if (column is JArray) column = (column as JArray).Select(c => c as dynamic).Select(c => c as string).ToArray();
         return column;
       }
     }
@@ -73,13 +70,6 @@ namespace FormCore {
 
     public int CompareTo(Field other) {
       return Position.CompareTo(other.Position);
-    }
-
-    public void Delete(Context db) {
-      foreach (var validation in Validations.ToList()) {
-        validation.Delete(db);
-      }
-      db.Entry(this).State = EntityState.Deleted;
     }
   }
 }

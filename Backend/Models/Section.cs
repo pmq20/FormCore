@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
 
 namespace FormCore {
   [Table("FormCoreSections")]
@@ -18,13 +16,6 @@ namespace FormCore {
 
     public int CompareTo(Section other) {
       return Position.CompareTo(other.Position);
-    }
-
-    public void Delete(Context db) {
-      foreach (var field in Fields.ToList()) {
-        field.Delete(db);
-      }
-      db.Entry(this).State = EntityState.Deleted;
     }
   }
 }

@@ -37,24 +37,18 @@ class AntdFormCoreForm extends React.Component {
   };
 
   render() {
-    const { form, sections, fields, onSubmit, renderExtra, skipValidate, submitPositionFixed= true, needCardMarginBottom = true } = this.props;
+    const { form, sections, fields, onSubmit, renderExtra, submitPositionFixed= true, needCardMarginBottom = true } = this.props;
     const { submitting } = this.state;
-    const { validateFieldsAndScroll, getFieldsError } = form;
+    const { getFieldsError } = form;
     const defaultValues = {};
     const fieldLabels = {};
     _.each(fields, x => {
       defaultValues[x.Column] = x.DefaultValue;
     });
-    const validate = () => {
+    const submit = () => {
       this.setState({ submitting: true });
-      validateFieldsAndScroll((error, values) => {
-        if (!error || skipValidate) {
-          onSubmit(values, () => {
-            this.setState({ submitting: false });
-          });
-        } else {
-          this.setState({ submitting: false });
-        }
+      onSubmit(values, () => {
+        this.setState({ submitting: false });
       });
     };
     const errors = getFieldsError();
@@ -141,7 +135,7 @@ class AntdFormCoreForm extends React.Component {
         {ret}
         <FooterToolbar positionFixed={submitPositionFixed} style={{ width: this.state.width }}>
           {getErrorInfo()}
-          <Button type="primary" onClick={validate} loading={submitting}>
+          <Button type="primary" onClick={submit} loading={submitting}>
             Submit
           </Button>
         </FooterToolbar>

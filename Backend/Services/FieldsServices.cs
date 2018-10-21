@@ -8,7 +8,8 @@ namespace FormCore {
   public class FieldsServices<TForm, TField>
     where TForm : Form
     where TField : Field {
-    public static int Create(Context db, int id, FField input, Func<TForm, bool> viewPermitting = null, Func<TForm, bool> editPermitting = null,
+    public static int Create(Context db, int id, FField input, Func<TForm, bool> viewPermitting = null,
+      Func<TForm, bool> editPermitting = null,
       Action<Field> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != editPermitting && !editPermitting.Invoke(form)) throw new AccessDenied();
@@ -25,7 +26,7 @@ namespace FormCore {
         ColumnJson = null == input.Column ? null : JsonConvert.SerializeObject(input.Column),
         DefaultValueJson = null == input.DefaultValue ? null : JsonConvert.SerializeObject(input.DefaultValue),
         PlaceHolderJson = null == input.PlaceHolder ? null : JsonConvert.SerializeObject(input.PlaceHolder),
-        PayloadJson = null == input.Payload ? null : JsonConvert.SerializeObject(input.Payload),
+        PayloadJson = null == input.Payload ? null : JsonConvert.SerializeObject(input.Payload)
       };
       if (null != input.ParentId && input.ParentId.Value > 0) {
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId).Include("Form").FirstOrDefault();
@@ -47,58 +48,25 @@ namespace FormCore {
         db.Database.ExecuteSqlCommand(sql);
       }
 
-      // copy validations
-      if (null != input.ParentId && input.ParentId.Value > 0) {
-        var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId).Include("Form").FirstOrDefault();
-        if (field.Validations == null || field.Validations.Count <= 0) {
-          foreach (var validation in parentField.Validations) {
-            var newValidation = new Validation {
-              FormId = form.Id,
-              FieldId = field.Id,
-              Type = validation.Type,
-              Level = validation.Level,
-              Expectation = validation.Expectation,
-              Message = validation.Message,
-            };
-            db.FormCoreValidations.Add(newValidation);
-            db.SaveChanges();
-          }
-        }
-      }
-
       after?.Invoke(field);
       return field.Id;
     }
 
-    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> viewPermitting = null, Func<TForm, bool> editPermitting = null, Action<TField> after = null) {
+    public static void Update(Context db, int id, int fieldId, FField input, Func<TForm, bool> viewPermitting = null,
+      Func<TForm, bool> editPermitting = null, Action<TField> after = null) {
       var form = Form.Load(db, id) as TForm;
       if (null != editPermitting && !editPermitting.Invoke(form)) throw new AccessDenied();
       var field = form.Fields.FirstOrDefault(x => fieldId == x.Id) as TField;
       if (null == field) throw new NotFound();
-      if (null != input.FieldType) {
-        field.FieldType = input.FieldType.Value;
-      }
-      if (FieldType.BuiltIn == field.FieldType && null != input.Column) {
+      if (null != input.FieldType) field.FieldType = input.FieldType.Value;
+      if (FieldType.BuiltIn == field.FieldType && null != input.Column)
         field.ColumnJson = JsonConvert.SerializeObject(input.Column);
-      }
-      if (!string.IsNullOrEmpty(input.Label)) {
-        field.Label = input.Label;
-      }
-      if (null != input.Position) {
-        field.Position = input.Position.Value;
-      }
-      if (null != input.InputStyle) {
-        field.InputStyle = input.InputStyle.Value;
-      }
-      if (null != input.DefaultValue) {
-        field.DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue);
-      }
-      if (null != input.PlaceHolder) {
-        field.PlaceHolderJson = JsonConvert.SerializeObject(input.PlaceHolder);
-      }
-      if (null != input.Payload) {
-        field.PayloadJson = JsonConvert.SerializeObject(input.Payload);
-      }
+      if (!string.IsNullOrEmpty(input.Label)) field.Label = input.Label;
+      if (null != input.Position) field.Position = input.Position.Value;
+      if (null != input.InputStyle) field.InputStyle = input.InputStyle.Value;
+      if (null != input.DefaultValue) field.DefaultValueJson = JsonConvert.SerializeObject(input.DefaultValue);
+      if (null != input.PlaceHolder) field.PlaceHolderJson = JsonConvert.SerializeObject(input.PlaceHolder);
+      if (null != input.Payload) field.PayloadJson = JsonConvert.SerializeObject(input.Payload);
       if (null != input.ParentId && input.ParentId.Value > 0) {
         if (input.ParentId.Value == field.Id) throw new AccessDenied("ParentID is not valid");
         var parentField = db.FormCoreFields.Where(x => x.Id == input.ParentId.Value).Include("Form").FirstOrDefault();
@@ -114,15 +82,6 @@ namespace FormCore {
         db.SaveChanges();
       }
       after?.Invoke(field);
-    }
-
-    public static void Delete(Context db, int id, int fieldId, Func<TForm, bool> permitting = null) {
-      var form = Form.Load(db, id) as TForm;
-      if (null != permitting && !permitting.Invoke(form)) throw new AccessDenied();
-      var field = form.Fields.FirstOrDefault(x => fieldId == x.Id);
-      if (null == field) throw new NotFound();
-      field.Delete(db);
-      db.SaveChanges();
     }
   }
 }

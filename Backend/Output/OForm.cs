@@ -11,7 +11,7 @@ namespace FormCore {
       Title = form.Title;
       Sections = form.AllSections(db).Select(x => new OSection(x)).ToList();
       Fields = form.AllFields(db).Select(x => new OField(x)).ToList();
-  }
+    }
 
     public int Id { get; set; }
     public string Title { get; set; }

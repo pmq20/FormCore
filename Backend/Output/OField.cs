@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace FormCore {
+﻿namespace FormCore {
   public class OField {
     public OField(Field instance) {
       Id = instance.Id;
@@ -16,7 +13,6 @@ namespace FormCore {
       PlaceHolder = instance.PlaceHolder;
       Help = instance.Help;
       Payload = instance.Payload;
-      Validations = instance.Validations.Select(x => new OValidation(x));
       Column = instance.StoredColumn;
     }
 
@@ -33,6 +29,5 @@ namespace FormCore {
     public dynamic PlaceHolder { get; set; }
     public string Help { get; set; }
     public dynamic Payload { get; set; }
-    public IEnumerable<OValidation> Validations { get; set; }
   }
 }

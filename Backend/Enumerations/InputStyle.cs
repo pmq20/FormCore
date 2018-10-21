@@ -23,6 +23,6 @@
 
     Hidden = 200,
     MoneyInput = 201,
-    DisplayOnly = 202,
+    DisplayOnly = 202
   }
 }
