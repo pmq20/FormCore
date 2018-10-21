@@ -4,6 +4,7 @@ Thumbs.db
 *~
 /Frontend/es/
 /Frontend/lib/
+/Frontend/yarn.lock
 /packages/
 /.vs/
 /coverage.xml
