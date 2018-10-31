@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import React, { Fragment } from 'react';
-import { Icon, Popover, Card, Form, Button, Col, Row } from 'antd';
+import React from 'react';
+import { Card, Form, Col, Row } from 'antd';
 import RenderField from './RenderField';
 import InputStyle from './Constants/InputStyle';
-import FooterToolbar from './FooterToolbar';
 
 function IsFieldHidden(y) {
   switch (y.InputStyle) {
@@ -15,82 +14,13 @@ function IsFieldHidden(y) {
 }
 
 class AntdFormCoreForm extends React.Component {
-  state = {
-    width: '100%',
-    submitting: false,
-  };
-
-  componentDidMount() {
-    window.addEventListener('resize', this.resizeFooterToolbar);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.resizeFooterToolbar);
-  }
-
-  resizeFooterToolbar = () => {
-    const sider = document.querySelectorAll('.ant-layout-sider')[0];
-    const width = `calc(100% - ${sider.style.width})`;
-    if (this.state.width !== width) {
-      this.setState({ width });
-    }
-  };
-
   render() {
-    const { form, sections, fields, onSubmit, renderExtra, submitPositionFixed= true, needCardMarginBottom = true } = this.props;
-    const { submitting } = this.state;
-    const { getFieldsError } = form;
+    const { form, sections, fields, renderExtra, needCardMarginBottom = true } = this.props;
     const defaultValues = {};
-    const fieldLabels = {};
     _.each(fields, x => {
       defaultValues[x.Column] = x.DefaultValue;
     });
-    const submit = () => {
-      this.setState({ submitting: true });
-      onSubmit(values, () => {
-        this.setState({ submitting: false });
-      });
-    };
-    const errors = getFieldsError();
-    const getErrorInfo = () => {
-      const errorCount = Object.keys(errors).filter(key => errors[key]).length;
-      if (!errors || errorCount === 0) {
-        return null;
-      }
-      const scrollToField = fieldKey => {
-        const labelNode = document.querySelector(`label[for="${fieldKey}"]`);
-        if (labelNode) {
-          labelNode.scrollIntoView(true);
-        }
-      };
-      const errorList = Object.keys(errors).map(key => {
-        if (!errors[key]) {
-          return null;
-        }
-        return (
-          <li key={key} className="formcore_errorListItem" onClick={() => scrollToField(key)}>
-            <Icon type="cross-circle-o" className="formcore_errorIcon" />
-            <div className="formcore_errorMessage">{errors[key][0]}</div>
-            <div className="formcore_errorField">{fieldLabels[key]}</div>
-          </li>
-        );
-      });
-      return (
-        <span className="formcore_errorIcon">
-          <Popover
-            title="表单校验信息"
-            content={errorList}
-            overlayClassName="formcore_errorPopover"
-            trigger="click"
-            getPopupContainer={trigger => trigger.parentNode}
-          >
-            <Icon type="exclamation-circle" />
-          </Popover>
-          {errorCount}
-        </span>
-      );
-    };
-    const ret = sections.map(x => {
+    return sections.map(x => {
       const localFields = _.filter(fields, y => x.Id === y.SectionId);
       if (x.ParentId > 0) {
         _.forEach(_.filter(fields, y => x.ParentId === y.SectionId), y => {
@@ -130,17 +60,6 @@ class AntdFormCoreForm extends React.Component {
         </Card>
       );
     });
-    return (
-      <Fragment>
-        {ret}
-        <FooterToolbar positionFixed={submitPositionFixed} style={{ width: this.state.width }}>
-          {getErrorInfo()}
-          <Button type="primary" onClick={submit} loading={submitting}>
-            Submit
-          </Button>
-        </FooterToolbar>
-      </Fragment>
-    );
   }
 }
 
