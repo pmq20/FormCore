@@ -3,8 +3,7 @@ import { Form, Button, Input, Card } from 'antd';
 
 const FormItem = Form.Item;
 
-@Form.create()
-class FormCoreFormsEdit extends PureComponent {
+class InnerFormCoreFormsEdit extends PureComponent {
   state = {
     loading: true,
     entity: {},
@@ -103,4 +102,5 @@ class FormCoreFormsEdit extends PureComponent {
   }
 }
 
+const FormCoreFormsEdit = Form.create()(InnerFormCoreFormsEdit);
 export default FormCoreFormsEdit;

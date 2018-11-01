@@ -4,8 +4,7 @@ import { Form, Card, Divider, Table } from 'antd';
 import DescriptionList from 'ant-design-pro/lib/DescriptionList';
 import RenderField from '../RenderField';
 
-@Form.create()
-class FormCoreFormsShow extends Component {
+class InnerFormCoreFormsShow extends Component {
   state = {
     loading: true,
     form: {},
@@ -127,4 +126,5 @@ class FormCoreFormsShow extends Component {
   }
 }
 
+const FormCoreFormsShow = Form.create()(InnerFormCoreFormsShow);
 export default FormCoreFormsShow;

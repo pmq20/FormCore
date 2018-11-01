@@ -27,8 +27,7 @@ const RadioGroup = Radio.Group;
 const InputGroup = Input.Group;
 const DefaultOptionType = OptionType.Custom;
 
-@Form.create()
-class FormCoreFieldsEdit extends PureComponent {
+class InnerFormCoreFieldsEdit extends PureComponent {
   state = {
     loading: true,
     form: {},
@@ -896,4 +895,5 @@ class FormCoreFieldsEdit extends PureComponent {
   }
 }
 
+const FormCoreFieldsEdit = Form.create()(InnerFormCoreFieldsEdit);
 export default FormCoreFieldsEdit;

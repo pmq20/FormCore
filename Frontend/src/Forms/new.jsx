@@ -4,8 +4,7 @@ import { Form, Input, Select, Card, Icon, Tooltip, Button } from 'antd';
 const FormItem = Form.Item;
 const { Option } = Select;
 
-@Form.create()
-class FormCoreFormsNew extends PureComponent {
+class InnerFormCoreFormsNew extends PureComponent {
   state = {
     loading: true,
     parents: [],
@@ -150,4 +149,5 @@ class FormCoreFormsNew extends PureComponent {
   }
 }
 
+const FormCoreFormsNew = Form.create()(InnerFormCoreFormsNew);
 export default FormCoreFormsNew;

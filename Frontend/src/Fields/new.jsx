@@ -28,8 +28,7 @@ const InputGroup = Input.Group;
 const DefaultFieldType = FieldType.Custom;
 const DefaultOptionType = OptionType.Custom;
 
-@Form.create()
-class FormCoreFieldsNew extends PureComponent {
+class InnerFormCoreFieldsNew extends PureComponent {
   state = {
     loading: true,
     form: {},
@@ -905,4 +904,5 @@ class FormCoreFieldsNew extends PureComponent {
   }
 }
 
+const FormCoreFieldsNew = Form.create()(InnerFormCoreFieldsNew);
 export default FormCoreFieldsNew;

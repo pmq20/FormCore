@@ -3,8 +3,7 @@ import { Form, Select, Input, Button, Card, InputNumber, Tooltip, Icon } from 'a
 
 const FormItem = Form.Item;
 
-@Form.create()
-class FormCoreSectionsNew extends PureComponent {
+class InnerFormCoreSectionsNew extends PureComponent {
   state = {
     loading: true,
     form: {},
@@ -164,4 +163,5 @@ class FormCoreSectionsNew extends PureComponent {
   }
 }
 
+const FormCoreSectionsNew = Form.create()(InnerFormCoreSectionsNew);
 export default FormCoreSectionsNew;
