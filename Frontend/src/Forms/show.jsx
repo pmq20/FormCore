@@ -98,7 +98,7 @@ class FormCoreFormsShow extends Component {
         title={form.Title ? form.Title : 'Product Offer'}
         loading={loading}
         style={{ marginBottom: 24 }}
-        extra={this.props.editFormButton()}
+        extra={this.props.editFormButton}
       >
         {form ? (
           <Fragment>

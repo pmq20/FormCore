@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
-import React, { PureComponent, Fragment, Table } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import {
   DatePicker,
   Select,
@@ -13,6 +13,7 @@ import {
   Card,
   InputNumber,
   Tooltip,
+  Table,
 } from 'antd';
 import FieldType from '../Constants/FieldType';
 import OptionType from '../Constants/OptionType';
@@ -665,8 +666,6 @@ class FormCoreFieldsEdit extends PureComponent {
       </FormItem>
     );
 
-    const availableHandlers = this.props.availableHandlers();
-
     return (
       <Card
         className="formcore-card-button-fix"
@@ -759,7 +758,7 @@ class FormCoreFieldsEdit extends PureComponent {
                       selectOptions: calcSelectOptions,
                     };
                     handlers.forEach(handler => {
-                      const info = availableHandlers.find(x => x[0] === handler);
+                      const info = this.props.availableHandlers.find(x => x[0] === handler);
                       if (info) {
                         h = {
                           ...h,
@@ -770,7 +769,7 @@ class FormCoreFieldsEdit extends PureComponent {
                     this.setState(h);
                   }}
                 >
-                  {availableHandlers.map(x => (
+                  {this.props.availableHandlers.map(x => (
                     <Option value={x[0]} key={x[0]}>
                       <Tooltip placement="bottom" title={x[2]}>
                         {x[1]}
@@ -791,7 +790,7 @@ class FormCoreFieldsEdit extends PureComponent {
                   style={{ width: '100%' }}
                   placeholder="Select built-in handlers for this field"
                 >
-                  {availableHandlers.map(x => (
+                  {this.props.availableHandlers.map(x => (
                     <Option value={x[0]} key={x[0]}>
                       <Tooltip placement="bottom" title={x[2]}>
                         {x[1]}
