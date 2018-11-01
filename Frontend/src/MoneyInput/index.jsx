@@ -6,7 +6,7 @@ export default class MoneyInput extends React.Component {
   onChange = e => {
     const { value } = e.target;
     const reg = /^-?(0|[1-9][0-9]*)(\.[0-9]*)?$/;
-    if ((!isNaN(value) && reg.test(value)) || value === '' || value === '-') {
+    if ((!Number.isNaN(value) && reg.test(value)) || value === '' || value === '-') {
       this.props.onChange(value);
     }
   };
@@ -36,7 +36,7 @@ export default class MoneyInput extends React.Component {
       title = value;
       if (formatTooltip)
         title = (
-          <span className="numeric-input-title">
+          <span className="formcore-numeric-input-title">
             {value !== '-' ? `$${numeral(value).format('0,0.00')}` : '-'}
           </span>
         );
@@ -48,7 +48,7 @@ export default class MoneyInput extends React.Component {
           trigger={['focus']}
           title={title}
           placement="bottomLeft"
-          overlayClassName="numeric-input"
+          overlayClassName="formcore-numeric-input"
         >
           <Input
             {...restProps}

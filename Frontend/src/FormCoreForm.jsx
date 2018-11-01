@@ -49,7 +49,7 @@ class AntdFormCoreForm extends React.Component {
         <Card
           key={x.Id}
           title={x.Title}
-          className="card"
+          className="formcore_card"
           bordered={false}
           style={{ marginBottom: needCardMarginBottom ? 24 : 'unset' }}
           hidden={!(visibleFields && visibleFields.length > 0)}

@@ -1,4 +1,8 @@
-@primary-color: #1890ff;
+.formcore-card-button-fix {
+  .ant-card-head-title {
+    line-height: 34px;
+  }
+}
 
 .formcore_errorIcon {
   cursor: pointer;
@@ -10,13 +14,11 @@
 }
 
 .formcore_errorPopover {
-  :global {
-    .ant-popover-inner-content {
-      padding: 0;
-      max-height: 290px;
-      overflow: auto;
-      min-width: 256px;
-    }
+  .ant-popover-inner-content {
+    padding: 0;
+    max-height: 290px;
+    overflow: auto;
+    min-width: 256px;
   }
 }
 
@@ -46,39 +48,6 @@
   }
 }
 
-// FooterToolBar
-.formcore_footertoolbar {
-  // position: fixed;
-  width: 100%;
-  bottom: 0;
-  right: 0;
-  height: 56px;
-  line-height: 56px;
-  box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.03);
-  background: #fff;
-  border-top: 1px solid #e8e8e8;
-  padding: 0 24px;
-  z-index: 9;
-
-  &:after {
-    content: '';
-    display: block;
-    clear: both;
-  }
-
-  .formcore_left {
-    float: left;
-  }
-
-  .formcore_right {
-    float: right;
-  }
-
-  button + button {
-    margin-left: 8px;
-  }
-}
-
 // MoneyInput
 .formcore_moneyinput {
   .ant-input-group {
@@ -99,4 +68,24 @@
   opacity: initial;
   cursor: initial;
   color: rgba(0, 0, 0, 0.65);
+}
+
+.formcore_title {
+  color: rgba(0,0,0,.85);
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.formcore_formTable .ant-form-item {
+  margin-bottom: 0;
+}
+
+.formcore_card {
+  margin-bottom: 24px;
+}
+
+.formcore_optional {
+  color: rgba(0,0,0,.45);
+  font-style: normal;
 }

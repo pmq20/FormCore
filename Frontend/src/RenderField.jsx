@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import moment from 'moment';
 import { Form, Input, Select, InputNumber, DatePicker } from 'antd';
@@ -49,7 +50,7 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
               tokenSeparators={field.Payload.TokenSeparators}
               {...inputProps}
             >
-              {window.jQuery.map(field.Payload.Options, option => (
+              {_.map(field.Payload.Options, option => (
                 <Option key={option.Value} value={option.Value}>
                   {option.Display}
                 </Option>
@@ -126,12 +127,11 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
     default:
       if (renderExtra) {
         return renderExtra(field, form, inputProps);
-      } else {
-        throw new Error(
-          `FormCore: Unspported input style ${field.InputStyle} of field ${
-            field.Id
-          }. You might want to consider using customized input styles, cf. the renderExtra parameter. Otheriwse pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
-        );
       }
+      throw new Error(
+        `FormCore: Unspported input style ${field.InputStyle} of field ${
+          field.Id
+        }. You might want to consider using customized input styles, cf. the renderExtra parameter. Otheriwse pull Requests are welcome: https://github.com/pmq20/FormCore/pulls`
+      );
   }
 }
