@@ -67,7 +67,7 @@ class InnerFormCoreFormsShow extends Component {
               {
                 style: { width: '100%', display: 'inline-block' },
               },
-							this.props.renderExtra
+              this.props.renderExtra
             );
           }
           return null;
@@ -84,13 +84,9 @@ class InnerFormCoreFormsShow extends Component {
                 ...y,
                 Id: `${x.Id}_${y.Id}`,
               }))
-              .concat(
-								[{ Id: `${x.Id}_FieldOperation`, FieldOperation: true, SectionId: x.Id }]
-              ),
+              .concat([{ Id: `${x.Id}_FieldOperation`, FieldOperation: true, SectionId: x.Id }]),
           }))
-          .concat(
-						[{ Id: 'SectionOperation', SectionOperation: true }]
-          );
+          .concat([{ Id: 'SectionOperation', SectionOperation: true }]);
     return (
       <Card
         className="formcore-card-button-fix"
@@ -102,7 +98,7 @@ class InnerFormCoreFormsShow extends Component {
         {form ? (
           <Fragment>
             <DescriptionList size="large" title="Introduction" style={{ marginBottom: 32 }}>
-							{this.props.formIntroduction(form)}
+              {this.props.formIntroduction(form)}
             </DescriptionList>
             <Divider style={{ marginBottom: 32 }} />
             <div className="formcore_title">

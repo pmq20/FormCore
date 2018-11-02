@@ -27,14 +27,12 @@ export default class FormCoreFormsList extends Component {
     this.setState({
       loading: true,
     });
-    this.props.fetch(
-      data => {
-        this.setState({
-          loading: false,
-          forms: data,
-        });
-      }
-    );
+    this.props.fetch(data => {
+      this.setState({
+        loading: false,
+        forms: data,
+      });
+    });
   };
 
   render() {
@@ -50,13 +48,7 @@ export default class FormCoreFormsList extends Component {
       >
         <DescriptionList size="large">
           {forms && forms.length > 0 ? (
-            forms.map(x => (
-              <Description key={x.Id}>
-								{
-									this.props.formLink(x)
-								}
-              </Description>
-            ))
+            forms.map(x => <Description key={x.Id}>{this.props.formLink(x)}</Description>)
           ) : (
             <div className="ant-list-empty-text" style={{ paddingBottom: 32 }}>
               No data

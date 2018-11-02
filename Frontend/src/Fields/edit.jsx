@@ -81,10 +81,8 @@ class InnerFormCoreFieldsEdit extends PureComponent {
       }
       if (data0.Parents.length > 0) {
         data0.Parents.forEach(form0 => {
-			    this.props.fetchSpecific(form0.Id, data => {
-            const section = data0.Sections.find(
-              x => `${x.Id}` === this.props.sectionId
-            );
+          this.props.fetchSpecific(form0.Id, data => {
+            const section = data0.Sections.find(x => `${x.Id}` === this.props.sectionId);
             const formParent = data;
             let parents = [];
             if (section.ParentId > 0) {
@@ -144,9 +142,9 @@ class InnerFormCoreFieldsEdit extends PureComponent {
             Options: selectOptions,
           };
         }
-				if (this.props.handleSubmit) {
-					this.props.handleSubmit(data, selectOptions);
-				}
+        if (this.props.handleSubmit) {
+          this.props.handleSubmit(data, selectOptions);
+        }
         this.props.submit(data);
       }
     });
@@ -187,9 +185,9 @@ class InnerFormCoreFieldsEdit extends PureComponent {
         ModalDisplay: null,
       });
 
-			if (this.props.handleOptionOk) {
-				this.props.handleOptionOk(entity, recordValue, this.props.form.getFieldValue);
-			}
+      if (this.props.handleOptionOk) {
+        this.props.handleOptionOk(entity, recordValue, this.props.form.getFieldValue);
+      }
 
       return {
         entity,
@@ -630,7 +628,7 @@ class InnerFormCoreFieldsEdit extends PureComponent {
                   }
                 }}
               >
-                {_.map(_.keys(inputSelectOptions), (key) => (
+                {_.map(_.keys(inputSelectOptions), key => (
                   <Option key={key} value={key}>
                     {inputSelectOptions[key]}
                   </Option>
@@ -839,22 +837,25 @@ class InnerFormCoreFieldsEdit extends PureComponent {
                     const h = {
                       inputStyle: x,
                     };
-										if (this.props.onInputStyleChange) {
-											this.props.onInputStyleChange(x, pervState, h);
-										}
+                    if (this.props.onInputStyleChange) {
+                      this.props.onInputStyleChange(x, pervState, h);
+                    }
                     return h;
                   });
                 }}
               >
-                {_.map(_.keys(this.props.availableInputStyle), (key) => (
-                  <Option key={this.props.availableInputStyle[key]} value={this.props.availableInputStyle[key]}>
+                {_.map(_.keys(this.props.availableInputStyle), key => (
+                  <Option
+                    key={this.props.availableInputStyle[key]}
+                    value={this.props.availableInputStyle[key]}
+                  >
                     {key}
                   </Option>
                 ))}
               </Select>
             )}
           </FormItem>
-						
+
           {InputStyle.Hidden !== inputStyle ? null : inputDefaultValue}
           {InputStyle.Input !== inputStyle ? null : inputDefaultValue}
           {InputStyle.Input !== inputStyle ? null : inputPlaceholder}
@@ -870,24 +871,25 @@ class InnerFormCoreFieldsEdit extends PureComponent {
           {InputStyle.Select !== inputStyle ? null : inputSelectValues}
           {InputStyle.Select !== inputStyle ? null : selectDefaultValue}
 
-					{
-						this.props.fieldRender && this.props.fieldRender(
-							entity,
-							inputStyle,
-							this.props.form.setFieldsValue,
-							getFieldDecorator,
-							formItemLayoutModal,
-							formItemLayout,
-							this.handleOptionOk,
-							this.handleOptionCancel,
-							this.state,
-							this.setState
-						)
-					}
+          {this.props.fieldRender &&
+            this.props.fieldRender(
+              entity,
+              inputStyle,
+              this.props.form.setFieldsValue,
+              getFieldDecorator,
+              formItemLayoutModal,
+              formItemLayout,
+              this.handleOptionOk,
+              this.handleOptionCancel,
+              this.state,
+              this.setState
+            )}
 
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary">Submit</Button>
-						{ this.props.cancelButton }
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {this.props.cancelButton}
           </FormItem>
         </Form>
       </Card>

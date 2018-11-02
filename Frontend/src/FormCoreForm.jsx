@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Card, Form, Col, Row } from 'antd';
+import { Card, Col, Row } from 'antd';
 import RenderField from './RenderField';
 import InputStyle from './Constants/InputStyle';
 
@@ -13,7 +13,7 @@ function IsFieldHidden(y) {
   }
 }
 
-class AntdFormCoreForm extends React.Component {
+class FormCoreForm extends React.Component {
   render() {
     const { form, sections, fields, renderExtra, needCardMarginBottom = true } = this.props;
     const defaultValues = {};
@@ -54,24 +54,11 @@ class AntdFormCoreForm extends React.Component {
           style={{ marginBottom: needCardMarginBottom ? 24 : 'unset' }}
           hidden={!(visibleFields && visibleFields.length > 0)}
         >
-          <Form layout="vertical" hideRequiredMark>
-            {rowColContent}
-          </Form>
+          {rowColContent}
         </Card>
       );
     });
   }
 }
-
-const FormCoreForm = Form.create({
-  onValuesChange(props, changedValues, allValues) {
-    const { onValuesChange = () => {} } = props;
-    onValuesChange(changedValues, allValues);
-  },
-  onFieldsChange(props, changedFields) {
-    const { onFieldsChange = () => {} } = props;
-    onFieldsChange(changedFields);
-  },
-})(AntdFormCoreForm);
 
 export default FormCoreForm;

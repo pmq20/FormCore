@@ -56,7 +56,7 @@ class InnerFormCoreSectionsNew extends PureComponent {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-				this.props.submit(values);
+        this.props.submit(values);
       }
     });
   };
@@ -154,8 +154,10 @@ class InnerFormCoreSectionsNew extends PureComponent {
             })(<InputNumber style={{ width: '100%' }} />)}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary">Submit</Button>
-						{ this.props.cancelButton }
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {this.props.cancelButton}
           </FormItem>
         </Form>
       </Card>

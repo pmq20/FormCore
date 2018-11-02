@@ -28,14 +28,12 @@ class InnerFormCoreFormsNew extends PureComponent {
     this.setState({
       loading: true,
     });
-    this.props.fetchParents(
-      data => {
-        this.setState({
-          loading: false,
-          parents: data,
-        });
-      }
-    );
+    this.props.fetchParents(data => {
+      this.setState({
+        loading: false,
+        parents: data,
+      });
+    });
   };
 
   handleSubmit = e => {
@@ -52,7 +50,7 @@ class InnerFormCoreFormsNew extends PureComponent {
           h.ParentIds = [];
         }
         delete h.ProductId;
-				this.props.submit(h);
+        this.props.submit(h);
       }
     });
   };
@@ -140,8 +138,10 @@ class InnerFormCoreFormsNew extends PureComponent {
             })(<Input placeholder="Title of the new product offer" />)}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary">Submit</Button>
-						{ this.props.cancelButton }
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {this.props.cancelButton}
           </FormItem>
         </Form>
       </Card>

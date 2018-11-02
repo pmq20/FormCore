@@ -93,8 +93,10 @@ class InnerFormCoreFormsEdit extends PureComponent {
             })(<Input placeholder="Title of the new product offer" />)}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary">Submit</Button>
-						{ this.props.cancelButton }
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {this.props.cancelButton}
           </FormItem>
         </Form>
       </Card>

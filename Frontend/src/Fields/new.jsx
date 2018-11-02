@@ -67,9 +67,7 @@ class InnerFormCoreFieldsNew extends PureComponent {
       if (data0.Parents.length > 0) {
         data0.Parents.forEach(form0 => {
           props.fetchSpecific(form0.Id, data => {
-            const section = data0.Sections.find(
-              x => `${x.Id}` === props.sectionId
-            );
+            const section = data0.Sections.find(x => `${x.Id}` === props.sectionId);
             const formParent = data;
             let parents = [];
             if (section.ParentId > 0) {
@@ -129,9 +127,9 @@ class InnerFormCoreFieldsNew extends PureComponent {
             Options: selectOptions,
           };
         }
-				if (this.props.handleSubmit) {
-					this.props.handleSubmit(data, selectOptions);
-				}
+        if (this.props.handleSubmit) {
+          this.props.handleSubmit(data, selectOptions);
+        }
         this.props.submit(data);
       }
     });
@@ -173,11 +171,11 @@ class InnerFormCoreFieldsNew extends PureComponent {
         ModalValue: null,
         ModalDisplay: null,
       });
-			
-			if (this.props.handleOptionOk) {
-				this.props.handleOptionOk({}, recordValue, this.props.form.getFieldValue);
-			}
-			
+
+      if (this.props.handleOptionOk) {
+        this.props.handleOptionOk({}, recordValue, this.props.form.getFieldValue);
+      }
+
       return {
         selectOptions: newSelectOptions,
         selectOptionRecord: {},
@@ -407,14 +405,11 @@ class InnerFormCoreFieldsNew extends PureComponent {
             mode={parent ? parent.Mode : null}
             tokenSeparators={parent ? parent.TokenSeparators : null}
           >
-            {_.map(
-              this.state.selectOptions || (parent ? parent.Options : []),
-              option => (
-                <Option key={option.Value} value={option.Value}>
-                  {option.Display}
-                </Option>
-              )
-            )}
+            {_.map(this.state.selectOptions || (parent ? parent.Options : []), option => (
+              <Option key={option.Value} value={option.Value}>
+                {option.Display}
+              </Option>
+            ))}
           </Select>
         )}
       </FormItem>
@@ -615,7 +610,7 @@ class InnerFormCoreFieldsNew extends PureComponent {
                   }
                 }}
               >
-                {_.map(_.keys(inputSelectOptions), (key) => (
+                {_.map(_.keys(inputSelectOptions), key => (
                   <Option key={key} value={key}>
                     {inputSelectOptions[key]}
                   </Option>
@@ -851,15 +846,18 @@ class InnerFormCoreFieldsNew extends PureComponent {
                     const h = {
                       inputStyle: x,
                     };
-										if (this.props.onInputStyleChange) {
-											this.props.onInputStyleChange(x, pervState, h);
-										}
+                    if (this.props.onInputStyleChange) {
+                      this.props.onInputStyleChange(x, pervState, h);
+                    }
                     return h;
                   });
                 }}
               >
-                {_.map(_.keys(this.props.availableInputStyle), (key) => (
-                  <Option key={this.props.availableInputStyle[key]} value={this.props.availableInputStyle[key]}>
+                {_.map(_.keys(this.props.availableInputStyle), key => (
+                  <Option
+                    key={this.props.availableInputStyle[key]}
+                    value={this.props.availableInputStyle[key]}
+                  >
                     {key}
                   </Option>
                 ))}
@@ -880,23 +878,24 @@ class InnerFormCoreFieldsNew extends PureComponent {
           {InputStyle.Select !== inputStyle ? null : inputSelectMode}
           {InputStyle.Select !== inputStyle ? null : inputSelectValues}
           {InputStyle.Select !== inputStyle ? null : selectDefaultValue}
-					{
-						this.props.fieldRender && this.props.fieldRender(
-							{},
-							inputStyle,
-							this.props.form.setFieldsValue,
-							getFieldDecorator,
-							formItemLayoutModal,
-							formItemLayout,
-							this.handleOptionOk,
-							this.handleOptionCancel,
-							this.state,
-							this.setState
-						)
-					}
+          {this.props.fieldRender &&
+            this.props.fieldRender(
+              {},
+              inputStyle,
+              this.props.form.setFieldsValue,
+              getFieldDecorator,
+              formItemLayoutModal,
+              formItemLayout,
+              this.handleOptionOk,
+              this.handleOptionCancel,
+              this.state,
+              this.setState
+            )}
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary">Submit</Button>
-						{ this.props.cancelButton }
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {this.props.cancelButton}
           </FormItem>
         </Form>
       </Card>

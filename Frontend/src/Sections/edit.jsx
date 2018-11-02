@@ -64,9 +64,7 @@ class InnerFormCoreSectionsEdit extends PureComponent {
     const { getFieldDecorator } = this.props.form;
     const { loading, form, parents } = this.state;
     const entity =
-      form && form.Sections
-        ? form.Sections.find(x => `${x.Id}` === this.props.sectionId)
-        : {};
+      form && form.Sections ? form.Sections.find(x => `${x.Id}` === this.props.sectionId) : {};
 
     const formItemLayout = {
       labelCol: {
@@ -158,8 +156,10 @@ class InnerFormCoreSectionsEdit extends PureComponent {
             })(<InputNumber style={{ width: '100%' }} />)}
           </FormItem>
           <FormItem {...submitFormLayout} style={{ marginTop: 32 }}>
-            <Button type="primary">Submit</Button>
-						{ this.props.cancelButton }
+            <Button htmlType="submit" type="primary">
+              Submit
+            </Button>
+            {this.props.cancelButton}
           </FormItem>
         </Form>
       </Card>
