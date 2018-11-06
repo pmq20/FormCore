@@ -8,23 +8,25 @@ import MoneyInput from './MoneyInput';
 const { Option } = Select;
 const { RangePicker } = DatePicker;
 
-export default function RenderField(field, form, inputProps = {}, renderExtra = null) {
+export default function RenderField(field, form, data, inputProps = {}, renderExtra = null) {
   let defaultValue = null;
   const { getFieldDecorator } = form;
   switch (field.InputStyle) {
     case InputStyle.Input:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
+            initialValue: defaultValue,
           })(<Input placeholder={field.PlaceHolder} {...inputProps} />)}
         </Form.Item>
       );
     case InputStyle.InputNumber:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
+            initialValue: defaultValue,
           })(
             <InputNumber
               formatter={value =>
@@ -39,10 +41,11 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
         </Form.Item>
       );
     case InputStyle.Select:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
+            initialValue: defaultValue,
           })(
             <Select
               mode={field.Payload.Mode}
@@ -60,9 +63,13 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
         </Form.Item>
       );
     case InputStyle.RangePicker:
-      defaultValue = !field.DefaultValue
+      if (data) {
+        defaultValue = data[field.Column];
+      } else {
+        defaultValue = !field.DefaultValue
         ? null
         : field.DefaultValue.map(x => (x ? moment(x) : null));
+      }
       if (defaultValue && !defaultValue[0] && defaultValue[1]) {
         [, defaultValue[0]] = defaultValue;
       }
@@ -84,10 +91,11 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
         </Form.Item>
       );
     case InputStyle.Hidden:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
+            initialValue: defaultValue,
           })(
             <Input
               disabled
@@ -99,20 +107,22 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
         </Form.Item>
       );
     case InputStyle.MoneyInput:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
+            initialValue: defaultValue,
           })(
             <MoneyInput style={{ width: '100%' }} placeholder={field.PlaceHolder} {...inputProps} />
           )}
         </Form.Item>
       );
     case InputStyle.DisplayOnly:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
-            initialValue: field.DefaultValue,
+            initialValue: defaultValue,
           })(
             <Input
               disabled
@@ -126,7 +136,7 @@ export default function RenderField(field, form, inputProps = {}, renderExtra = 
       );
     default:
       if (renderExtra) {
-        return renderExtra(field, form, inputProps);
+        return renderExtra(field, form, data, inputProps);
       }
       throw new Error(
         `FormCore: Unspported input style ${field.InputStyle} of field ${
