@@ -114,6 +114,7 @@ class InnerFormCoreFormsShow extends Component {
               dataSource={sections}
               columns={sectionsColumns}
               rowKey="Id"
+              expandedRowKeys={sections.map(x => x.Id)}
             />
           </Fragment>
         ) : null}

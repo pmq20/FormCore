@@ -46,47 +46,51 @@ export function showDate(date) {
 export default function ShowField(field, data, showProps = {}, showExtra = null) {
   switch (field.InputStyle) {
     case InputStyle.Input:
-      return (
+      return data[field.Column] ? (
         <Description key={field.Id} term={field.Label}>
           {data[field.Column]}
         </Description>
-      );
+      ) : null;
     case InputStyle.InputNumber:
-      return (
+      return data[field.Column] ? (
         <Description key={field.Id} term={field.Label}>
-          {data[field.Column] ? `${_.isString(field.Payload.Prefix) ? `${field.Payload.Prefix} ` : ''}${data[field.Column]}${_.isString(field.Payload.Suffix) ? ` ${field.Payload.Suffix}` : ''}` : ''}
+          {`${_.isString(field.Payload.Prefix) ? `${field.Payload.Prefix} ` : ''}${data[field.Column]}${_.isString(field.Payload.Suffix) ? ` ${field.Payload.Suffix}` : ''}`}
         </Description>
-      );
+      ) : null;
     case InputStyle.Select:
-      return (
+      return data[field.Column] ? (
         <Description key={field.Id} term={field.Label}>
-          {data[field.Column] ? _.map(data[field.Column], k => _.find(field.Payload.Options, x => x.Value === k).Display).join(', ') : ''}
+          {
+            ['multiple', 'tags'].indexOf(field.Payload.Mode) !== -1 ? (
+              _.map(data[field.Column], k => _.find(field.Payload.Options, x => x.Value === k).Display).join(', ')
+            ) : (
+              _.find(field.Payload.Options, x => x.Value === data[field.Column]).Display
+            )
+          }
         </Description>
-      );
+      ) : null;
     case InputStyle.RangePicker:
-      return (
-        <Description key={field.Id} term={field.Label}>
-          {data[field.Column] ? `${showDate(data[field.Column][0])} - ${showDate(data[field.Column][1])}` : ''}
-        </Description>
-      );
+      return data[field.Column] && _.isArray(data[field.Column]) ? (
+        data[field.Column].length === 2 && data[field.Column][0] && data[field.Column][1] ? (
+          <Description key={field.Id} term={field.Label}>
+            `${showDate(data[field.Column][0])} - ${showDate(data[field.Column][1])}`
+          </Description>
+        ) : null
+      ) : null;
     case InputStyle.Hidden:
-      return (
-        <Description key={field.Id} term={field.Label} style={{display: 'none'}}>
-          {data[field.Column]}
-        </Description>
-      );
+      return null;
     case InputStyle.MoneyInput:
-      return (
+      return data[field.Column] ? (
         <Description key={field.Id} term={field.Label}>
-          {data[field.Column] ? `$${numeral(data[field.Column]).format('0,0.00')}` : ''}
+          {`$${numeral(data[field.Column]).format('0,0.00')}`}
         </Description>
-      );
+      ) : null;
     case InputStyle.DisplayOnly:
-      return (
+      return data[field.Column] ? (
         <Description key={field.Id} term={field.Label}>
           {data[field.Column]}
         </Description>
-      );
+      ) : null;
     default:
       if (showExtra) {
         return showExtra(field, data, showProps);

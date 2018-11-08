@@ -22,7 +22,8 @@ class FormCoreShow extends React.Component {
       }
       const visibleFields = _.filter(localFields, f => f.InputStyle !== InputStyle.Hidden);
       localFields.sort((a, b) => a.Position - b.Position);
-      return (
+      const content = _.filter(localFields.map(y => ShowField(y, data, {}, showExtra)), y => !!y);
+      return content.length > 0 ? (
         <DescriptionList
           key={x.Id}
           className="formcore_btm24"
@@ -30,11 +31,9 @@ class FormCoreShow extends React.Component {
           style={style}
           hidden={!(visibleFields && visibleFields.length > 0)}
         >
-          {
-            localFields.map(y => ShowField(y, data, {}, showExtra))
-          }
+          { content }
         </DescriptionList>
-      );
+      ) : null;
     });
   }
 }

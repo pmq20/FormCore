@@ -42,6 +42,7 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
       );
     case InputStyle.Select:
       defaultValue = data ? data[field.Column] : field.DefaultValue;
+      defaultValue = defaultValue === null ? undefined : defaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           {getFieldDecorator(field.Column, {
