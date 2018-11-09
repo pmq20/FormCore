@@ -58,13 +58,16 @@ export default function ShowField(field, data, showProps = {}, showExtra = null)
         </Description>
       ) : null;
     case InputStyle.Select:
+      const displayFn = (val) => {
+        return (_.find(field.Payload.Options, x => x.Value === val) || {}).Display;
+      };
       return data[field.Column] ? (
         <Description key={field.Id} term={field.Label}>
           {
             ['multiple', 'tags'].indexOf(field.Payload.Mode) !== -1 ? (
-              _.map(data[field.Column], k => _.find(field.Payload.Options, x => x.Value === k).Display).join(', ')
+              _.map(data[field.Column], k => displayFn(k)).join(', ')
             ) : (
-              _.find(field.Payload.Options, x => x.Value === data[field.Column]).Display
+              displayFn(data[field.Column])
             )
           }
         </Description>
