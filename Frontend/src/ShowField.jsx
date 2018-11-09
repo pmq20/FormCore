@@ -73,7 +73,7 @@ export default function ShowField(field, data, showProps = {}, showExtra = null)
       return data[field.Column] && _.isArray(data[field.Column]) ? (
         data[field.Column].length === 2 && data[field.Column][0] && data[field.Column][1] ? (
           <Description key={field.Id} term={field.Label}>
-            `${showDate(data[field.Column][0])} - ${showDate(data[field.Column][1])}`
+            {showDate(data[field.Column][0])} - {showDate(data[field.Column][1])}
           </Description>
         ) : null
       ) : null;
