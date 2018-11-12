@@ -49,6 +49,7 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
             initialValue: defaultValue,
           })(
             <Select
+              className="formcore_select"
               mode={field.Payload.Mode}
               style={{ width: '100%' }}
               tokenSeparators={field.Payload.TokenSeparators}
