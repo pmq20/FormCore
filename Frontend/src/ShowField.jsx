@@ -61,7 +61,7 @@ export default function ShowField(field, data, showProps = {}, showExtra = null)
       const displayFn = (val) => {
         return (_.find(field.Payload.Options, x => x.Value === val) || {}).Display;
       };
-      return data[field.Column] ? (
+      return data[field.Column] && !_.isEmpty(data[field.Column]) ? (
         <Description key={field.Id} term={field.Label}>
           {
             ['multiple', 'tags'].indexOf(field.Payload.Mode) !== -1 ? (
