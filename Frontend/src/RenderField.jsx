@@ -16,52 +16,70 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
       defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
-          {getFieldDecorator(field.Column, {
-            initialValue: defaultValue,
-          })(<Input placeholder={field.PlaceHolder} {...inputProps} />)}
+          <div hidden={!field.DisplayOnly}>
+            {defaultValue}
+          </div>
+          <div hidden={field.DisplayOnly}>
+              {getFieldDecorator(field.Column, {
+                initialValue: defaultValue,
+              })(<Input placeholder={field.PlaceHolder} {...inputProps} />)}
+          </div>
         </Form.Item>
       );
     case InputStyle.InputNumber:
       defaultValue = data ? data[field.Column] : field.DefaultValue;
+      const formatter = value => (
+      `${field.Payload.Prefix ? `${field.Payload.Prefix} ` : ''}${value}${
+        field.Payload.Suffix ? ` ${field.Payload.Suffix}` : ''
+      }`);
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
-          {getFieldDecorator(field.Column, {
-            initialValue: defaultValue,
-          })(
-            <InputNumber
-              formatter={value =>
-                `${field.Payload.Prefix ? `${field.Payload.Prefix} ` : ''}${value}${
-                  field.Payload.Suffix ? ` ${field.Payload.Suffix}` : ''
-                }`
-              }
-              style={{ width: '100%' }}
-              {...inputProps}
-            />
-          )}
+          <div hidden={!field.DisplayOnly}>
+            {formatter(defaultValue)}
+          </div>
+          <div hidden={field.DisplayOnly}>
+            {getFieldDecorator(field.Column, {
+              initialValue: defaultValue,
+            })(
+              <InputNumber
+                formatter={formatter}
+                style={{ width: '100%' }}
+                disabled={field.Disabled}
+                {...inputProps}
+              />
+            )}  
+          </div>
         </Form.Item>
       );
     case InputStyle.Select:
       defaultValue = data ? data[field.Column] : field.DefaultValue;
       defaultValue = defaultValue === null ? undefined : defaultValue;
+
+      const defaultValues = _.isArray(defaultValue) ? defaultValue : [defaultValue];
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
-          {getFieldDecorator(field.Column, {
-            initialValue: defaultValue,
-          })(
-            <Select
-              className="formcore_select"
-              mode={field.Payload.Mode}
-              style={{ width: '100%' }}
-              tokenSeparators={field.Payload.TokenSeparators}
-              {...inputProps}
-            >
-              {_.map(field.Payload.Options, option => (
-                <Option key={option.Value} value={option.Value}>
-                  {option.Display}
-                </Option>
-              ))}
-            </Select>
-          )}
+          <div hidden={!field.DisplayOnly} style={{minHeight: 39.2}}>
+            {_.filter(field.Payload.Options, o => _.includes(defaultValues, o.Value) ).map(o => o.Display).join(", ")}
+          </div>
+          <div hidden={field.DisplayOnly}>
+            {getFieldDecorator(field.Column, {
+              initialValue: defaultValue,
+            })(
+              <Select
+                className="formcore_select"
+                mode={field.Payload.Mode}
+                style={{ width: '100%' }}
+                tokenSeparators={field.Payload.TokenSeparators}
+                {...inputProps}
+              >
+                {_.map(field.Payload.Options, option => (
+                  <Option key={option.Value} value={option.Value}>
+                    {option.Display}
+                  </Option>
+                ))}
+              </Select>
+            )}
+          </div>
         </Form.Item>
       );
     case InputStyle.RangePicker:
@@ -112,11 +130,16 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
       defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
-          {getFieldDecorator(field.Column, {
-            initialValue: defaultValue,
-          })(
-            <MoneyInput style={{ width: '100%' }} placeholder={field.PlaceHolder} {...inputProps} />
-          )}
+          <div hidden={!field.DisplayOnly}>
+            {`$ ${defaultValue}`}
+          </div>
+          <div hidden={field.DisplayOnly}>
+            {getFieldDecorator(field.Column, {
+              initialValue: defaultValue,
+            })(
+              <MoneyInput style={{ width: '100%' }} placeholder={field.PlaceHolder} {...inputProps} />
+            )}
+          </div>
         </Form.Item>
       );
     case InputStyle.DisplayOnly:
