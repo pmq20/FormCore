@@ -64,6 +64,7 @@ class InnerFormCoreFormsShow extends Component {
             return RenderField(
               y,
               this.props.form,
+              {},
               {
                 style: { width: '100%', display: 'inline-block' },
               },
