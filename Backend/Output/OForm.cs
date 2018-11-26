@@ -9,8 +9,8 @@ namespace FormCore {
     public OForm(Context db, Form form) {
       Id = form.Id;
       Title = form.Title;
-      Sections = form.AllSections(db).Select(x => new OSection(x)).ToList();
-      Fields = form.AllFields(db).Select(x => new OField(x)).ToList();
+      Sections = form.AllSections(db,out var dic).Select(x => new OSection(x)).ToList();
+      Fields = form.AllFields(db, dic).Select(x => new OField(x)).ToList();
     }
 
     public int Id { get; set; }

@@ -8,6 +8,7 @@ namespace FormCore {
   public class Form : Base {
     private List<Field> _allFields;
     private List<Section> _allSections;
+    //private Dictionary<int, int> _sectionMapping;
 
     public int Id { get; set; }
     public string Title { get; set; }
@@ -32,7 +33,8 @@ namespace FormCore {
         select parenting.ParentId;
     }
 
-    public List<Section> AllSections(Context db) {
+    public List<Section> AllSections(Context db,out Dictionary<int, int> sectionMapping) {
+      sectionMapping = new Dictionary<int, int>();
       if (null != _allSections) return _allSections;
       List<Section> ret;
       if (!Parents.Any()) {
@@ -40,10 +42,23 @@ namespace FormCore {
       } else {
         ret = new List<Section>();
         foreach (var parent in Parents)
-        foreach (var item in parent.AllSections(db)) {
+        foreach (var item in parent.AllSections(db,out sectionMapping)) {
+
+          var ids = ret.Where(x => x.ParentId == item.ParentId).Select(x => x.Id).ToList();
+          ids.Add(item.Id);
+          foreach (var id in ids) {
+            if (sectionMapping.ContainsKey(id)) {
+              sectionMapping[id] = item.Id;
+            } else {
+              sectionMapping.Add(id, item.Id);
+            }
+          }
           ret.RemoveAll(x => x.Id == item.Id);
+          ret.RemoveAll(x => x.Id == item.ParentId);
+          ret.RemoveAll(x => x.ParentId == item.ParentId);
           ret.Add(item);
         }
+
         if (null != Sections)
           foreach (var item in Sections) {
             ret.RemoveAll(x => x.Id == item.ParentId);
@@ -55,7 +70,7 @@ namespace FormCore {
       return ret;
     }
 
-    public List<Field> AllFields(Context db) {
+    public List<Field> AllFields(Context db,Dictionary<int, int> sectionMapping =null) {
       if (null != _allFields) return _allFields;
       List<Field> ret;
       if (!Parents.Any()) {
@@ -63,10 +78,17 @@ namespace FormCore {
       } else {
         ret = new List<Field>();
         foreach (var parent in Parents)
-        foreach (var item in parent.AllFields(db)) {
+        foreach (var item in parent.AllFields(db, sectionMapping)) {
           ret.RemoveAll(x => x.Id == item.Id);
+          //Because different user modify the same fields in form, only the last user'change is displayed
+          ret.RemoveAll(x => x.Column == item.Column);
+          if (sectionMapping != null && sectionMapping.ContainsKey(item.SectionId)) {
+            item.SectionId = sectionMapping[item.SectionId];
+          }
+
           ret.Add(item);
         }
+
         if (null != Fields)
           foreach (var item in Fields) {
             ret.RemoveAll(x => x.Id == item.ParentId);
