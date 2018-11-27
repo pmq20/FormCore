@@ -54,7 +54,7 @@ namespace FormCore {
           }
           ret.RemoveAll(x => x.Id == item.Id);
           ret.RemoveAll(x => x.Id == item.ParentId);
-          ret.RemoveAll(x => x.ParentId == item.ParentId);
+          ret.RemoveAll(x => x.ParentId == item.ParentId && x.ParentId != 0);
           ret.Add(item);
         }
 
