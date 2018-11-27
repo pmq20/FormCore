@@ -8,7 +8,6 @@ namespace FormCore {
   public class Form : Base {
     private List<Field> _allFields;
     private List<Section> _allSections;
-    //private Dictionary<int, int> _sectionMapping;
 
     public int Id { get; set; }
     public string Title { get; set; }
@@ -81,7 +80,7 @@ namespace FormCore {
         foreach (var item in parent.AllFields(db, sectionMapping)) {
           ret.RemoveAll(x => x.Id == item.Id);
           //Because different user modify the same fields in form, only the last user'change is displayed
-          ret.RemoveAll(x => x.Column == item.Column);
+          ret.RemoveAll(x => x.ParentId == item.ParentId && x.ParentId != 0);
           if (sectionMapping != null && sectionMapping.ContainsKey(item.SectionId)) {
             item.SectionId = sectionMapping[item.SectionId];
           }
