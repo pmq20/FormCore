@@ -2,12 +2,14 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using FormCore.Exceptions;
+using FormCore.Models;
 
 namespace FormCore {
   [Table("FormCoreForms")]
   public class Form : Base {
     private List<Field> _allFields;
     private List<Section> _allSections;
+    private Dictionary<int, int> _sectionMapping;
 
     public int Id { get; set; }
     public string Title { get; set; }
@@ -27,49 +29,71 @@ namespace FormCore {
 
     private IQueryable<int> ParentIds(Context db) {
       return from parenting in db.FormCoreParentings
-        where parenting.ChildId == Id
-        orderby parenting.Priority descending
-        select parenting.ParentId;
+             where parenting.ChildId == Id
+             orderby parenting.Priority descending
+             select parenting.ParentId;
     }
 
-    public List<Section> AllSections(Context db,out Dictionary<int, int> sectionMapping) {
-      sectionMapping = new Dictionary<int, int>();
-      if (null != _allSections) return _allSections;
+
+    public List<Section> AllSections(Context db) {
+      if (null != _allSections) {
+        return _allSections;
+      }
       List<Section> ret;
       if (!Parents.Any()) {
         ret = Sections?.ToList() ?? new List<Section>();
       } else {
         ret = new List<Section>();
         foreach (var parent in Parents)
-        foreach (var item in parent.AllSections(db,out sectionMapping)) {
-
-          var ids = ret.Where(x => x.ParentId == item.ParentId).Select(x => x.Id).ToList();
-          ids.Add(item.Id);
-          foreach (var id in ids) {
-            if (sectionMapping.ContainsKey(id)) {
-              sectionMapping[id] = item.Id;
-            } else {
-              sectionMapping.Add(id, item.Id);
-            }
-          }
+        foreach (var item in parent.AllSections(db)) {
           ret.RemoveAll(x => x.Id == item.Id);
-          ret.RemoveAll(x => x.Id == item.ParentId);
-          ret.RemoveAll(x => x.ParentId == item.ParentId && x.ParentId != 0);
           ret.Add(item);
         }
-
         if (null != Sections)
           foreach (var item in Sections) {
             ret.RemoveAll(x => x.Id == item.ParentId);
             ret.Add(item);
           }
       }
+      ret = ret.ToList();
       ret.Sort();
       _allSections = ret;
       return ret;
     }
 
-    public List<Field> AllFields(Context db,Dictionary<int, int> sectionMapping =null) {
+    public List<Section> AllSections(Context db,out Dictionary<int,int> dic) {
+      dic = new Dictionary<int, int>();
+      if (null != _allSections) {
+        dic = _sectionMapping;
+        return _allSections;
+      }
+      List<Section> ret;
+      if (!Parents.Any()) {
+        ret = Sections?.ToList() ?? new List<Section>();
+      } else {
+        ret = new List<Section>();
+        foreach (var parent in Parents) {
+          var list = parent.AllSections(db, out dic);
+          foreach (var item in list) {
+            ret.RemoveAll(x => x.Id == item.Id);
+            ret.Add(item);
+          }
+          if (null != Sections)
+            foreach (var item in Sections) {
+              ret.RemoveAll(x => x.Id == item.ParentId);
+              ret.Add(item);
+            }
+        }
+      }
+      ret = ret.Distinct().ToList();
+      ret.Sort();
+      _allSections = ret;
+      dic = _allSections.GetSectionMergeMappingDic();
+      _sectionMapping = dic;
+      return ret;
+    }
+
+    public List<Field> AllFields(Context db) {
       if (null != _allFields) return _allFields;
       List<Field> ret;
       if (!Parents.Any()) {
@@ -77,22 +101,47 @@ namespace FormCore {
       } else {
         ret = new List<Field>();
         foreach (var parent in Parents)
-        foreach (var item in parent.AllFields(db, sectionMapping)) {
+        foreach (var item in parent.AllFields(db)) {
           ret.RemoveAll(x => x.Id == item.Id);
-          //Because different user modify the same fields in form, only the last user'change is displayed
-          ret.RemoveAll(x => x.ParentId == item.ParentId && x.ParentId != 0);
-          if (sectionMapping != null && sectionMapping.ContainsKey(item.SectionId)) {
-            item.SectionId = sectionMapping[item.SectionId];
-          }
-
           ret.Add(item);
         }
-
         if (null != Fields)
           foreach (var item in Fields) {
             ret.RemoveAll(x => x.Id == item.ParentId);
             ret.Add(item);
           }
+      }
+      ret = ret.ToList();
+      ret.Sort();
+      _allFields = ret;
+      return ret;
+    }
+
+    public List<Field> AllFields(Context db,Dictionary<int,int> sectionMergeMapping) {
+      if (null != _allFields) return _allFields;
+      List<Field> ret;
+      if (!Parents.Any()) {
+        ret = Fields?.ToList() ?? new List<Field>();
+      } else {
+        ret = new List<Field>();
+        foreach (var parent in Parents)
+          foreach (var item in parent.AllFields(db, sectionMergeMapping)) {
+            ret.RemoveAll(x => x.Id == item.Id);
+            ret.Add(item);
+          }
+        if (null != Fields)
+          foreach (var item in Fields) {
+            ret.RemoveAll(x => x.Id == item.ParentId);
+            ret.Add(item);
+          }
+      }
+      ret = ret.Distinct().ToList();
+      if (sectionMergeMapping != null && sectionMergeMapping.Any()) {
+        foreach (var field in ret) {
+          if (sectionMergeMapping.TryGetValue(field.SectionId, out var sId)) {
+            field.SectionId = sId;
+          }
+        }
       }
       ret.Sort();
       _allFields = ret;
@@ -103,5 +152,6 @@ namespace FormCore {
       _allFields = null;
       _allSections = null;
     }
+
   }
 }

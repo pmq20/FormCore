@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 
 namespace FormCore {
   [Table("FormCoreFields")]
-  public class Field : Base, IComparable<Field> {
+  public class Field : Base, IComparable<Field>,IEquatable<Field> {
     public int Id { get; set; }
     public int FormId { get; set; }
     public int SectionId { get; set; }
@@ -70,6 +70,50 @@ namespace FormCore {
 
     public int CompareTo(Field other) {
       return Position.CompareTo(other.Position);
+    }
+
+
+    public bool Equals(Field other)
+    {
+      if (ReferenceEquals(null, other)) return false;
+      if (ReferenceEquals(this, other)) return true;
+      if (FieldType == FieldType.Custom || other.FieldType == FieldType.Custom) {
+        return false;
+      }
+      return ParentId == other.ParentId && FieldType == other.FieldType && ParentId != 0 &&
+             InputStyle == other.InputStyle;
+    }
+
+    public override bool Equals(object obj)
+    {
+      if (ReferenceEquals(null, obj)) return false;
+      if (ReferenceEquals(this, obj)) return true;
+      if (obj.GetType() != this.GetType()) return false;
+      return Equals((Field) obj);
+    }
+
+    public override int GetHashCode()
+    {
+      unchecked
+      {
+        var hashCode = 13;
+        hashCode = (hashCode * 397) ^ ParentId;
+        hashCode = (hashCode * 397) ^ (int)InputStyle;
+        if (ParentId == 0) {
+          hashCode = (hashCode * 397) ^ Id; ;
+        }
+        return hashCode;
+      }
+    }
+
+    public static bool operator ==(Field left, Field right)
+    {
+      return Equals(left, right);
+    }
+
+    public static bool operator !=(Field left, Field right)
+    {
+      return !Equals(left, right);
     }
   }
 }
