@@ -73,6 +73,7 @@ export default function ShowField(field, data, showProps = {}, showExtra = null)
         </Description>
       ) : null;
     case InputStyle.RangePicker:
+    case InputStyle.RangeLatterHalfPicker:
       return data[field.Column] && _.isArray(data[field.Column]) ? (
         data[field.Column].length === 2 && data[field.Column][0] && data[field.Column][1] ? (
           <Description key={field.Id} term={field.Label}>

@@ -19,6 +19,7 @@ export default {
   MonthPicker: 101,
   RangePicker: 102,
   WeekPicker: 103,
+  RangeLatterHalfPicker: 104,
   Hidden: 200,
   MoneyInput: 201,
   DisplayOnly: 202,

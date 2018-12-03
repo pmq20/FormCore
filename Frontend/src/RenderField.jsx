@@ -110,6 +110,25 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
           )}
         </Form.Item>
       );
+    case InputStyle.RangeLatterHalfPicker:
+      var ph = _.split(field.PlaceHolder,",");
+      defaultValue = data[field.Column];
+      return (
+      <Form.Item key={field.Id} label={field.Label} help={field.Help}>
+        <span hidden={field.DisplayOnly}>
+          { defaultValue[0].format('YYYY-MM-DD') +" ~ "}
+        </span>
+        <span hidden={field.DisplayOnly}>
+            {getFieldDecorator(field.Column, {
+            })(<DatePicker disabledDate={current => {
+              const MinStartedAt = _.get(field, 'Payload.MinStartedAt', null);            
+              return current && current < MinStartedAt;
+            }}
+            placeholder={ph[1]}
+            style={{ width: '50%' }} {...inputProps} />)}
+        </span>
+      </Form.Item>
+      );
     case InputStyle.Hidden:
       defaultValue = data ? data[field.Column] : field.DefaultValue;
       return (

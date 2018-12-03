@@ -25,7 +25,7 @@
     "pre-commit": "1.x",
     "querystring": "^0.2.0",
     "rc-dialog": "6.x",
-    "rc-tools": "7.x"
+    "rc-tools": "^7.0.9"
   },
   "dependencies": {
     "@babel/runtime": "^7.1.2",
@@ -44,7 +44,13 @@
     "url": "http://github.com/pmq20/FormCore/issues"
   },
   "scripts": {
-    "compile": "rc-tools run compile --babel-runtime"
+    "compile": "rc-tools run compile --babel-runtime",
+    "build": "rc-tools run build",
+    "gh-pages": "rc-tools run gh-pages",
+    "start": "rc-tools run server",
+    "pub": "rc-tools run update-self && rc-tools run pub",
+    "lint": "rc-tools run lint",
+    "prepublish": "rc-tools run guard"
   },
   "author": "Minqi Pan <pmq2001@gmail.com> (https://github.com/pmq20)",
   "license": "MIT"
