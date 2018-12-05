@@ -121,8 +121,8 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
         <span hidden={field.DisplayOnly}>
             {getFieldDecorator(field.Column, {
             })(<DatePicker disabledDate={current => {
-              const MinStartedAt = _.get(field, 'Payload.MinStartedAt', null);            
-              return current && current < MinStartedAt;
+              const MinExpiredAt = _.get(field, 'Payload.MinExpiredAt', null);            
+              return current && current < MinExpiredAt;
             }}
             placeholder={ph[1]}
             style={{ width: '50%' }} {...inputProps} />)}
