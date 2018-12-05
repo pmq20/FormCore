@@ -103,6 +103,7 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
                 const MinStartedAt = _.get(field, 'Payload.MinStartedAt', null);
                 return current && current < MinStartedAt;
               }}
+              showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
               placeholder={field.PlaceHolder}
               style={{ width: '100%' }}
               {...inputProps}
@@ -124,6 +125,7 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
               const MinExpiredAt = _.get(field, 'Payload.MinExpiredAt', null);            
               return current && current < MinExpiredAt;
             }}
+            showTime={{ defaultValue: moment('00:00:00', 'HH:mm:ss') }}
             placeholder={ph[1]}
             style={{ width: '50%' }} {...inputProps} />)}
         </span>
