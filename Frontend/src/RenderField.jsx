@@ -32,6 +32,12 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
       `${field.Payload.Prefix ? `${field.Payload.Prefix} ` : ''}${value}${
         field.Payload.Suffix ? ` ${field.Payload.Suffix}` : ''
       }`);
+      const parser = value => {
+        let ret = value;
+        if(field.Payload.Prefix) ret = value.replace(`${field.Payload.Prefix} `, '');
+        if(field.Payload.Suffix) ret = value.replace(` ${field.Payload.Suffix}`, '');
+        return ret;
+      };
       return (
         <Form.Item key={field.Id} label={field.Label} help={field.Help}>
           <div hidden={!field.DisplayOnly}>
@@ -43,6 +49,7 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
             })(
               <InputNumber
                 formatter={formatter}
+                parser={parser}
                 style={{ width: '100%' }}
                 disabled={field.Disabled}
                 {...inputProps}
