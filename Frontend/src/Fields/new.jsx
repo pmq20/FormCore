@@ -731,12 +731,12 @@ class InnerFormCoreFieldsNew extends PureComponent {
             )}
           </FormItem>
           {FieldType.BuiltIn !== fieldType ? null : (
-            <FormItem {...formItemLayout} label="Built-in Columns">
+            <FormItem {...formItemLayout} label="Built-in Handlers">
               {getFieldDecorator('Column', {
                 rules: [
                   {
                     required: true,
-                    message: 'Built-in fields require at least one column',
+                    message: 'Built-in fields require at least one built-in handler',
                   },
                 ],
                 initialValue:
@@ -745,7 +745,7 @@ class InnerFormCoreFieldsNew extends PureComponent {
                 <Select
                   mode="tags"
                   style={{ width: '100%' }}
-                  placeholder="Select built-in columns for this field"
+                  placeholder="Select built-in handlers for this field"
                   onChange={handlers => {
                     const availableOptions = this.props.availableOptions(handlers);
                     const calcSelectOptions = [];
@@ -774,27 +774,6 @@ class InnerFormCoreFieldsNew extends PureComponent {
                     });
                     this.setState(h);
                   }}
-                >
-                  {this.props.availableHandlers.map(x => (
-                    <Option value={x[0]} key={x[0]}>
-                      <Tooltip placement="bottom" title={x[2]}>
-                        {x[1]}
-                      </Tooltip>
-                    </Option>
-                  ))}
-                </Select>
-              )}
-            </FormItem>
-          )}
-          {FieldType.BuiltIn !== fieldType ? null : (
-            <FormItem {...formItemLayout} label="Built-in Handlers">
-              {getFieldDecorator('Handlers', {
-                initialValue: (parent || {}).Handlers || [],
-              })(
-                <Select
-                  mode="tags"
-                  style={{ width: '100%' }}
-                  placeholder="Select built-in handlers for this field"
                 >
                   {this.props.availableHandlers.map(x => (
                     <Option value={x[0]} key={x[0]}>
