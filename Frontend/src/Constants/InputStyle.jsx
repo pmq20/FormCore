@@ -23,4 +23,6 @@ export default {
   Hidden: 200,
   MoneyInput: 201,
   DisplayOnly: 202,
+  InfiniteOrFixedDateDatePicker: -4,
+  InfiniteOrFixedDateRadioGroup: -3,
 };

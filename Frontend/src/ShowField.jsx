@@ -81,6 +81,20 @@ export default function ShowField(field, data, showProps = {}, showExtra = null)
           </Description>
         ) : null
       ) : null;
+    case InputStyle.DatePicker:
+      return (
+        <Description key={field.Id} term={field.Label}>
+          {showDate(data[field.Column])}
+        </Description>
+      );
+    case InputStyle.InfiniteOrFixedDateRadioGroup:
+      return null;
+    case InputStyle.InfiniteOrFixedDateDatePicker:
+      return (
+        <Description key={field.Id} term={field.Label}>
+          {showDate(data[field.Column])}
+        </Description>
+      );
     case InputStyle.Hidden:
       return null;
     case InputStyle.MoneyInput:

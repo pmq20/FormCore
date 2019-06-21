@@ -89,6 +89,16 @@ export default function RenderField(field, form, data, inputProps = {}, renderEx
           </div>
         </Form.Item>
       );
+    case InputStyle.DatePicker:
+      defaultValue = data ? data[field.Column] : field.DefaultValue;
+      defaultValue = defaultValue ? moment(defaultValue) : null;
+      return(
+        <Form.Item key={field.Id} label={field.Label}>
+          {getFieldDecorator(field.Column, {
+            initialValue:defaultValue
+          })(<DatePicker style={{ width: '100%' }} />)}
+        </Form.Item>
+      );
     case InputStyle.RangePicker:
       if (data) {
         defaultValue = data[field.Column];
