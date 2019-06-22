@@ -5,6 +5,28 @@ import RenderField from './RenderField';
 import InputStyle from './Constants/InputStyle';
 
 class FormCoreForm extends React.Component {
+
+  getDefaultExpiredAtType = () => {
+    var defaultValue = this.props.data ? data["ExpiredAtType"] : _.find(this.props.fields, x => x.Column === "ExpiredAtType").DefaultValue;
+    defaultValue = defaultValue || "fixed";
+    return defaultValue;
+  }
+
+  state={
+    expiredAtType:this.getDefaultExpiredAtType()
+  }
+
+  handleExpiredAtTypeChange = e => {
+    this.setState({
+      expiredAtType: e.target.value,
+    });
+    if (e.target.value === 'indefinite') {
+      this.props.form.setFieldsValue({
+        ExpiredAt: null,
+      });
+    }
+  };
+
   render() {
     const { form, data, sections, fields, renderExtra, style } = this.props;
     const defaultValues = {};
@@ -24,13 +46,13 @@ class FormCoreForm extends React.Component {
       localFields.sort((a, b) => a.Position - b.Position);
       let rowColContent = null;
       if (localFields.length === 1) {
-        rowColContent = RenderField(localFields[0], form, data, {}, renderExtra);
+        rowColContent = RenderField(localFields[0], form, data, {}, renderExtra, this.state, {handleExpiredAtTypeChange:(e) => {this.handleExpiredAtTypeChange(e)}});
       } else {
         rowColContent = (
           <Row gutter={16}>
             {localFields.map(y => (
               <Col lg={8} md={12} sm={24} key={y.Id} hidden={InputStyle.Hidden === y.InputStyle}>
-                {RenderField(y, form, data, {}, renderExtra)}
+                {RenderField(y, form, data, {}, renderExtra, this.state, {handleExpiredAtTypeChange:(e) => {this.handleExpiredAtTypeChange(e)}})}
               </Col>
             ))}
           </Row>

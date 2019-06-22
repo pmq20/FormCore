@@ -68,7 +68,9 @@ class InnerFormCoreFormsShow extends Component {
               {
                 style: { width: '100%', display: 'inline-block' },
               },
-              this.props.renderExtra
+              this.props.renderExtra, 
+              {expiredAtType: "fixed"}, 
+              {handleExpiredAtTypeChange:() => {}}
             );
           }
           return null;
