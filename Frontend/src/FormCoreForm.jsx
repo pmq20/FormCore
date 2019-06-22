@@ -7,7 +7,7 @@ import InputStyle from './Constants/InputStyle';
 class FormCoreForm extends React.Component {
 
   getDefaultExpiredAtType = () => {
-    var defaultValue = this.props.data ? data["ExpiredAtType"] : _.find(this.props.fields, x => x.Column === "ExpiredAtType").DefaultValue;
+    var defaultValue = this.props.data ? this.props.data["ExpiredAtType"] : _.find(this.props.fields, x => x.Column === "ExpiredAtType").DefaultValue;
     defaultValue = defaultValue || "fixed";
     return defaultValue;
   }
