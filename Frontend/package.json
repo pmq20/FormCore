@@ -34,7 +34,8 @@
     "lodash": "^4.17.10",
     "moment": "^2.22.2",
     "react": "^16.5.1",
-    "react-dom": "^16.5.1"
+    "react-dom": "^16.5.1",
+    "snyk": "^1.189.0"
   },
   "repository": {
     "type": "git",
@@ -50,8 +51,10 @@
     "start": "rc-tools run server",
     "pub": "rc-tools run pub",
     "lint": "rc-tools run lint",
-    "prepublish": "rc-tools run guard"
+    "prepublish": "npm run snyk-protect; rc-tools run guard",
+    "snyk-protect": "snyk protect"
   },
   "author": "Minqi Pan <pmq2001@gmail.com> (https://github.com/pmq20)",
-  "license": "MIT"
+  "license": "MIT",
+  "snyk": true
 }
