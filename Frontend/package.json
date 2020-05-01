@@ -35,7 +35,7 @@
     "moment": "^2.22.2",
     "react": "^16.5.1",
     "react-dom": "^16.5.1",
-    "snyk": "^1.189.0"
+    "snyk": "^1.316.1"
   },
   "repository": {
     "type": "git",
